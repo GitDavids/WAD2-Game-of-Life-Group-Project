@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load game_of_life_template_tags %}
+
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <style>
+            body {
+              margin: 0;
+              font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            .topnav {
+              overflow: hidden;
+              background-color: #333;
+            }
+            
+            .topnav a {
+              float: left;
+              color: #f2f2f2;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+              font-size: 17px;
+            }
+            
+            .topnav a:hover {
+              background-color: #ddd;
+              color: black;
+            }
+            
+            .topnav a.active {
+              background-color: #04AA6D;
+              color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="topnav">
+            <a id="index" href="{% url 'game_of_life:index' %}">Home</a>
+            <a id="game_logic" href="{% url 'game_of_life:game_logic' %}">Game Logic</a>
+            <a id="interesting_patterns" href="{% url 'game_of_life:interesting_patterns' %}">Interesting patterns</a>
+            <a id="about" href="{% url 'game_of_life:about' %}">About</a>
+            <a id="all_initial_states" href="{% url 'game_of_life:all_initial_states' %}">All initial states</a>
+
+            {% if user.is_authenticated %}
+              <!-- <li style="float:right"><a id="user_account" href="{% url 'game_of_life:user_account' % }">Logout</a></li> -->
+              <li style="float:right"><a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a></li>
+            {% else %} 
+              <li style="float:right"><a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a></li>
+              <li style="float:right"><a id="login" href="{% url 'game_of_life:login' %}">Login</a></li>
+            {% endif %}
+        </div>
+        
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

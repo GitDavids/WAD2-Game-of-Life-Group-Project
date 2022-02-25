@@ -1,0 +1,15 @@
+{% extends 'game_of_life/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Homepage
+{% endblock %}
+
+{% block body_block %}
+    <h1>INDEX</h1>
+    <div>
+        <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
+    </div>
+    
+    <script>document.getElementById("index").className = "active";</script>
+{% endblock %}
