@@ -6,10 +6,48 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>INDEX</h1>
-    <div>
-        <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
+    <H1>Most liked states</H1>
+    <div id="most_liked_states">
+        {% if most_liked_states %}
+            {% for state in most_liked_states %}
+                <canvas id="{{state.name}}" class="recent_state"></canvas>
+            {% endfor %}
+        {% else %}
+            There is no specified list of most liked states.
+        {% endif %}
     </div>
-    
+    <H1>Most recent states</H1>
+    <div id="most_recent_states">
+        {% if most_recent_states %}
+            {% for state in most_recent_states %}°
+                {{state.name}}
+                <canvas id="{{state.name}}" class="recent_state"></canvas>
+            {% endfor %}
+        {% else %}
+            There is no specified list of most recent states.
+        {% endif %}
+    </div>
+
+    <div>
+        <H1>Most liked states</H1>
+        <div id="most_liked_states">
+            <canvas class="liked_state"></canvas>
+            <canvas class="liked_state"></canvas>
+            <canvas class="liked_state"></canvas>   
+            <canvas class="liked_state"></canvas> 
+            <canvas class="liked_state"></canvas> 
+            <canvas class="liked_state"></canvas> 
+        </div>
+        <H1>Most viewed states</H1>
+        <div id="most_recent_states">
+            <canvas class="recent_state"></canvas>
+            <canvas class="recent_state"></canvas>
+            <canvas class="recent_state"></canvas>   
+            <canvas class="recent_state"></canvas> 
+            <canvas class="recent_state"></canvas> 
+            <canvas class="recent_state"></canvas> 
+        </div>
+    </div>
+    <script src="{% static 'js/index.js' %}"></script>
     <script>document.getElementById("index").className = "active";</script>
 {% endblock %}

@@ -1,4 +1,4 @@
-import os
+import os, json
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'game_of_life_project.settings')
@@ -8,7 +8,7 @@ django.setup()
 from game_of_life.models import *
 
 def populate():
-    pass
+    users = None 
 
 # Start execution here!
 if __name__ == '__main__':

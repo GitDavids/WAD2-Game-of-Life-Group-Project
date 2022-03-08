@@ -13,7 +13,9 @@ from datetime import datetime
 # Main page
 def index(request):
     context_dict = {}
-
+    context_dict["liked_states"] = []
+    context_dict["recent_states"] = []
+    
     return render(request, 'game_of_life/index.html', context=context_dict) # TODO
 
 

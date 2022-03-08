@@ -6,34 +6,50 @@
     <head lang="en">
         <meta charset="UTF-8" />
         <style>
-            body {
-              margin: 0;
-              font-family: Arial, Helvetica, sans-serif;
-            }
-            
-            .topnav {
-              overflow: hidden;
-              background-color: #333;
-            }
-            
-            .topnav a {
-              float: left;
-              color: #f2f2f2;
-              text-align: center;
-              padding: 14px 16px;
-              text-decoration: none;
-              font-size: 17px;
-            }
-            
-            .topnav a:hover {
-              background-color: #ddd;
-              color: black;
-            }
-            
-            .topnav a.active {
-              background-color: #04AA6D;
-              color: white;
-            }
+          /* Nav bar */
+          body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+          }
+          .topnav {
+            overflow: hidden;
+            background-color: #333;
+          }
+          .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+          }
+          .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+          }
+          .topnav a.active {
+            background-color: #04AA6D;
+            color: white;
+          }
+          /* State canvases */
+          .most_liked_states, .most_recent_states {
+            border: 10px solid black;
+            margin: 1rem;
+            padding: 2rem 2rem;
+            text-align: center;
+          }
+          .liked_state {
+            display: inline-block;
+            border: 1px solid rgb(255, 0, 0);
+            padding: 1rem 1rem;
+            vertical-align: middle;
+          }
+          .recent_state {
+            display: inline-block;
+            border: 1px solid rgb(0, 0, 255);
+            padding: 1rem 1rem;
+            vertical-align: middle;
+          }
         </style>
     </head>
     <body>
@@ -45,7 +61,7 @@
             <a id="all_initial_states" href="{% url 'game_of_life:all_initial_states' %}">All initial states</a>
 
             {% if user.is_authenticated %}
-              <!-- <li style="float:right"><a id="user_account" href="{% url 'game_of_life:user_account' % }">Logout</a></li> -->
+              <!-- <li style="float:right"><a id="user_account" href="{% url 'game_of_life:user_account' % }">Profile</a></li> -->
               <li style="float:right"><a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a></li>
             {% else %} 
               <li style="float:right"><a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a></li>
