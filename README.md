@@ -1,6 +1,6 @@
 # WAD2-Game-of-Life-Group-Project
 
-Hello everyone! We're going to use this as an impromptu method of assigning roles 
+Hello everyone! Marking scheme here :) 
 
 
 Deployment
@@ -27,11 +27,11 @@ Application includes some Javascript / JQuery / AJAX 5
 
 BAGSIED Look and Feel
 
-LIZ WANTS TO DO THIS Polished / refined interface, not clunky 6
+Polished / refined interface, not clunky 6
 
-LIZ WANTS TO DO THIS Uses a responsive CSS framework 3
+Uses a responsive CSS framework 3
 
-DONE ALREADY If browser window size changed, is the change handled neatly? 1
+If browser window size changed, is the change handled neatly? 1
 
 
 Code
