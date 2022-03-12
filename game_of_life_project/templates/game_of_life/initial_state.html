@@ -1,0 +1,14 @@
+{% extends 'game_of_life/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Homepage
+{% endblock %}
+
+{% block body_block %}
+    <h1>{{state.name}}</h1>
+    <canvas id="state"></canvas>
+
+        
+    <!-- <script>document.getElementById("NONE").className = "active";</script> -->
+{% endblock %}

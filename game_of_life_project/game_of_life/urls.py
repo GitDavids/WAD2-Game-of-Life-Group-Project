@@ -12,9 +12,9 @@ urlpatterns = [
      path('interesting_patterns/', views.interesting_patterns, name='interesting_patterns'),
      path('about/', views.about, name='about'),
      path('all_initial_states/', views.all_initial_states, name='all_initial_states'),
-     path('<slug:user_slug>/', views.user_account, name='user_account'),
+     path('profile/<username>/', views.profile, name='profile'),
      path('<slug:user_slug>/create_initial_state/', views.create_initial_state, name='create_initial_state'),
      path('<slug:user_slug>/initial_states', views.user_initial_states, name='user_initial_states '),
-     path('<slug:user_slug>/initial_states/<slug:state_name_slug>', views.state, name='user'),
+     path('<slug:user_slug>/initial_states/<slug:state_name_slug>', views.initial_state, name='initial_state'),
      path('create_add_pattern', views.create_add_pattern, name='create_add_pattern'),
     ]

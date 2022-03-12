@@ -1,0 +1,15 @@
+{% extends 'game_of_life/base.html' %}
+{% load staticfiles %}
+<link rel="stylesheet" href="style.css">
+{% block title_block %}
+    Homepage
+{% endblock %}
+
+{% block body_block %}
+    <h1 style="color:rgb(255, 255, 255);">Press space to advance to next generation</h1>
+    <canvas id="state"></canvas>
+    <!-- To get here enter the url manually, http://127.0.0.1:8000/game_of_life/<user>/create_initial_state/ -->
+    
+    <script src="{% static 'js/create_initial_state.js' %}"></script>
+    <script>document.getElementById("create_initial_state").className = "active";</script>
+{% endblock %}

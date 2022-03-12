@@ -3,8 +3,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # from game_of_life.models import Category, Page
+from game_of_life.models import InitialState
 from game_of_life.forms import UserForm, UserProfileForm #, CategoryForm, PageForm, 
 
 from datetime import datetime
@@ -13,8 +15,8 @@ from datetime import datetime
 # Main page
 def index(request):
     context_dict = {}
-    context_dict["liked_states"] = []
-    context_dict["recent_states"] = []
+    context_dict["liked_states"] = InitialState.objects.order_by('-likes')[:6]
+    context_dict["recent_states"] = InitialState.objects.order_by('-views')[:6]
     
     return render(request, 'game_of_life/index.html', context=context_dict) # TODO
 
@@ -102,15 +104,27 @@ def all_initial_states(request):
 
 
 # User specific pages
-def user_account(request, user_slug):
+def profile(request, username):
     context_dict = {}
-
-    return render(request, 'game_of_life/user_account.html', context=context_dict) # TODO
+    try:
+        user = User.objects.get(username=username)
+        states = InitialState.objects.filter(author=user)
+        context_dict['user'] = user
+        context_dict['states'] = states
+    except User.DoesNotExist:
+        context_dict['user'] = None
+        context_dict['states'] = None
+    return render(request, 'game_of_life/profile.html', context=context_dict)
 
 def create_initial_state(request, user_slug):
+    # https://docs.djangoproject.com/en/2.1/topics/forms/modelforms/#the-save-method
+    # form = FUNCTION(request.POST)
+    # instance = form.save(commit=False)
+    # instance.author = request.user
+    # instance.save()
     context_dict = {}
 
-    return render(request, 'game_of_life/REPLACE.html', context=context_dict) # TODO
+    return render(request, 'game_of_life/create_initial_state.html', context=context_dict) # TODO
 
 def user_initial_states(request, user_slug):
     context_dict = {}
@@ -119,10 +133,15 @@ def user_initial_states(request, user_slug):
 
 
 # Specific state
-def state(request, user_slug, state_name_slug):
+def initial_state(request, user_slug, state_name_slug):
     context_dict = {}
 
-    return render(request, 'game_of_life/REPLACE.html', context=context_dict) # TODO
+    context_dict["state"] = None
+    context_dict["name"] = None
+    context_dict["author"] = None
+    context_dict["likes"] = None
+
+    return render(request, 'game_of_life/view_initial_state.html', context=context_dict) # TODO
 
 
 # Moderator page

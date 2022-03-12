@@ -31,7 +31,7 @@
             background-color: #04AA6D;
             color: white;
           }
-          /* State canvases */
+          /* State canvases (index)*/
           .most_liked_states, .most_recent_states {
             border: 10px solid black;
             margin: 1rem;
@@ -50,6 +50,10 @@
             padding: 1rem 1rem;
             vertical-align: middle;
           }
+          /* (<user>/create_initial_state)*/
+            body {
+            background: rgb(34, 34, 34);
+          }
         </style>
     </head>
     <body>
@@ -61,7 +65,8 @@
             <a id="all_initial_states" href="{% url 'game_of_life:all_initial_states' %}">All initial states</a>
 
             {% if user.is_authenticated %}
-              <!-- <li style="float:right"><a id="user_account" href="{% url 'game_of_life:user_account' % }">Profile</a></li> -->
+              <!-- <li><a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' % }">Create an initial state</a></li> -->
+              <!-- <li style="float:right"><a id="profile" href="{% url 'game_of_life:profile' % }">Profile</a></li> -->
               <li style="float:right"><a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a></li>
             {% else %} 
               <li style="float:right"><a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a></li>
