@@ -10,6 +10,7 @@
           body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
+            color: white;
           }
           .topnav {
             overflow: hidden;
@@ -55,6 +56,10 @@
             background: rgb(34, 34, 34);
           }
         </style>
+        <title>
+          {% block title_block %}
+          {% endblock %}
+        </title>
     </head>
     <body>
         <div class="topnav">
