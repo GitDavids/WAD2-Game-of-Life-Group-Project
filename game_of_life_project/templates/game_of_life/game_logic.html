@@ -46,10 +46,19 @@
      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
     </br>
-    <p>
-        If you found the game interesting, please log in on the <a id="login" href="{% url 'game_of_life:login' %}">Login</a> page,
-        then follow the Create an Initial state link to try the game out for yourself.
-    </p>
+    {% if user.is_authenticated %}
+        <p>
+            If you found the game interesting, then follow the 
+            <a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' % }">Create an initial state</a> 
+                link to try the game out for yourself.
+         </p>
+
+    {% else %} 
+        <p>
+            If you found the game interesting, please log in on the <a id="login" href="{% url 'game_of_life:login' %}">Login</a> page,
+            then follow the Create an Initial state link to try the game out for yourself.
+        </p>
+        {% endif %}
     
     <script>document.getElementById("game_logic").className = "active";</script>
 {% endblock %}
