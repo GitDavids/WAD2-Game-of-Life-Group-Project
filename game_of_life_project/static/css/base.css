@@ -27,7 +27,6 @@ body {
 
 
 /* index page */
-/* http://127.0.0.1:8000/game_of_life/ */
 .most_liked_states, .most_recent_states {
   border: 10px solid black;
   margin: 1rem;
@@ -47,14 +46,12 @@ body {
   vertical-align: middle;
 }
 
-/* (<user>/create_initial_state)*/
-/* http://127.0.0.1:8000/game_of_life/profile/zakre/create_initial_state/ */
+/* create_initial_state page*/
 body {
   background: rgb(34, 34, 34);
 }
 
 /* (<user>/initial_states)*/
-/* http://127.0.0.1:8000/game_of_life/profile/zakre/initial_states */
 .state {
     display: inline-block;
     border: 0px solid rgb(0, 0, 255);
@@ -65,6 +62,9 @@ canvas:hover {
     background-color: rgb(153, 153, 153);
     color: black;
 }
+
+
+/* NOTE: Make buttons prettier*/
 
 /* button:hover {
   background-color: green;
@@ -82,4 +82,28 @@ canvas:hover {
   padding: 2em 6em;
   position: relative;
   text-transform: uppercase;
+} */
+
+
+
+/* NOTE: don't color every link in all pages, we definitely don't want to do it in the nav bar for example */
+
+/* unvisited link */
+/* a:link {
+  color: red;
+} */
+
+/* visited link */
+/* a:visited {
+  color: green;
+} */
+
+/* mouse over link */
+/* a:hover {               
+  color: hotpink;
+} */
+
+/* selected link */
+/* a:active {
+  color: blue;
 } */
