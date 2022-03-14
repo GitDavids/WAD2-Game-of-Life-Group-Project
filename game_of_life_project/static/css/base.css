@@ -36,15 +36,23 @@ body {
 }
 .liked_state {
   display: inline-block;
-  border: 1px solid rgb(255, 0, 0);
+  border: 0px solid rgb(255, 0, 0);
   padding: 1rem 1rem;
   vertical-align: middle;
 }
 .recent_state {
   display: inline-block;
-  border: 1px solid rgb(0, 0, 255);
+  border: 0px solid rgb(0, 0, 255);
   padding: 1rem 1rem;
   vertical-align: middle;
+}
+.recent_state:hover {
+  background-color: #ddd;
+  color: black;
+}
+.liked_state:hover {
+  background-color: #ddd;
+  color: black;
 }
 
 /* (<user>/create_initial_state)*/

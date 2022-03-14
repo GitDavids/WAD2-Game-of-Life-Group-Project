@@ -3,7 +3,6 @@ const ctx = canvas.getContext("2d");
 
 canvas.width = 0.8 * window.innerWidth;
 canvas.height = canvas.width / 2;
-canvas.style = "position:absolute; left: 50%; width: 400px; margin-left: -200px;";
 
 const col_count = 50;
 const row_count = col_count / 2;
@@ -18,6 +17,25 @@ width_height();
 render(grid, ctx);
 
 // Event listeners
+document.getElementById("set").addEventListener("click", function () { 
+    console.log('set!');
+});
+document.getElementById("return").onclick = function () { 
+    console.log('return!');
+};
+document.getElementById("play").onclick = function () { 
+    console.log('play!');
+};
+document.getElementById("pause").onclick = function () { 
+    console.log('pause!');
+};
+document.getElementById("clear").onclick = function () { 
+    console.log('clear!');
+};
+document.getElementById("invert").onclick = function () { 
+    console.log('invert!');
+};
+
 window.addEventListener('resize', 
     function () {
         width_height();

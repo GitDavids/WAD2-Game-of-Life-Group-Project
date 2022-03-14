@@ -7,9 +7,28 @@
 
 {% block body_block %}
     <h1>PROFILE</h1>
-    <div>
-        <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
+    <div id="states">
+        <H1>User states</H1>
+        {% if states %}
+            {% for state in states %}
+                <a id="{{state.name}}" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
+            {% endfor %}
+        {% else %}
+            There is no specified list of most user states.
+        {% endif %}
     </div>
-    
+
+    <div>
+        <H1>User states</H1>
+        <div id="states">
+            <a id="1" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
+            <a id="2" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
+            <a id="3" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
+            <a id="4" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
+            <a id="5" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
+            <a id="6" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a> 
+        </div>
+    </div>
+    <script src="{% static 'js/user_initial_states.js' %}"></script>
     <script>document.getElementById("profile").className = "active";</script>
 {% endblock %}

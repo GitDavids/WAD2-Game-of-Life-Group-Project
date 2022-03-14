@@ -6,6 +6,13 @@
 {% endblock %}
 
 {% block body_block %}
+    <input type="button" value="Set as initial state" id="set">
+    <input type="button" value="Return to initial state" id="return">
+    <input type="button" value="Play" id="play">
+    <input type="button" value="Pause" id="pause">
+    <input type="button" value="Clear" id="clear">
+    <input type="button" value="Invert" id="invert">
+
     <h1 style="color:rgb(255, 255, 255);">Press space to advance to next generation</h1>
     <canvas id="state"></canvas>
     <!-- To get here enter the url manually, http://127.0.0.1:8000/game_of_life/<user>/create_initial_state/ -->

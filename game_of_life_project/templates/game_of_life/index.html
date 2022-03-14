@@ -31,21 +31,21 @@
     <div>
         <H1>Most liked states</H1>
         <div id="most_liked_states">
-            <canvas class="liked_state"></canvas>
-            <canvas class="liked_state"></canvas>
-            <canvas class="liked_state"></canvas>   
-            <canvas class="liked_state"></canvas> 
-            <canvas class="liked_state"></canvas> 
-            <canvas class="liked_state"></canvas> 
+            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
         </div>
         <H1>Most viewed states</H1>
         <div id="most_recent_states">
-            <canvas class="recent_state"></canvas>
-            <canvas class="recent_state"></canvas>
-            <canvas class="recent_state"></canvas>   
-            <canvas class="recent_state"></canvas> 
-            <canvas class="recent_state"></canvas> 
-            <canvas class="recent_state"></canvas> 
+            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
+            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
         </div>
     </div>
     <script src="{% static 'js/index.js' %}"></script>

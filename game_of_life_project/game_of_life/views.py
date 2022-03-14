@@ -117,22 +117,12 @@ def profile(request, username):
         context_dict['states'] = None
     return render(request, 'game_of_life/profile.html', context=context_dict)
 
-def create_initial_state(request, username):
-    # https://docs.djangoproject.com/en/2.1/topics/forms/modelforms/#the-save-method
-    # form = FUNCTION(request.POST)
-    # instance = form.save(commit=False)
-    # instance.author = request.user
-    # instance.save()
+def create_initial_state(request,username):
     context_dict = {}
 
+    user = request.user
+    context_dict['user'] = user
     return render(request, 'game_of_life/create_initial_state.html', context=context_dict) # TODO
-
-def user_initial_states(request, username):
-    context_dict = {}
-    context_dict['user'] = None
-    context_dict['username'] = None
-    context_dict['states'] = None
-    return render(request, 'game_of_life/user_initial_states.html', context=context_dict) # TODO
 
 
 # Specific state
@@ -153,6 +143,3 @@ def create_add_pattern(request):
     context_dict = {}
 
     return render(request, 'game_of_life/REPLACE.html', context=context_dict)# TODO
-
-
-

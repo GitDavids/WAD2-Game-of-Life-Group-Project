@@ -11,6 +11,8 @@ X_NODES = 100
 Y_NODES = 100
 
 class InitialState(models.Model):
+    author = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+
     NAME_MAX_LENGTH = 128
     AUTHOR_MAX_LENGTH = 64
 
@@ -33,9 +35,6 @@ class InitialState(models.Model):
 
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     slug = models.SlugField(unique=True)
-
-    # author = models.ForeignKey(User, unique=False)
-    author = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
