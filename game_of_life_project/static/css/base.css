@@ -46,14 +46,6 @@ body {
   padding: 1rem 1rem;
   vertical-align: middle;
 }
-.recent_state:hover {
-  background-color: #ddd;
-  color: black;
-}
-.liked_state:hover {
-  background-color: #ddd;
-  color: black;
-}
 
 /* (<user>/create_initial_state)*/
 /* http://127.0.0.1:8000/game_of_life/profile/zakre/create_initial_state/ */
@@ -65,11 +57,29 @@ body {
 /* http://127.0.0.1:8000/game_of_life/profile/zakre/initial_states */
 .state {
     display: inline-block;
-    border: 1px solid rgb(0, 0, 255);
+    border: 0px solid rgb(0, 0, 255);
     padding: 1rem 1rem;
     vertical-align: middle;
   }
-.state:hover {
-    background-color: #ddd;
+canvas:hover {
+    background-color: rgb(153, 153, 153);
     color: black;
 }
+
+/* button:hover {
+  background-color: green;
+} */
+
+/* button {
+  background: none;
+  border: 4px solid #fff;
+  border-radius: 10px;
+  color: rgb(37, 68, 46);
+  display: block;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 10px auto;
+  padding: 2em 6em;
+  position: relative;
+  text-transform: uppercase;
+} */

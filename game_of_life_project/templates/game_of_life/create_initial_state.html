@@ -13,6 +13,19 @@
     <input type="button" value="Clear" id="clear">
     <input type="button" value="Invert" id="invert">
 
+    <input type="button" value="Shift left" id="shift_left">
+    <input type="button" value="Shift right" id="shift_right">
+    <input type="button" value="Shift down" id="shift_down">
+    <input type="button" value="Shift up" id="shift_up">
+
+    <label for="cars">Choose a grid size (initial state will be set to blank):</label>
+    <select id="grid_size">
+        <option value="s">Small (50x25)</option>
+        <option value="m" selected>Medium (100x50)</option>
+        <option value="l">Large (200x100)</option>
+        <option value="x">Extra large (300x150)</option>
+    </select>
+
     <h1 style="color:rgb(255, 255, 255);">Press space to advance to next generation</h1>
     <canvas id="state"></canvas>
     <!-- To get here enter the url manually, http://127.0.0.1:8000/game_of_life/<user>/create_initial_state/ -->
