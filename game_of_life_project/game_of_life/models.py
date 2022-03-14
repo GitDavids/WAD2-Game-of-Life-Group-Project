@@ -14,7 +14,6 @@ class InitialState(models.Model):
     author = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
     NAME_MAX_LENGTH = 128
-    AUTHOR_MAX_LENGTH = 64
 
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
@@ -29,7 +28,7 @@ class InitialState(models.Model):
         choices=COL_COUNT_CHOICES,
         default=MEDIUM,
     )
-    state = models.TextField()
+    state = models.TextField() # 2d array -> string (JSON)
 
     date_created = models.DateTimeField(auto_now=False, auto_now_add=True)
 

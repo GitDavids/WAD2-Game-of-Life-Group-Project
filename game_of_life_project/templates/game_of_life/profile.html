@@ -11,7 +11,7 @@
         <H1>User states</H1>
         {% if states %}
             {% for state in states %}
-                <a id="{{state.name}}" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
+                <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
             {% endfor %}
         {% else %}
             There is no specified list of most user states.
@@ -21,12 +21,12 @@
     <div>
         <H1>User states</H1>
         <div id="states">
-            <a id="1" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
-            <a id="2" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
-            <a id="3" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
-            <a id="4" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
-            <a id="5" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a>
-            <a id="6" href="{% url 'game_of_life:index' %}"><canvas class="state"></canvas></a> 
+            <a id="1" href="{% url 'game_of_life:initial_state' 'state-author' 'state1-slug' %}"><canvas class="state"></canvas></a>
+            <a id="2" href="{% url 'game_of_life:initial_state' 'state-author' 'state2-slug' %}"><canvas class="state"></canvas></a>
+            <a id="3" href="{% url 'game_of_life:initial_state' 'state-author' 'state3-slug' %}"><canvas class="state"></canvas></a>
+            <a id="4" href="{% url 'game_of_life:initial_state' 'state-author' 'state4-slug' %}"><canvas class="state"></canvas></a>
+            <a id="5" href="{% url 'game_of_life:initial_state' 'state-author' 'state5-slug' %}"><canvas class="state"></canvas></a>
+            <a id="6" href="{% url 'game_of_life:initial_state' 'state-author' 'state6-slug' %}"><canvas class="state"></canvas></a> 
         </div>
     </div>
     <script src="{% static 'js/user_initial_states.js' %}"></script>
