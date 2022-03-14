@@ -6,14 +6,10 @@
 {% endblock %}
 
 {% block body_block %}
-    {% if user.is_authenticated %}
-        <h1>{{username}}</h1>
-        <div>
-            <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
-        </div>
-    {% else %}
-        Log in to view profile with username {{username}}
-    {% end if %}
+    <h1>PROFILE</h1>
+    <div>
+        <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
+    </div>
     
     <script>document.getElementById("profile").className = "active";</script>
 {% endblock %}

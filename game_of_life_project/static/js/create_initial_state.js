@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 
 canvas.width = 0.8 * window.innerWidth;
 canvas.height = canvas.width / 2;
+canvas.style = "position:absolute; left: 50%; width: 400px; margin-left: -200px;";
 
 const col_count = 50;
 const row_count = col_count / 2;

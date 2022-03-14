@@ -12,7 +12,7 @@ function render(grid, ctx, grid_spacing) {
     }
 }
 
-var canvases_liked = document.getElementsByClassName('liked_state');
+var canvases_liked = document.getElementsByClassName('state');
 
 for (let i = 0;i < canvases_liked.length; i++) {
     console.log(canvases_liked[i])
@@ -23,30 +23,6 @@ for (let i = 0;i < canvases_liked.length; i++) {
     canvas.height = 200;
 
     var col_count = 50;
-    var row_count = col_count / 2;
-
-    var grid_spacing = canvas.width / col_count
-
-    // 2d array
-    let grid = Array(col_count).fill(null)
-        .map(() => new Array(row_count).fill(null)
-            .map(() => Math.floor(Math.random() * 2)));
-
-    render(grid, ctx, grid_spacing)
-
-}
-
-var canvases_recent = document.getElementsByClassName('recent_state');
-
-for (let i = 0;i < canvases_recent.length; i++) {
-    console.log(canvases_recent[i])
-    var canvas = canvases_recent[i]
-    const ctx = canvas.getContext("2d");
-    
-    canvas.width = 400;
-    canvas.height = 200;
-
-    var col_count = 100;
     var row_count = col_count / 2;
 
     var grid_spacing = canvas.width / col_count
