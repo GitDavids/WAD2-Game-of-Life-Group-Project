@@ -37,10 +37,15 @@ def user_login(request):
                     return HttpResponse("Your account is disabled.")
         else:
             print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
+            return redirect(reverse('game_of_life:login_error'))
 
     else:
         return render(request, 'game_of_life/login.html')
+
+def user_login_error(request):
+    context_dict = {}
+
+    return render(request, 'game_of_life/login_error.html', context=context_dict) # TODO
 
 @login_required
 def user_logout(request):
