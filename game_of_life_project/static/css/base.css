@@ -62,7 +62,6 @@ canvas:hover {
     background-color: rgb(153, 153, 153);
     color: black;
 }
-<<<<<<< HEAD
 
 
 /* NOTE: Make buttons prettier*/
@@ -108,24 +107,3 @@ canvas:hover {
 /* a:active {
   color: blue;
 } */
-=======
-/* unvisited link */
-a:link {
-  color: red;
-}
-
-/* visited link */
-a:visited {
-  color: green;
-}
-
-/* mouse over link */
-a:hover {
-  color: hotpink;
-}
-
-/* selected link */
-a:active {
-  color: blue;
-}
->>>>>>> 240cf54fc7e3ae8a0ecf9ac8f0addbcf491cdb7c
