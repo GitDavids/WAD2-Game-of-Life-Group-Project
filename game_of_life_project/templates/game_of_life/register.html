@@ -10,6 +10,7 @@
 
 {% if registered %}
     <strong>thank you for registering!</strong>
+    </br>
     <a href="{% url 'game_of_life:index' %}">Return to the homepage.</a><br />
 {% else %}
     <form id="user_form" method="post" action="{% url 'game_of_life:register' %}"

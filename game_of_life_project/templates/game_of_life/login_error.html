@@ -1,0 +1,16 @@
+{% extends 'game_of_life/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Login error
+{% endblock %}
+
+{% block body_block %}
+    <h1>Login error has occured</h1>
+    <p>
+        Please make sure that you have already registered and you entered the correct username
+        and passcode, then try <a id="login" href="{% url 'game_of_life:login' %}">Logging in</a>
+        again.
+    </p>
+
+{% endblock %}
