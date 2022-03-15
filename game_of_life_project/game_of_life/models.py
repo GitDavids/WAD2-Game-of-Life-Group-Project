@@ -48,10 +48,10 @@ class UserProfile(models.Model):
 
     # # The additional attributes we wish to include.
     website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(default='default.jpg', upload_to='profile_images')
 
     states = models.TextField(blank=True) # We need a way to store a bunck of states, use json
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user.username} Profile'
     

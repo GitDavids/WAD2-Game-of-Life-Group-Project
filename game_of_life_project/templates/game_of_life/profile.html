@@ -7,6 +7,15 @@
 
 {% block body_block %}
     <h1>PROFILE</h1>
+    <div class="profile_content">
+        <div class="profile_media">
+            <img class="profile_picture" src="{{ user.profile.image.url}}"> <!-- Note: it doesnt display-->
+            <div class="profile">
+                <h2 class="profile_heading">{{user.username}}</h2>
+                <p class="profile_email">{{user.email}}</p>
+            </div>
+        </div>
+    </div>
     <div id="states">
         <H1>User states</H1>
         {% if states %}
