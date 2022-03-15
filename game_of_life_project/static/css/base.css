@@ -46,6 +46,42 @@ body {
   vertical-align: middle;
 }
 
+/* game_logic page */
+#game_logic {
+  text-align: center;
+}
+#game_logic a:link { color: #70DB93; }
+#game_logic a:visited { color: #32e4e4; }
+#game_logic a:hover { color: #ee2805; }
+#game_logic a:active { color: #9070db; }
+
+/* about page*/
+#about {
+  text-align: center;
+}
+#about a:link { color: #70DB93; }
+#about a:visited { color: #32e4e4; }
+#about a:hover { color: #ee2805; }
+#about a:active { color: #9070db; }
+
+/* login_error page */
+#login_error {
+  text-align: left;
+}
+#login_error a:link { color: #70DB93; }
+#login_error a:visited { color: #32e4e4; }
+#login_error a:hover { color: #ee2805; }
+#login_error a:active { color: #9070db; }
+
+/* registered page */
+#register {
+  text-align: left;
+}
+#register a:link { color: #70DB93; }
+#register a:visited { color: #32e4e4; }
+#register a:hover { color: #ee2805; }
+#register a:active { color: #9070db; }
+
 /* create_initial_state page*/
 body {
   background: rgb(34, 34, 34);

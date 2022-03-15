@@ -7,9 +7,8 @@
 
 {% block body_block %}
     <h1>GAME LOGIC</h1>
-    <div>
+    <div id="game_logic">
         <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
-    </div>
     <p>
         The Game of Life, also known simply as Life, is a cellular automaton devised by 
         the British mathematician John Horton Conway in 1970. It is a zero-player game, 
@@ -61,4 +60,5 @@
         {% endif %}
     
     <script>document.getElementById("game_logic").className = "active";</script>
+    </div>
 {% endblock %}
