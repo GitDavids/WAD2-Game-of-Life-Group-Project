@@ -7,9 +7,13 @@
 
 {% block body_block %}
     <h1>ALL INITIAL STATES</h1>
-    <div>
-        <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
-    </div>
+    {% if user.states %}
+    {% for state in user.states %}
+        <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+    {% endfor %}
+    {% else %}
+        There is no specified list of states.
+    {% endif %}
     
     <script>document.getElementById("all_initial_states").className = "active";</script>
 {% endblock %}

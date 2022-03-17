@@ -6,20 +6,24 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>PROFILE</h1>
     <div class="profile_content">
         <div class="profile_media">
-            <img class="profile_picture" src="{{ user.profile.image.url}}"> <!-- Note: it doesnt display-->
-            <div class="profile">
-                <h2 class="profile_heading">{{user.username}}</h2>
-                <p class="profile_email">{{user.email}}</p>
-            </div>
-        </div>
+
+        <h2 class="profile_heading">{{user.username}}</h2>
+        {% if user.profile_picture %}
+            <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}"> <!-- Note: Models need to be modified for this to work--> 
+        {% else %}
+            <img class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
+        {% endif %}
+        <!-- Could switch "class UserProfile(models.Model):"" to "class User(User):""--> 
+        <!-- Would make thing simpler, might be a terrible practice in django or python in general -->
+        <p class="profile_email">{{user.email}}</p> 
     </div>
+
     <div id="states">
         <H1>User states</H1>
-        {% if states %}
-            {% for state in states %}
+        {% if user.states %}
+            {% for state in user.states %}
                 <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
             {% endfor %}
         {% else %}
