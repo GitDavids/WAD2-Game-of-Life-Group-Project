@@ -12,13 +12,14 @@
     <input type="button" value="Play" id="play" class="button">
     <input type="button" value="Pause" id="pause" class="button">
     <input type="button" value="Clear" id="clear" class="button">
-    <input type="button" value="Invert" id="invert" class="button">
-
-    <input type="button" value="Shift left" id="shift_left" class="button">
-    <input type="button" value="Shift right" id="shift_right" class="button">
-    <input type="button" value="Shift down" id="shift_down" class="button">
-    <input type="button" value="Shift up" id="shift_up" class="button">
-
+    <input type="button" value="Invert" id="invert" class="button"><br/>
+<div class="direction_buttons">
+    <input type="button" value="Shift left" id="shift_left" class="button_left">
+    <input type="button" value="Shift right" id="shift_right" class="button_right">
+    <input type="button" value="Shift down" id="shift_down" class="button_down">
+    <input type="button" value="Shift up" id="shift_up" class="button_up">
+</div>
+    <input type="button" value="Save state" id="save" class="button">
     <label>Choose a grid size (initial state will be set to blank):</label>
     <select id="grid_size">
         <option value="s">Small (50x25)</option>
@@ -26,7 +27,8 @@
         <option value="l">Large (200x100)</option>
         <option value="x">Extra large (300x150)</option>
     </select>
-
+    <label>Name of the state:</label>
+    <input type="text", id="name">
     <h1 style="color:rgb(255, 255, 255);">Press space to advance to next generation</h1>
     <canvas id="state"></canvas>
     <!-- To get here enter the url manually, http://127.0.0.1:8000/game_of_life/<user>/create_initial_state/ -->

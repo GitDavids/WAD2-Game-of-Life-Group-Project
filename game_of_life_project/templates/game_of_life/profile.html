@@ -14,7 +14,7 @@
         {% if user.profile_picture %}
             <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}"> <!-- Note: Models need to be modified for this to work--> 
         {% else %}
-            <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/Connect4.jpg">
+            <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
         {% endif %}
         <!-- Could switch "class UserProfile(models.Model):"" to "class User(User):""--> 
         <!-- Would make thing simpler, might be a terrible practice in django or python in general -->
