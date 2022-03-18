@@ -7,8 +7,7 @@
 
 {% block body_block %}
     <input type="button" value="Return to initial state" id="return">
-    <input type="button" value="Play" id="play">
-    <input type="button" value="Pause" id="pause">
+    <input type="button" value="Play" id="playback" class="button">
 
     <h1 style="color:rgb(255, 255, 255);">{{state.name}} by <a href="{% url 'game_of_life:profile' state.author.username %}">{{state.author.username}}</a></h1>
     <canvas id="state"></canvas><br />

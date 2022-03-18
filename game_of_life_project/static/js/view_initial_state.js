@@ -1,5 +1,7 @@
 const canvas = document.getElementById("state"); // id of canvas must be state
 const ctx = canvas.getContext("2d");
+var paused = true;
+var fps = 20;
 
 const initial_state = window.initial_state
 const col_count = window.col_count;
@@ -15,12 +17,6 @@ document.getElementById("return").onclick = function () {
     current_state = JSON.parse(JSON.stringify(initial_state));
     render(current_state, grid_spacing);
 };
-document.getElementById("play").onclick = function () { 
-    console.log('play!');
-};
-document.getElementById("pause").onclick = function () { 
-    console.log('pause!');
-};
 
 window.addEventListener('resize', 
     function () {
@@ -34,12 +30,31 @@ window.addEventListener('keyup', event => {
         render(current_state, grid_spacing);
     }
 });
+// Playback resize listeners
+document.getElementById("playback").onclick = function () { 
+    paused = paused ? false : true;
+    document.getElementById("playback").value = paused ? "Play" : "Pause";
+    current_state = next_generation(current_state);
+    requestAnimationFrame(animate);
+};
 
 // Functions
 function width_height() {
     canvas.width = 0.8 * window.innerWidth;
     canvas.height = canvas.width / 2;
     grid_spacing = canvas.width / col_count
+}
+
+function animate() {
+    if(paused){return;}
+
+    // Animation
+    render(current_state)
+    
+    current_state = next_generation(current_state);
+
+    // request another animation loop
+    setTimeout(function () {requestAnimationFrame(animate);}, 1000 / fps)
 }
 
 function render(grid) {

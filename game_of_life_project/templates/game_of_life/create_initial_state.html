@@ -18,7 +18,9 @@
         <option value="m" selected>Medium (100x50)</option>
         <option value="l">Large (200x100)</option>
         <option value="x">Extra large (300x150)</option>
-    </select><label>State name:</label><input type="text", id="name"><br/>
+    </select>
+    <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
+    <label>State name:</label><input type="text", id="name"><br/>
 
     <div class="direction_buttons">
         <input type="button" value="↑" id="shift_up" class="button_up" class="button">
@@ -29,8 +31,7 @@
 
     <input type="button" value="Set as initial state" id="set" class="button">
     <input type="button" value="Return to initial state" id="return" class="button">
-    <input type="button" value="Play" id="play" class="button">
-    <input type="button" value="Pause" id="pause" class="button">
+    <input type="button" value="Play" id="playback" class="button">
     <input type="button" value="Clear" id="clear" class="button">
     <input type="button" value="Invert" id="invert" class="button">
 

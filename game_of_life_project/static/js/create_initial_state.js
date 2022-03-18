@@ -1,5 +1,7 @@
 const canvas = document.getElementById("state"); // id of canvas must be state
 const ctx = canvas.getContext("2d");
+var paused = true;
+var fps = 20;
 
 // initialize canvas size
 canvas.width = 0.8 * window.innerWidth;
@@ -12,11 +14,12 @@ var grid_spacing = canvas.width / col_count
 // initial empty grid
 var initial_state = Array(row_count).fill(null)
     .map(() => new Array(col_count).fill(null)
-        .map(() => 0)); // Math.floor(Math.random() * 2)
+        .map(() => 0));
         
 width_height();
 current_state = JSON.parse(JSON.stringify(initial_state));
 render(current_state, grid_spacing);
+
 
 // Event listeners
 document.getElementById("grid_size").addEventListener("change", function () {
@@ -46,6 +49,7 @@ document.getElementById("grid_size").addEventListener("change", function () {
     render(current_state, grid_spacing);
 });
 
+// Shifting event listeners
 document.getElementById("shift_right").addEventListener("click", function () { 
     for (let row = 0; row < row_count; row++) {
         current_state[row].pop();
@@ -70,23 +74,17 @@ document.getElementById("shift_up").addEventListener("click", function () {
     current_state.push(Array(col_count).fill(0))
     render(current_state, grid_spacing);
 });
-
-
+// Misc event listeners
+document.getElementById("fps").addEventListener("click", function () {
+    fps=(document.getElementById("fps").value);
+});
 document.getElementById("set").addEventListener("click", function () { 
     initial_state = JSON.parse(JSON.stringify(current_state));
     render(current_state, grid_spacing);
 });
 document.getElementById("return").onclick = function () { 
-    console.log(current_state[0]);
-    console.log(initial_state[0]);
     current_state = JSON.parse(JSON.stringify(initial_state));
     render(current_state, grid_spacing);
-};
-document.getElementById("play").onclick = function () { 
-    console.log('play!');
-};
-document.getElementById("pause").onclick = function () { 
-    console.log('pause!');
 };
 document.getElementById("clear").onclick = function () { 
     current_state = Array(row_count).fill(null)
@@ -102,13 +100,14 @@ document.getElementById("invert").onclick = function () {
     }
     render(current_state, grid_spacing);
 };
-
+// Window resize event listener
 window.addEventListener('resize', 
     function () {
         width_height();
         render(current_state, grid_spacing);
     }
 );
+// Input event listeners
 canvas.addEventListener('click', 
     function (event) {
         var boundingRect = event.target.getBoundingClientRect();
@@ -121,21 +120,38 @@ canvas.addEventListener('click',
         current_state[row][col] = current_state[row][col] ? 0 : 1;
         render(current_state, grid_spacing);
     }
-)
+);
 window.addEventListener('keyup', event => {
     if (event.code === 'Space') {
         current_state = next_generation(current_state)
         render(current_state, grid_spacing);
     }
 });
+// Playback resize listeners
+document.getElementById("playback").onclick = function () { 
+    paused = paused ? false : true;
+    document.getElementById("playback").value = paused ? "Play" : "Pause";
+    current_state = next_generation(current_state);
+    requestAnimationFrame(animate);
+};
 
 // Functions
 function width_height() {
     canvas.width = 0.8 * window.innerWidth;
     canvas.height = canvas.width / 2;
-    grid_spacing = canvas.width / col_count
+    grid_spacing = canvas.width / col_count;
 }
 
+function animate() {
+    if(paused){return;}
+
+    // Animation
+    render(current_state)
+    current_state = next_generation(current_state);
+
+    // request another animation loop
+    setTimeout(function () {requestAnimationFrame(animate);}, 1000 / fps)
+}
 function render(grid) {
     // ctx.restore()
     for (let row = 0; row < row_count; row++) {
