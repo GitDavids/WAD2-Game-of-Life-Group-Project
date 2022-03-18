@@ -95,3 +95,8 @@ function next_generation(grid) {
     return next_gen;        
 }
 
+// function init(col_count,state){
+//     const col_count = col_count;
+//     const row_count = col_count / 2;
+//     const initial_state = state;
+// }

@@ -104,7 +104,7 @@ def about(request):
 
 def all_initial_states(request):
     context_dict = {}
-
+    context_dict["all_states"] = InitialState.objects.all()
     return render(request, 'game_of_life/all_initial_states.html', context=context_dict) # TODO
 
 
@@ -133,12 +133,13 @@ def create_initial_state(request,username):
 # Specific state
 def initial_state(request, username, state_name_slug):
     context_dict = {}
-
-    context_dict["state"] = None
-    context_dict["name"] = None
+    state = InitialState.objects.get(slug=state_name_slug)
+    context_dict["state"] = state
+    context_dict["col_count"] = state.col_count
+    context_dict["name"] = state.name
+    context_dict["author"] = state.author
     context_dict["username"] = username
-    context_dict["username"] = state_name_slug
-    context_dict["likes"] = None
+    context_dict["state_name_slug"] = state_name_slug
 
     return render(request, 'game_of_life/initial_state.html', context=context_dict) # TODO
 

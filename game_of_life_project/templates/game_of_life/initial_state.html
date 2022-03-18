@@ -10,17 +10,15 @@
     <input type="button" value="Play" id="play">
     <input type="button" value="Pause" id="pause">
 
-    <label>Choose a grid size (initial state will be set to blank):</label>
-    <select id="grid_size">
-        <option value="s">Small (50x25)</option>
-        <option value="m" selected>Medium (100x50)</option>
-        <option value="l">Large (200x100)</option>
-        <option value="x">Extra large (300x150)</option>
-    </select>
-
-    <h1 style="color:rgb(255, 255, 255);">Press space to advance to next generation</h1>
+    <h1 style="color:rgb(255, 255, 255);">{{state.name}} by {{state.author.username}}</h1>
     <canvas id="state"></canvas>
 
-    <script src="{% static 'js/view_initial_state.js' %}"></script>
-    <script>document.getElementById("create_initial_state").className = "active";</script>
+    <script src="{% static 'js/view_initial_state.js' %}"></script><br />
+
+    State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}<br />
+    Column count: {{state.col_count}}, row count is half that<br />
+    <!-- Slug: {{state.slug}}<br /> -->
+
+
+    <script>document.getElementById("profile").className = "active";</script>
 {% endblock %}
