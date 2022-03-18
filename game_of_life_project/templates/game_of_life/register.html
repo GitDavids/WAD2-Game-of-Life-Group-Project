@@ -8,11 +8,12 @@
 {% block body_block %}
 <h1>Register</h1>
 
-<div id="register">
+<div class="register">
 {% if registered %}
     <strong>thank you for registering!</strong>
     </br>
     <a href="{% url 'game_of_life:index' %}">Return to the homepage.</a><br />
+    or <li style="float:right"><a id="login" href="{% url 'game_of_life:login' %}">Login</a>.
 {% else %}
     <form id="user_form" method="post" action="{% url 'game_of_life:register' %}"
         enctype="multipart/form-data">
