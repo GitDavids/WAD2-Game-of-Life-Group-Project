@@ -1,38 +1,42 @@
 {% extends 'game_of_life/base.html' %}
 {% load staticfiles %}
 
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/create_initial_state.css' %}">
+{% endblock %}
+
 {% block title_block %}
     Create initial state
 {% endblock %}
 
 {% block body_block %}
 <div class="create_initial_state">
+    
+    <label>Grid size:</label>
+    <select id="grid_size">
+        <option value="s">Small (50x25)</option>
+        <option value="m" selected>Medium (100x50)</option>
+        <option value="l">Large (200x100)</option>
+        <option value="x">Extra large (300x150)</option>
+    </select><label>State name:</label><input type="text", id="name"><br/>
+
+    <div class="direction_buttons">
+        <input type="button" value="↑" id="shift_up" class="button_up" class="button">
+        <input type="button" value="←" id="shift_left" class="button_left" class="button">
+        <input type="button" value="→" id="shift_right" class="button_right" class="button">
+        <input type="button" value="↓" id="shift_down" class="button_down" class="button">
+    </div>
+
     <input type="button" value="Set as initial state" id="set" class="button">
     <input type="button" value="Return to initial state" id="return" class="button">
     <input type="button" value="Play" id="play" class="button">
     <input type="button" value="Pause" id="pause" class="button">
     <input type="button" value="Clear" id="clear" class="button">
     <input type="button" value="Invert" id="invert" class="button">
-<div class="direction_buttons">
-    <input type="button" value="↑" id="shift_up" class="button_up"><br/>
-    <input type="button" value="←" id="shift_left" class="button_left">
-    <input type="button" value="→" id="shift_right" class="button_right"><br/>
-    <input type="button" value="↓" id="shift_down" class="button_down">
-</div>
-    <label>Choose a grid size (initial state will be set to blank):</label>
-    <select id="grid_size">
-        <option value="s">Small (50x25)</option>
-        <option value="m" selected>Medium (100x50)</option>
-        <option value="l">Large (200x100)</option>
-        <option value="x">Extra large (300x150)</option>
-    </select><br/>
-    <label>Name of the state:</label>
-    <input type="text", id="name"><br/>
-    <input type="button" value="Save state" id="save" class="button">
-    <h1 style="color:rgb(255, 255, 255);">Press space to advance to next generation</h1>
+
     <canvas id="state"></canvas>
-    <!-- To get here enter the url manually, http://127.0.0.1:8000/game_of_life/<user>/create_initial_state/ -->
-    
+    <input type="button" value="Save state" id="save" class="button">
+
     <script src="{% static 'js/create_initial_state.js' %}"></script>
     <script>document.getElementById("create_initial_state").className = "active";</script>
 </div>

@@ -15,8 +15,8 @@ from datetime import datetime
 # Main page
 def index(request):
     context_dict = {}
-    context_dict["liked_states"] = InitialState.objects.order_by('-likes')[:6]
-    context_dict["recent_states"] = InitialState.objects.order_by('-views')[:6]
+    context_dict["most_liked_states"] = InitialState.objects.order_by('-likes')[:6]
+    context_dict["most_recent_states"] = InitialState.objects.order_by('-views')[:6]
     
     return render(request, 'game_of_life/index.html', context=context_dict) # TODO
 

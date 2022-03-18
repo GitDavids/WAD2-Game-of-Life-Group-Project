@@ -10,10 +10,10 @@
     <input type="button" value="Play" id="play">
     <input type="button" value="Pause" id="pause">
 
-    <h1 style="color:rgb(255, 255, 255);">{{state.name}} by {{state.author.username}}</h1>
+    <h1 style="color:rgb(255, 255, 255);">{{state.name}} by <a href="{% url 'game_of_life:profile' state.author.username %}">{{state.author.username}}</a></h1>
     <canvas id="state"></canvas><br />
 
-    State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}<br />
+    State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}, Likes: {{state.likes}}, Views: {{state.views}}<br />
     Column count: {{state.col_count}}, row count is half that<br />
 
     <!-- {{state.state}} -->

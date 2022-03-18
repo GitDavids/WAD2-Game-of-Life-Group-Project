@@ -1,11 +1,11 @@
-var canvases_liked = document.getElementsByClassName('state');
+var canvases = document.getElementsByClassName('state');
 state_list = window.state_list;
 
-for (let i = 0;i < canvases_liked.length; i++) {
+for (let i = 0;i < canvases.length; i++) {
     var col_count = state_list[i][0];
     var row_count = col_count / 2;
     var state = state_list[i][1];
-    var canvas = canvases_liked[i];
+    var canvas = canvases[i];
     var ctx = canvas.getContext("2d");
     
     canvas.width = 400;

@@ -6,48 +6,32 @@
 {% endblock %}
 
 {% block body_block %}
-    <H1>Most liked states</H1>
-    <div id="most_liked_states">
+    <script>state_list = []</script>
+    
+    <div>
+        <H1>Most liked states</H1>
         {% if most_liked_states %}
             {% for state in most_liked_states %}
-                <canvas id="{{state.name}}" class="recent_state"></canvas>
+                <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
+                <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
             {% endfor %}
         {% else %}
             There is no specified list of most liked states.
         {% endif %}
     </div>
-    <H1>Most recent states</H1>
-    <div id="most_recent_states">
+    
+    <div>
+        <H1>Most recent states</H1>
         {% if most_recent_states %}
-            {% for state in most_recent_states %}°
-                {{state.name}}
-                <canvas id="{{state.name}}" class="recent_state"></canvas>
+            {% for state in most_recent_states %}
+                <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+                <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
             {% endfor %}
         {% else %}
             There is no specified list of most recent states.
         {% endif %}
     </div>
 
-    <div>
-        <H1>Most liked states</H1>
-        <div id="most_liked_states">
-            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="liked_state"></canvas></a>
-        </div>
-        <H1>Most viewed states</H1>
-        <div id="most_recent_states">
-            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
-            <a href="{% url 'game_of_life:index' %}"><canvas class="recent_state"></canvas></a>
-        </div>
-    </div>
-    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("index").className = "active";</script>
 {% endblock %}

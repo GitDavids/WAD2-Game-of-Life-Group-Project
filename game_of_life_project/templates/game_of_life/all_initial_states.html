@@ -9,16 +9,17 @@
     <h1>ALL INITIAL STATES</h1>
     <div class="all_initial_states">
     {% if all_states %}
-    <script>state_list = []</script>
-    {% for state in all_states %}
-        <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
-        <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
-    {% endfor %}
+        <script>state_list = []</script>
+        {% for state in all_states %}
+            <!-- {{state.name}}, {{state.views}}, {{state.views}} Visible on hover-->
+            <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+            <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
+        {% endfor %}
     {% else %}
         There is no specified list of states.
     {% endif %}
     
-    <script src="{% static 'js/all_initial_states.js' %}"></script>
+    <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("all_initial_states").className = "active";</script>
     </div>
     {% endblock %}

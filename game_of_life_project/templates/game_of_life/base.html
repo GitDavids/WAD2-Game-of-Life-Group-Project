@@ -6,6 +6,8 @@
     <head lang="en">
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        {% block head_block %}
+        {% endblock %}
         <title>
           {% block title_block %}
           {% endblock %}
