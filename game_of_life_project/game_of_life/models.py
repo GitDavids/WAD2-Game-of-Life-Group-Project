@@ -11,8 +11,7 @@ X_NODES = 100
 Y_NODES = 100
 
 class InitialState(models.Model):
-    author = models.OneToOneField(User, on_delete=models.DO_NOTHING)
-
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     NAME_MAX_LENGTH = 128
 
     views = models.IntegerField(default=0)

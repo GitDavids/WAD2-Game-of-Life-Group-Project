@@ -6,10 +6,11 @@
 {% endblock %}
 
 {% block body_block %}
-    <div class="profile_content">
-        <div class="profile_media">
+    <div>
+        <div>
 
         <h2 class="profile_heading">{{user.username}}</h2>
+        <h2 class="profile_heading">{{request.user.username}}</h2>
         {% if user.profile_picture %}
             <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}"> <!-- Note: Models need to be modified for this to work--> 
         {% else %}
