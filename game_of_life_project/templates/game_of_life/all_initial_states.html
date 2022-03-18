@@ -7,6 +7,7 @@
 
 {% block body_block %}
     <h1>ALL INITIAL STATES</h1>
+    <div class="all_initial_states">
     {% if all_states %}
     {% for state in all_states %}
         <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
@@ -16,4 +17,5 @@
     {% endif %}
     
     <script>document.getElementById("all_initial_states").className = "active";</script>
-{% endblock %}
+    </div>
+    {% endblock %}
