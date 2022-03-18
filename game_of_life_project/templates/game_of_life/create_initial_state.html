@@ -6,17 +6,18 @@
 {% endblock %}
 
 {% block body_block %}
-    <input type="button" value="Set as initial state" id="set">
-    <input type="button" value="Return to initial state" id="return">
-    <input type="button" value="Play" id="play">
-    <input type="button" value="Pause" id="pause">
-    <input type="button" value="Clear" id="clear">
-    <input type="button" value="Invert" id="invert">
+<div class="create_initial_state">
+    <input type="button" value="Set as initial state" id="set" class="button">
+    <input type="button" value="Return to initial state" id="return" class="button">
+    <input type="button" value="Play" id="play" class="button">
+    <input type="button" value="Pause" id="pause" class="button">
+    <input type="button" value="Clear" id="clear" class="button">
+    <input type="button" value="Invert" id="invert" class="button">
 
-    <input type="button" value="Shift left" id="shift_left">
-    <input type="button" value="Shift right" id="shift_right">
-    <input type="button" value="Shift down" id="shift_down">
-    <input type="button" value="Shift up" id="shift_up">
+    <input type="button" value="Shift left" id="shift_left" class="button">
+    <input type="button" value="Shift right" id="shift_right" class="button">
+    <input type="button" value="Shift down" id="shift_down" class="button">
+    <input type="button" value="Shift up" id="shift_up" class="button">
 
     <label>Choose a grid size (initial state will be set to blank):</label>
     <select id="grid_size">
@@ -32,4 +33,5 @@
     
     <script src="{% static 'js/create_initial_state.js' %}"></script>
     <script>document.getElementById("create_initial_state").className = "active";</script>
+</div>
 {% endblock %}
