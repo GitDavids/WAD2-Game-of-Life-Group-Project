@@ -1,19 +1,10 @@
 const canvas = document.getElementById("state"); // id of canvas must be state
 const ctx = canvas.getContext("2d");
 
-// initialize canvas size
-canvas.width = 0.8 * window.innerWidth;
-canvas.height = canvas.width / 2;
+const initial_state = window.initial_state
+const col_count = window.col_count;
+const row_count = col_count / 2;
 
-// set default git
-var col_count = 100; // SHOULD BE GOTTEN FROM DATABASE
-var row_count = col_count / 2;
-var grid_spacing = canvas.width / col_count
-// initial empty grid // SHOULD BE GOTTEN FROM DATABASE
-var initial_state = Array(row_count).fill(null)
-    .map(() => new Array(col_count).fill(null)
-        .map(() => Math.floor(Math.random() * 2)));
-        
 width_height();
 current_state = JSON.parse(JSON.stringify(initial_state));
 render(current_state, grid_spacing);

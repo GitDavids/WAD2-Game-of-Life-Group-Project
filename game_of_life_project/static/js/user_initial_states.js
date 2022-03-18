@@ -1,17 +1,3 @@
-function render(grid, ctx, grid_spacing) {
-    for (let col = 0; col < grid.length; col++) {
-        for (let row = 0; row < grid[col].length; row++){
-            const cell = grid[col][row]
-            ctx.beginPath();
-            ctx.rect(col * grid_spacing, row * grid_spacing, grid_spacing, grid_spacing);
-            ctx.fillStyle = cell ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
-            ctx.fill();
-            // ctx.strokeStyle = 'rgb(200, 200, 200)' 
-            // ctx.stroke();
-        }
-    }
-}
-
 var canvases_liked = document.getElementsByClassName('state');
 
 for (let i = 0;i < canvases_liked.length; i++) {
@@ -34,4 +20,19 @@ for (let i = 0;i < canvases_liked.length; i++) {
 
     render(grid, ctx, grid_spacing)
 
+}
+
+//  Functions
+function render(grid, ctx, grid_spacing) {
+    for (let col = 0; col < grid.length; col++) {
+        for (let row = 0; row < grid[col].length; row++){
+            const cell = grid[col][row]
+            ctx.beginPath();
+            ctx.rect(col * grid_spacing, row * grid_spacing, grid_spacing, grid_spacing);
+            ctx.fillStyle = cell ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
+            ctx.fill();
+            // ctx.strokeStyle = 'rgb(200, 200, 200)' 
+            // ctx.stroke();
+        }
+    }
 }
