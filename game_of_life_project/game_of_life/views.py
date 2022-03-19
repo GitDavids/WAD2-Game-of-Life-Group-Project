@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # from game_of_life.models import Category, Page
-from game_of_life.models import InitialState
+from game_of_life.models import InitialState, UserProfile
 from game_of_life.forms import UserForm, UserProfileForm #, CategoryForm, PageForm, 
 
 from datetime import datetime
@@ -19,6 +19,7 @@ def index(request):
     context_dict["most_recent_states"] = InitialState.objects.order_by('-views')[:6]
     
     return render(request, 'game_of_life/index.html', context=context_dict) # TODO
+
 
 
 # Account pages
@@ -143,6 +144,23 @@ def initial_state(request, username, state_name_slug):
 
     return render(request, 'game_of_life/initial_state.html', context=context_dict) # TODO
 
+#Like state
+def like_state(request, username, state_name_slug):
+    context_dict = {}
+    state = InitialState.objects.get(slug=state_name_slug)
+    print("HAHAHAA", state.likes)
+    state.likes = state.likes + 1
+    print("hahahaha", state.likes)
+
+    context_dict["likes"] = state.likes
+    context_dict["state"] = state
+    context_dict["col_count"] = state.col_count
+    context_dict["name"] = state.name
+    context_dict["author"] = state.author
+    context_dict["username"] = username
+    context_dict["state_name_slug"] = state_name_slug
+
+    return render(request, 'game_of_life/initial_state.html', context=context_dict) # TODO
 
 # Moderator page
 def create_add_pattern(request):
