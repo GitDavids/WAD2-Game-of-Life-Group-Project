@@ -7,7 +7,8 @@
 
 {% block body_block %}
     <script>state_list = []</script>
-    
+    <h1>GAME LOGIC</h1>
+    <div class="index">
     <div>
         <H1>Most liked states</H1>
         {% if most_liked_states %}
@@ -34,4 +35,5 @@
 
     <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("index").className = "active";</script>
+</div>
 {% endblock %}
