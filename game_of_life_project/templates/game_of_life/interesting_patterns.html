@@ -9,7 +9,18 @@
     <h1>INTERESTING PATTERNS</h1>
     <div class="interesting_patterns">
     <div>
-        <img src="{% static 'images/game.jpg' %}" alt="Picture" width="400"/>
+        {% if all_states %}
+        <script>state_list = []</script>
+        {% for state in all_states %}
+        {% if state.likes > 5 %} <!-- NOTE: print something if no interesting patterns found-->
+            <!-- {{state.name}}, {{state.views}}, {{state.views}} Visible on hover-->
+            <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+            <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        There is no specified list of states.
+    {% endif %}
     </div>
 
     <script>document.getElementById("interesting_patterns").className = "active";</script>
