@@ -42,33 +42,36 @@ USERS = [
 
 def populate():
     for user in USERS:
-        add_user(user["username"],user["states"])
-
+        add_user(user['username'], user['states'])
+    
     # Print out the categories we have added.
     for p in UserProfile.objects.all():
         print(f'{p}, {p.states}')
 
 
     
-def add_user(username, states, settings=None): # TODO (5 min of bodge attempt, hoped it would work :( )
-    u = User.objects.get_or_create(username=username)[0]
-    user = UserProfile.objects.get_or_create(user=u)[0]
-    print(user)
+def add_user(userInput, states, settings=None): # TODO (5 min of bodge attempt, hoped it would work :( )
+    u = User.objects.get_or_create(username = userInput)[0]
+    u.save()
+
+    p = UserProfile.objects.get_or_create(user = u)[0]
+    
+
     if settings:
         pass # TODO
     
     state_list = []
     for state in states:
-        state_list.append(add_state(user, state["name"], state["state"], state["col_count"]))
+        state_list.append(add_state(p.user, state["name"], state["state"], state["col_count"]))
 
     print(state_list)
-    user.states = json.dumps(state_list)
+    # p.states = json.dumps(state_list)   ????somehelp here
 
-    user.save()
 
-    return user
+    p.save()
+    return p
 
-def add_state(user, title, state, col_count = 100, views=0, likes=0): # TODO (5 min of bodge attempt, hoped it would work :( )
+def add_state(user, title, state, col_count = 100, views=0, likes=0):# TODO (5 min of bodge attempt, hoped it would work :()
     s = InitialState.objects.get_or_create(author=user, name=title)[0]
     s.state = json.dumps(state)
     s.col_count = col_count
