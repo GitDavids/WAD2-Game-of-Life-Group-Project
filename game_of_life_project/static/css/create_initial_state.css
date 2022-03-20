@@ -1,37 +1,14 @@
 .create_initial_state{
   margin: auto;
   padding: 5%;
-  padding-top:10px
+  padding-top:5px
 }
-/* Buttons*/
-
-.button:hover {
-    background-color: #04AA6D;
-  } 
-  
-  .button {
-    background-color: #333;
-    border: 4px;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  .button:active {
-    transform: translateY(3px);
-}
-.button_save:hover {
-  background-color: #04AA6D;
-} 
 
 .button_save {
   background-color: #333;
   border: 4px;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -57,7 +34,7 @@
     margin-bottom: 5px;
     position:absolute; 
     width:40px; 
-    height:40px; 
+    height:30px; 
     cursor:pointer;
     top:45%;
     -webkit-transform:translateY(-50%);
@@ -78,7 +55,7 @@
     margin-bottom: 5px;
     position:absolute; 
     width:40px; 
-    height:40px; 
+    height:30px; 
     cursor:pointer;
     bottom:50%;
     -webkit-transform:translateY(50%);
@@ -98,8 +75,8 @@
     font-size: 16px;
     margin-bottom: 5px;
     position:absolute; 
-    width:40px; 
-    height:40px; 
+    width:30px; 
+    height:30px; 
     cursor:pointer;
     right:50%;
     -webkit-transform:translateX(50%);
@@ -119,19 +96,19 @@
     font-size: 16px;
     margin-bottom: 5px;
     position:absolute; 
-    width:40px; 
-    height:40px; 
+    width:30px; 
+    height:30px; 
     cursor:pointer;
     left:50%;
     -webkit-transform:translateX(-50%);
     -moz-transform:translateX(-50%);
     transform:translateX(-50%);
-    bottom:0;
+    bottom:35px;
   }
   .direction_buttons{
     border-radius: 50%;
-      width: 125px;
-      height: 125px;
+      width: 115px;
+      height: 100px;
       color:white;
       position:absolute;
       left:5%;
