@@ -1,6 +1,10 @@
 {% extends 'game_of_life/base.html' %}
 {% load staticfiles %}
-<link rel="stylesheet" href="style.css">
+{% block head_block %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/initial_state.css' %}">
+{% endblock %}
+
 {% block title_block %}
     Initial State
 {% endblock %}
