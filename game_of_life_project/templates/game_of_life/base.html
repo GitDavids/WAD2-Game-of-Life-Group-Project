@@ -28,6 +28,10 @@
               <li style="float:right"><a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a></li>
               <li style="float:right"><a id="login" href="{% url 'game_of_life:login' %}">Login</a></li>
             {% endif %}
+            {% if user.is_superuser %}
+              <li style="float:right"><a id="create_add_pattern" href="{% url 'game_of_life:create_add_pattern' %}">Create interesting pattern</a></li>
+            {% endif %}
+            
         </div>
         <div>
             {% block body_block %}

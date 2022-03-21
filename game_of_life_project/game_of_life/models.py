@@ -56,6 +56,7 @@ class InterestingPatten(models.Model):
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    moderator = models.BooleanField(default=False)
 
     # # The additional attributes we wish to include.
     website = models.URLField(blank=True)

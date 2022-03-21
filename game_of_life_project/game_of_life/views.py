@@ -170,5 +170,4 @@ def like_state(request, username, state_name_slug):
 # Moderator page
 def create_add_pattern(request):
     context_dict = {}
-
-    return render(request, 'game_of_life/REPLACE.html', context=context_dict)# TODO
+    return render(request, 'game_of_life/create_add_pattern.html', context=context_dict)# TODO
