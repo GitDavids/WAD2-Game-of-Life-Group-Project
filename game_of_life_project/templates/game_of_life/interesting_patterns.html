@@ -11,15 +11,21 @@
 {% endblock %}
 
 {% block body_block %}
-    <div>
+    <div class="interesting_patterns">
     <H1>Interesting patterns</H1>
     {% if patterns %}
         <script>patterns = []</script>
         {% for pattern in patterns %}
-            <div>
-                <a id="{{pattern.name}}" href="{% url 'game_of_life:pattern' pattern.slug %}"><canvas class="pattern"></canvas></a>
-
-                <script>patterns.push([JSON.parse('{{pattern.col_count}}'),JSON.parse('{{pattern.state}}')])</script>
+        <div class="state_wrap">
+            <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+            <a class="state_description" href="{% url 'game_of_life:initial_state' state.author state.slug %}">
+                State name: {{state.name}},<br/>
+                Author:  {{state.author.username}},<br />
+                Views: {{state.views}},
+                Likes: {{state.likes}}, <br />
+                Date created: {{state.date_created}},
+            </a>
+            <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
             </div>
         {% endfor %}
     {% else %}
