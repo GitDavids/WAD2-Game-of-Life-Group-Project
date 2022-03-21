@@ -74,6 +74,7 @@ document.getElementById("shift_up").addEventListener("click", function () {
     current_state.push(Array(col_count).fill(0))
     render(current_state, grid_spacing);
 });
+
 // Misc event listeners
 document.getElementById("fps").addEventListener("click", function () {
     fps=(document.getElementById("fps").value);
@@ -100,6 +101,7 @@ document.getElementById("invert").onclick = function () {
     }
     render(current_state, grid_spacing);
 };
+
 // Window resize event listener
 window.addEventListener('resize', 
     function () {
@@ -107,7 +109,8 @@ window.addEventListener('resize',
         render(current_state, grid_spacing);
     }
 );
-// Input event listeners
+
+// Click event listeners
 canvas.addEventListener('click', 
     function (event) {
         var boundingRect = event.target.getBoundingClientRect();
@@ -121,14 +124,52 @@ canvas.addEventListener('click',
         render(current_state, grid_spacing);
     }
 );
-window.addEventListener('keyup', event => {
+// Key event listeners
+window.addEventListener('keydown', function (e) {
+    if (e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '39' || e.keyCode == '40' || e.keyCode == '32') {
+        e.preventDefault();
+    } else {
+        console.log(e.keyCode)
+    }
+});
+window.addEventListener('keyup', function (event) {
     if (event.code === 'Space') {
         paused = paused ? false : true;
         document.getElementById("playback").value = paused ? "Play" : "Pause";
         current_state = next_generation(current_state);
         requestAnimationFrame(animate);
     }
+    else if (event.keyCode == '38') {
+        // up arrow
+        current_state.shift()
+        current_state.push(Array(col_count).fill(0))
+        render(current_state, grid_spacing);
+    }
+    else if (event.keyCode == '40') {
+        // down arrow
+        current_state.pop()
+        current_state.unshift(Array(col_count).fill(0)) 
+        render(current_state, grid_spacing);
+    }
+    else if (event.keyCode == '37') {
+       // left arrow
+        for (let row = 0; row < row_count; row++) {
+            current_state[row].shift();
+            current_state[row].push(0);
+        }
+        render(current_state, grid_spacing);
+    }
+    else if (event.keyCode == '39') {
+       // right arrow
+        for (let row = 0; row < row_count; row++) {
+            current_state[row].pop();
+            current_state[row].unshift(0);
+        }
+        render(current_state, grid_spacing);
+    }
 });
+
+
 // Playback resize listeners
 document.getElementById("playback").onclick = function () { 
     paused = paused ? false : true;
