@@ -1,4 +1,6 @@
+from lib2to3.pygram import pattern_symbols
 import os, json, random
+from unicodedata import name
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'game_of_life_project.settings')
@@ -6,6 +8,15 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from game_of_life.models import *
+
+PATTERNS=[
+    {"name":"pattern1","col_count":10,
+    "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
+    {"name":"pattern2","col_count":10,
+    "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
+     {"name":"pattern3","col_count":10,
+    "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
+]
 
 STATES = [
     {"name":"state1","col_count":100,
@@ -57,6 +68,8 @@ def populate():
     # Print out the categories we have added.
     for p in UserProfile.objects.all():
         print(f'{p}, {p.states}')
+    for p in PATTERNS:
+        add_pattern(p['name'], p['state'],p['col_count'])   
 
 
     
@@ -74,7 +87,7 @@ def add_user(userInput, states, settings=None): # TODO (5 min of bodge attempt, 
     for state in states:
         state_list.append(add_state(p.user, state["name"], state["state"], state["col_count"]))
 
-    print(state_list)
+    #print(state_list)
     # p.states = json.dumps(state_list)   ????somehelp here
 
 
@@ -89,6 +102,14 @@ def add_state(user, title, state, col_count = 100, views=0, likes=0):# TODO (5 m
     s.likes=likes
     s.save()
     return s
+
+def add_pattern(title, state, col_count=10):
+    p=InterestingPatten.objects.get_or_create(name=title )[0]
+    print(p)
+    p.pattern = json.dumps(state)
+    p.col_count = col_count
+    p.save()
+    return p
 
 # Start execution here!
 if __name__ == '__main__':
