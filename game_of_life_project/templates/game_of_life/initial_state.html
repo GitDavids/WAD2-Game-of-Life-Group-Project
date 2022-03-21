@@ -14,6 +14,8 @@
 <div class="initial_state">
     <input type="button" value="Return to initial state" id="return" class="button">
     <input type="button" value="Play" id="playback" class="button">
+    <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
+    
 
     <h1>{{state.name}} by <a href="{% url 'game_of_life:profile' state.author.username %}">{{state.author.username}}</a></h1>
     <canvas id="state">state.state</canvas><br />

@@ -37,13 +37,17 @@ window.addEventListener('keyup', event => {
         requestAnimationFrame(animate);
     }
 });
-// Playback resize listeners
+// Playback listeners
 document.getElementById("playback").onclick = function () { 
     paused = paused ? false : true;
     document.getElementById("playback").value = paused ? "Play" : "Pause";
     current_state = next_generation(current_state);
     requestAnimationFrame(animate);
 };
+
+document.getElementById("fps").addEventListener("click", function () {
+    fps=(document.getElementById("fps").value);
+});
 
 // Functions
 function width_height() {
