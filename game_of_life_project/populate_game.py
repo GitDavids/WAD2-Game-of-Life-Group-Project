@@ -13,9 +13,15 @@ PATTERNS=[
     {"name":"pattern1","col_count":10,
     "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
     {"name":"pattern2","col_count":10,
-    "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
+    "state":[[(j%2) for _ in range(30)]for j in range(15)]},
      {"name":"pattern3","col_count":10,
-    "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
+    "state":[[i%2 for i in range(20)]for _ in range(10)]},
+    {"name":"pattern4","col_count":10,
+    "state":[[random.randint(0,1) for _ in range(18)]for _ in range(9)]},
+    {"name":"pattern5","col_count":10,
+    "state":[[1 for _ in range(20)]for _ in range(10)]},
+    {"name":"pattern3","col_count":10,
+    "state":[[0 for _ in range(20)]for _ in range(10)]},
 ]
 
 STATES = [
@@ -109,8 +115,7 @@ def add_state(user, title, state, col_count = 100, views=0, likes=0):# TODO (5 m
 
 def add_pattern(title, state, col_count=10):
     p=InterestingPatten.objects.get_or_create(name=title )[0]
-    print(p)
-    p.pattern = json.dumps(state)
+    p.state = json.dumps(state)
     p.col_count = col_count
     p.save()
     return p
