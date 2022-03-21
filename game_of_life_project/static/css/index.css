@@ -5,18 +5,7 @@
     padding: 2rem 2rem;
     text-align: center;
   }
-  .liked_state {
-    display: inline-block;
-    border: 0px solid rgb(255, 0, 0);
-    padding: 1rem 1rem;
-    vertical-align: middle;
-  }
-  .recent_state {
-    display: inline-block;
-    border: 0px solid rgb(0, 0, 255);
-    padding: 1rem 1rem;
-    vertical-align: middle;
-  }
+
   .index{
     margin: auto;
     padding: 5%;

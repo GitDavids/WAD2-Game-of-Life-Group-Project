@@ -11,32 +11,21 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>INTERESTING PATTERNS</h1>
-    <div class="interesting_patterns">
     <div>
-        {% if all_states %}
-        <script>state_list = []</script>
-        {% for state in all_states %}
-        <div class="state_wrap">
-        {% if state.likes > 5 %} <!-- NOTE: print something if no interesting patterns found-->
-            <!-- {{state.name}}, {{state.views}}, {{state.views}} Visible on hover-->
-            <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
-            <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
-                State name: {{state.name}},<br/>
-                Author:  {{state.author.username}},<br />
-                Views: {{state.views}}<br />
-                Likes: {{state.likes}}, <br />
-                Date created: {{state.date_created}},
-            </a>
-            <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
-        {% endif %}
-        </div>
+    <H1>Interesting patterns</H1>
+    {% if patterns %}
+        <script>patterns = []</script>
+        {% for pattern in patterns %}
+            <div>
+                <a id="{{pattern.name}}" href="{% url 'game_of_life:pattern' pattern.slug %}"><canvas class="pattern"></canvas></a>
+
+                <script>patterns.push([JSON.parse('{{pattern.col_count}}'),JSON.parse('{{pattern.state}}')])</script>
+            </div>
         {% endfor %}
     {% else %}
-        There is no specified list of states.
+        There is no specified list of interesting patterns.
     {% endif %}
     </div>
 
     <script>document.getElementById("interesting_patterns").className = "active";</script>
-</div>
     {% endblock %}
