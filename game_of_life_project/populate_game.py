@@ -9,7 +9,7 @@ from game_of_life.models import *
 
 STATES = [
     {"name":"state1","col_count":100,
-    "state":[[random.randint(0,1) for _ in range(100)]for _ in range(50)]},
+    "state":[[0 for _ in range(100)]for _ in range(50)]},
     {"name":"state2","col_count":50,
     "state":[[random.randint(0,1) for _ in range(50)]for _ in range(25)]},
     {"name":"state3","col_count":200,
@@ -22,22 +22,32 @@ STATES = [
     "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
     {"name":"state7","col_count":300,
     "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
+    {"name":"state8","col_count":300,
+    "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
+    {"name":"state9","col_count":300,
+    "state":[[(i+j)%2 for i in range(300)]for j in range(150)]},
+    {"name":"state10","col_count":300,
+    "state":[[j % 2 for _ in range(300)]for j in range(150)]},
+    {"name":"state11","col_count":300,
+    "state":[[i % 2 for i in range(300)] for _ in range(150)]},
 ]
 SETTINGS = [
-    {"email_public": True},
-    {"email_public": True},
-    {"email_public": True},
-    {"email_public": True},
-    {"email_public": True},
-    {"email_public": True},
+    {"email_public": True}, #0
+    {"email_public": True}, #1
+    {"email_public": True}, #2
+    {"email_public": True}, #3
+    {"email_public": True}, #4
+    {"email_public": True}, #5
+    {"email_public": True}, #6
 ]
 USERS = [
     {"username":"Ashraf","states":STATES[:2],"setings":SETTINGS[0]},
     {"username":"GitDavids","states":STATES[2:3],"setings":SETTINGS[1]},
     {"username":"geontog","states":STATES[3:4],"setings":SETTINGS[2]},
     {"username":"LiliOak","states":STATES[4:5],"setings":SETTINGS[3]},
-    {"username":"GoldenZs3","states":STATES[5:],"setings":SETTINGS[4]},
+    {"username":"GoldenZs3","states":STATES[5:7],"setings":SETTINGS[4]},
     {"username":"amorri40","states":[],"setings":SETTINGS[5]},
+    {"username":"Marta","states":STATES[7:],"setings":SETTINGS[6]},
 ]
 
 def populate():
