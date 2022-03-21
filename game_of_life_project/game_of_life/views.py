@@ -95,7 +95,7 @@ def game_logic(request):
 
 def interesting_patterns(request):
     context_dict = {}
-
+    context_dict["all_states"] = InitialState.objects.all()
     return render(request, 'game_of_life/interesting_patterns.html', context=context_dict) # TODO
 
 def about(request):

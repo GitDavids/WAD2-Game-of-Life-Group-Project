@@ -30,3 +30,28 @@ body {
   background-color: #04AA6D;
   color: white;
 }
+
+/* hovering over states */
+.state_wrap{
+  position: relative;
+  width: 200px;
+  padding: 5px;
+}
+
+.state_description{
+position:absolute;
+top:10px;
+bottom:10px;
+left:10px;
+right:10px;
+align-self: center;
+background-color: #504d4d;
+color:rgb(199, 199, 199);
+visibility:hidden;
+opacity:0;
+}
+
+.state_wrap:hover .state_description{
+visibility: visible;
+opacity:75%;
+}

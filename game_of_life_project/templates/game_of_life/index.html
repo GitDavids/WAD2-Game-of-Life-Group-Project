@@ -18,9 +18,18 @@
         <H1>Most liked states</H1>
         {% if most_liked_states %}
             {% for state in most_liked_states %}
+            <div class="state_wrap">
                 <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
+                <p class="state_description">
+                    State name: {{state.name}},<br/>
+                    Author:  {{state.author.username}},<br />
+                    Views: {{state.views}}<br />
+                    Likes: {{state.likes}}, <br />
+                    Date created: {{state.date_created}},
+                </p>
                 <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
-            {% endfor %}
+                </div>
+                {% endfor %}
         {% else %}
             There is no specified list of most liked states.
         {% endif %}
@@ -30,9 +39,18 @@
         <H1>Most recent states</H1>
         {% if most_recent_states %}
             {% for state in most_recent_states %}
+            <div class="state_wrap">
                 <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+                <p class="state_description">
+                    State name: {{state.name}},<br/>
+                    Author:  {{state.author.username}},<br />
+                    Views: {{state.views}}<br />
+                    Likes: {{state.likes}}, <br />
+                    Date created: {{state.date_created}},
+                </p>
                 <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
-            {% endfor %}
+            </div>
+                {% endfor %}
         {% else %}
             There is no specified list of most recent states.
         {% endif %}

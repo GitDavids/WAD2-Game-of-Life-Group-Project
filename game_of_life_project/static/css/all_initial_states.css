@@ -3,8 +3,32 @@
     margin: auto;
     padding: 5%;
     padding-top: 0;
+    display: inline-block;
   }
   .all_initial_states a:link { color: #70DB93; }
   .all_initial_states a:visited { color: #32e4e4; }
   .all_initial_states a:hover { color: #ee2805; }
   .all_initial_states a:active { color: #9070db; }
+
+.state_wrap{
+    position: relative;
+    padding: 5px;
+}
+
+.state_description{
+  position:absolute;
+  top:10px;
+  bottom:10px;
+  left:10px;
+  right:10px;
+  align-self: center;
+  background-color: #504d4d;
+  color:rgb(199, 199, 199);
+  visibility:hidden;
+  opacity:0;
+}
+
+.state_wrap:hover .state_description{
+  visibility: visible;
+  opacity:75%;
+}
