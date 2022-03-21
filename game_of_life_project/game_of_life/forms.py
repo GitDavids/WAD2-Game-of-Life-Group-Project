@@ -1,5 +1,6 @@
+from dataclasses import field
 from django import forms
-from game_of_life.models import UserProfile, InitialState
+from game_of_life.models import UserProfile, InitialState, InterestingPatten
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
@@ -23,5 +24,15 @@ class InitialStateForm(forms.ModelForm):
 
     class Meta:
         model = InitialState
-        fields = ('author',)
+        fields = ('author','name','col_count',)
+    
+class InterestingPatternForm(forms.ModelForm):
+    name = forms.CharField(max_length=InitialState.NAME_MAX_LENGTH,
+                        help_text="Please enter the states name.")
+    # author = forms.CharField(widget=forms.HiddenInput(), required=False) # TODO
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)   # TODO
+
+    class Meta:
+        model = InterestingPatten
+        fields = ('name','col_count',)
 

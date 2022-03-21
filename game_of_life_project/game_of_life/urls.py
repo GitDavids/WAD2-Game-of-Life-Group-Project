@@ -11,6 +11,7 @@ urlpatterns = [
      path('register/', views.register, name='register'),
      path('game_logic/', views.game_logic, name='game_logic'),
      path('interesting_patterns/', views.interesting_patterns, name='interesting_patterns'),
+     path('interesting_patterns/<slug:pattern_name_slug>', views.pattern, name='pattern'),
      path('about/', views.about, name='about'),
      path('all_initial_states/', views.all_initial_states, name='all_initial_states'),
      path('profile/<username>/', views.profile, name='profile'),

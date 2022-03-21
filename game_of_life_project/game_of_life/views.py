@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # from game_of_life.models import Category, Page
-from game_of_life.models import InitialState, UserProfile
+from game_of_life.models import InitialState, UserProfile, InterestingPatten
 from game_of_life.forms import UserForm, UserProfileForm #, CategoryForm, PageForm, 
 
 from datetime import datetime
@@ -95,8 +95,13 @@ def game_logic(request):
 
 def interesting_patterns(request):
     context_dict = {}
-    context_dict["all_states"] = InitialState.objects.all()
+    context_dict["patterns"] = InterestingPatten.objects.all()
     return render(request, 'game_of_life/interesting_patterns.html', context=context_dict) # TODO
+
+def pattern(request, pattern_name_slug):
+    context_dict = {}
+    context_dict["pattern"] = InterestingPatten.objects.get(slug=pattern_name_slug)
+    return render(request, 'game_of_life/pattern.html', context=context_dict) # TODO
 
 def about(request):
     context_dict = {}

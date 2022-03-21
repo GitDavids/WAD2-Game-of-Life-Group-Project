@@ -1,5 +1,3 @@
-from cgitb import small
-from ctypes.wintypes import SMALL_RECT
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -37,6 +35,20 @@ class InitialState(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(InitialState, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+class InterestingPatten(models.Model):
+    state = models.TextField() # 2d array -> string (JSON)
+    col_count = models.IntegerField(default=50)
+
+    name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(InterestingPatten, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

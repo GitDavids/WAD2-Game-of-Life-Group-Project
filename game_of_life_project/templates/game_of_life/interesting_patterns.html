@@ -11,21 +11,20 @@
 {% endblock %}
 
 {% block body_block %}
-    <div>
+<div class="all_initial_states">
     <H1>Interesting patterns</H1>
     {% if patterns %}
-        <script>patterns = []</script>
+        <!-- state_list is a set varibale needed for thumbnail script -->
+        <script>state_list = []</script> 
         {% for pattern in patterns %}
-            <div>
-                <a id="{{pattern.name}}" href="{% url 'game_of_life:pattern' pattern.slug %}"><canvas class="pattern"></canvas></a>
-
-                <script>patterns.push([JSON.parse('{{pattern.col_count}}'),JSON.parse('{{pattern.state}}')])</script>
-            </div>
-        {% endfor %}
+        <div>
+            <a id="{{pattern.name}}" href="{% url 'game_of_life:pattern' pattern.slug %}"><canvas class="state"></canvas></a>
+            <script>state_list.push([JSON.parse('{{pattern.col_count}}'),JSON.parse('{{pattern.state}}')])</script>
+        </div>
+            {% endfor %}
     {% else %}
-        There is no specified list of interesting patterns.
+        There is no specified list of states.
     {% endif %}
-    </div>
-
+    <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("interesting_patterns").className = "active";</script>
     {% endblock %}

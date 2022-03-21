@@ -24,10 +24,17 @@ window.addEventListener('resize',
         render(current_state, grid_spacing);
     }
 );
+window.addEventListener('keydown', function (e) {
+    if (e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '39' || e.keyCode == '40' || e.keyCode == '32') {
+        e.preventDefault();
+    }
+});
 window.addEventListener('keyup', event => {
     if (event.code === 'Space') {
-        current_state = next_generation(current_state)
-        render(current_state, grid_spacing);
+        paused = paused ? false : true;
+        document.getElementById("playback").value = paused ? "Play" : "Pause";
+        current_state = next_generation(current_state);
+        requestAnimationFrame(animate);
     }
 });
 // Playback resize listeners
@@ -100,9 +107,3 @@ function next_generation(grid) {
     }
     return next_gen;        
 }
-
-// function init(col_count,state){
-//     const col_count = col_count;
-//     const row_count = col_count / 2;
-//     const initial_state = state;
-// }
