@@ -30,6 +30,10 @@ STATES = [
     "state":[[j % 2 for _ in range(300)]for j in range(150)]},
     {"name":"state11","col_count":300,
     "state":[[i % 2 for i in range(300)] for _ in range(150)]},
+    {"name":"state12","col_count":300,
+    "state":[[(i*j)%2 for i in range(300)] for j in range(150)]},
+    {"name":"state13","col_count":300,
+    "state":[[((i*j)%2+i)%2 for i in range(300)] for j in range(150)]},
 ]
 SETTINGS = [
     {"email_public": True}, #0
