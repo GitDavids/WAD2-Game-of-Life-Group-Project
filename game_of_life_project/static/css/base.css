@@ -36,6 +36,9 @@ body {
   position: relative;
   width: 200px;
   padding: 5px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 .state_description{
@@ -49,6 +52,7 @@ background-color: #504d4d;
 color:rgb(199, 199, 199);
 visibility:hidden;
 opacity:0;
+text-decoration: none;
 }
 
 .state_wrap:hover .state_description{

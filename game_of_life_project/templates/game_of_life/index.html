@@ -20,13 +20,13 @@
             {% for state in most_liked_states %}
             <div class="state_wrap">
                 <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
-                <p class="state_description">
+                <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
                     State name: {{state.name}},<br/>
                     Author:  {{state.author.username}},<br />
                     Views: {{state.views}}<br />
                     Likes: {{state.likes}}, <br />
                     Date created: {{state.date_created}},
-                </p>
+                </a>
                 <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
                 </div>
                 {% endfor %}
@@ -41,13 +41,13 @@
             {% for state in most_recent_states %}
             <div class="state_wrap">
                 <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
-                <p class="state_description">
+                <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
                     State name: {{state.name}},<br/>
                     Author:  {{state.author.username}},<br />
                     Views: {{state.views}}<br />
                     Likes: {{state.likes}}, <br />
                     Date created: {{state.date_created}},
-                </p>
+                </a>
                 <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
             </div>
                 {% endfor %}
