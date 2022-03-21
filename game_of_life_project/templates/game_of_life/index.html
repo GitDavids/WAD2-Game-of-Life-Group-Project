@@ -19,8 +19,8 @@
         {% if most_liked_states %}
             {% for state in most_liked_states %}
             <div class="state_wrap">
-                <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
-                <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
+                <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+                <a class="state_description" href="{% url 'game_of_life:initial_state' state.author state.slug %}">
                     State name: {{state.name}},<br/>
                     Author:  {{state.author.username}},<br />
                     Views: {{state.views}}<br />
@@ -41,7 +41,6 @@
             {% for state in most_recent_states %}
             <div class="state_wrap">
                 <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
-                <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
                     State name: {{state.name}},<br/>
                     Author:  {{state.author.username}},<br />
                     Views: {{state.views}}<br />

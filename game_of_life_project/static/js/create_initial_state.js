@@ -123,8 +123,10 @@ canvas.addEventListener('click',
 );
 window.addEventListener('keyup', event => {
     if (event.code === 'Space') {
-        current_state = next_generation(current_state)
-        render(current_state, grid_spacing);
+        paused = paused ? false : true;
+        document.getElementById("playback").value = paused ? "Play" : "Pause";
+        current_state = next_generation(current_state);
+        requestAnimationFrame(animate);
     }
 });
 // Playback resize listeners
