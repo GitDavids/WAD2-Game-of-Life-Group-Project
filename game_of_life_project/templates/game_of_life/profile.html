@@ -27,6 +27,7 @@
         <H1>User states</H1>
         {% if states %}
             <script>state_list = []</script>
+            <div class="state_grid">
             {% for state in states %}
             <div class="state_wrap">
                 <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
@@ -40,6 +41,7 @@
                 <script>state_list.push(JSON.parse('{{state.state}}'))</script>
             </div>
                 {% endfor %}
+                </div>
         {% else %}
             User has not made any states
         {% endif %}

@@ -79,6 +79,7 @@ document.getElementById("fps").addEventListener("click", function () {
 });
 document.getElementById("set").addEventListener("click", function () { 
     initial_state = JSON.parse(JSON.stringify(current_state));
+    console.log(initial_state)
     render(current_state, grid_spacing);
 });
 document.getElementById("return").onclick = function () { 

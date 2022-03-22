@@ -10,8 +10,8 @@ from game_of_life.models import *
 
 with open(f"{BASE_DIR}{STATIC_URL}population_script_states.json", "r") as json_file:
     data = json.load(json_file)
+    
 PATTERNS = data["patterns"]
-
 STATES = [
     {"name":"state1",
     "state":[[0 for _ in range(100)]for _ in range(50)]},
@@ -40,6 +40,7 @@ STATES = [
     {"name":"state13",
     "state":[[((i*j)%2+i)%2 for i in range(300)] for j in range(150)]},
 ]
+
 SETTINGS = [
     {"email_public": True}, #0
     {"email_public": True}, #1
@@ -51,12 +52,12 @@ SETTINGS = [
 ]
 USERS = [
     {"username":"Ashraf","states":STATES[:2],"setings":SETTINGS[0]},
-    {"username":"GitDavids","states":STATES[2:3],"setings":SETTINGS[1]},
-    {"username":"geontog","states":STATES[3:4],"setings":SETTINGS[2]},
+    {"username":"GitDavids","states":data["states_by_David"],"setings":SETTINGS[1]},
+    {"username":"geontog","states":STATES[2:4],"setings":SETTINGS[2]},
     {"username":"LiliOak","states":STATES[4:5],"setings":SETTINGS[3]},
-    {"username":"GoldenZs3","states":STATES[5:7],"setings":SETTINGS[4]},
-    {"username":"amorri40","states":[],"setings":SETTINGS[5]},
-    {"username":"Marta","states":STATES[7:],"setings":SETTINGS[6]},
+    {"username":"GoldenZs3","states":STATES[5:6],"setings":SETTINGS[4]},
+    {"username":"amorri40","states":STATES[6:7],"setings":SETTINGS[5]},
+    {"username":"Marta","states":STATES[6:],"setings":SETTINGS[6]},
 ]
 
 def populate():

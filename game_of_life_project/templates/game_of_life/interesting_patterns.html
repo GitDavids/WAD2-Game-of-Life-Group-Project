@@ -21,7 +21,7 @@
         <div class="state_wrap">
             <a id="{{pattern.name}}" href="{% url 'game_of_life:pattern' pattern.slug %}"><canvas class="state"></canvas></a>
             <a class="state_description" href="{% url 'game_of_life:pattern' pattern.slug %}">
-                State name: {{state.name}}<br/>
+                State name: {{pattern.name}}<br/>
             </a>
             <script>state_list.push(JSON.parse('{{pattern.state}}'))</script>
         </div>
