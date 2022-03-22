@@ -2,9 +2,9 @@ var canvases = document.getElementsByClassName('state');
 state_list = window.state_list;
 
 for (let i = 0;i < canvases.length; i++) {
-    var col_count = state_list[i][0];
-    var row_count = col_count / 2;
-    var state = state_list[i][1];
+    var row_count = state_list[i].length;
+    var col_count = 2*row_count;
+    var state = state_list[i];
     var canvas = canvases[i];
     var ctx = canvas.getContext("2d");
     

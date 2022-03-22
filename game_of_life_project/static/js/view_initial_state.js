@@ -4,16 +4,14 @@ var paused = true;
 var fps = 20;
 
 const initial_state = window.initial_state
-const col_count = window.col_count;
-const row_count = col_count / 2;
+const row_count = initial_state.length;
+const col_count = 2*row_count;
 
 width_height();
 current_state = JSON.parse(JSON.stringify(initial_state));
 render(current_state, grid_spacing);
 
 document.getElementById("return").onclick = function () { 
-    console.log(current_state[0]);
-    console.log(initial_state[0]);
     current_state = JSON.parse(JSON.stringify(initial_state));
     render(current_state, grid_spacing);
 };

@@ -15,6 +15,7 @@
     <H1>All initial states</H1>
     {% if all_states %}
         <script>state_list = []</script>
+        <div class="state_grid">
         {% for state in all_states %}
         <div class="state_wrap">
             <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
@@ -25,12 +26,15 @@
                 Likes: {{state.likes}}, <br />
                 Date created: {{state.date_created}},
             </a>
-            <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
+            <script>state_list.push(JSON.parse('{{state.state}}'))</script>
         </div>
-            {% endfor %}
+        {% endfor %}
+    </div>ndfor %}
+    </div>
     {% else %}
         There is no specified list of states.
-    {% endif %}
+    </div>
+        {% endif %}
     
     <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("all_initial_states").className = "active";</script>

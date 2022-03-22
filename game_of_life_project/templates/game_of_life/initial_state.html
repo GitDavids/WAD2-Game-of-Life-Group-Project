@@ -19,20 +19,12 @@
 
     <h1>{{state.name}} by <a href="{% url 'game_of_life:profile' state.author.username %}">{{state.author.username}}</a></h1>
     <canvas id="state">state.state</canvas><br />
-    {% if user.is_authenticated %}
-    <form id="like_form" method="post" action="{% url 'game_of_life:like_state' user.username state.slug %}">
-        {% csrf_token %}
-        <input type="submit" value="like" class="button">
-    </form>
+    <input type="button" value="Like" id="like" class="button"> <!-- add backend -->
 
-    {% endif %}
     State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}, Likes: {{state.likes}}, Views: {{state.views}}<br />
-    Column count: {{state.col_count}}, row count is half that<br />
 
     <script type="text/javascript">
         initial_state = JSON.parse('{{state.state}}');
-        col_count = JSON.parse('{{state.col_count}}');
-        row_count = col_count / 2;    
     </script>
     <script src="{% static 'js/view_initial_state.js' %}"></script><br />
     <script>document.getElementById("profile").className = "active";</script>

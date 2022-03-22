@@ -5,39 +5,39 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/create_initial_state.css' %}">
     <link rel="stylesheet" href="{% static 'css/button.css' %}">
-    {% endblock %}
+{% endblock %}
 
 {% block title_block %}
     Create initial state
 {% endblock %}
 
 {% block body_block %}
-<div class="create_initial_state">
-    
-    <label>Grid size:</label>
-    <select id="grid_size">
-        <option value="s">Small (50x25)</option>
-        <option value="m" selected>Medium (100x50)</option>
-        <option value="l">Large (200x100)</option>
-        <option value="x">Extra large (300x150)</option>
-    </select>
-    <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
-    <input type="button" value="Set as initial state" id="set" class="button">
-    <input type="button" value="Return to initial state" id="return" class="button">
-    <input type="button" value="Play" id="playback" class="button">
-    <input type="button" value="Clear" id="clear" class="button">
-    <input type="button" value="Invert" id="invert" class="button">
+<h1></h1>
+<div class="create_interesting pattern">
+    </div>
+        <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
+        <input type="button" value="Set as initial state" id="set" class="button">
+        <input type="button" value="Return to initial state" id="return" class="button">
+        <input type="button" value="Play" id="playback" class="button">
+        <input type="button" value="Clear" id="clear" class="button">
+        <input type="button" value="Invert" id="invert" class="button">
+        <input type="button" value="Cut grid" id="cut" class="button">
+        <input type="button" value="Expand grid" id="expand" class="button">
+    </div>
 
     <canvas id="state"></canvas><br />
+    <!-- <label>State name:</label><input type="text", id="name">    -->
     <div class="direction_buttons">
         <input type="button" value="↑" id="shift_up" class="button_up" class="button">
         <input type="button" value="←" id="shift_left" class="button_left" class="button">
         <input type="button" value="→" id="shift_right" class="button_right" class="button">
         <input type="button" value="↓" id="shift_down" class="button_down" class="button">
-    </div>   
+    </div>
+
 
     <div>
-        <form id="pattern_form" method="post" action="{% url 'game_of_life:create_initial_state' request.user.username %}">
+        
+        <form id="pattern_form" method="post" action="/game_of_life/create_add_pattern/">
             <input type="button" value="Fill in form with initial state" id="fill" class="button">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -48,11 +48,11 @@
                 {{ field.help_text }}
                 {{ field }} </br>
             {% endfor %}
-            <input type="submit" name="submit" value="Create initial state" />
+            <input type="submit" name="submit" value="Create Pattern" />
         </form>
     </div>
 
-    <script src="{% static 'js/create_initial_state.js' %}"></script>
-    <script>document.getElementById("create_initial_state").className = "active";</script>
+    <script src="{% static 'js/create_interesting_pattern.js' %}"></script>
+    <script>document.getElementById("create_add_pattern").className = "active";</script>
 </div>
 {% endblock %}
