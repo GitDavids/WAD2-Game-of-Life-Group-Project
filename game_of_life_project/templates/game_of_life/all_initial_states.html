@@ -14,8 +14,8 @@
     <div class="all_initial_states">
     <H1>All initial states</H1>
     {% if all_states %}
-    <div class="state_grid">
         <script>state_list = []</script>
+        <div class="state_grid">
         {% for state in all_states %}
         <div class="state_wrap">
             <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
@@ -28,7 +28,9 @@
             </a>
             <script>state_list.push(JSON.parse('{{state.state}}'))</script>
         </div>
-            {% endfor %}
+        {% endfor %}
+    </div>ndfor %}
+    </div>
     {% else %}
         There is no specified list of states.
     </div>
