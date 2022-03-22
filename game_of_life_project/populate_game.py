@@ -11,20 +11,6 @@ from game_of_life.models import *
 with open(f"{BASE_DIR}{STATIC_URL}population_script_states.json", "r") as json_file:
     data = json.load(json_file)
 PATTERNS = data["patterns"]
-# PATTERNS=[
-#     {"name":"pattern1","col_count":10,
-#     "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
-#     {"name":"pattern2","col_count":10,
-#     "state":[[(j%2) for _ in range(30)]for j in range(15)]},
-#      {"name":"pattern3","col_count":10,
-#     "state":[[i%2 for i in range(20)]for _ in range(10)]},
-#     {"name":"pattern4","col_count":10,
-#     "state":[[random.randint(0,1) for _ in range(18)]for _ in range(9)]},
-#     {"name":"pattern5","col_count":10,
-#     "state":[[1 for _ in range(20)]for _ in range(10)]},
-#     {"name":"pattern3","col_count":10,
-#     "state":[[0 for _ in range(20)]for _ in range(10)]},
-# ]
 
 STATES = [
     {"name":"state1",
@@ -81,7 +67,7 @@ def populate():
     for p in UserProfile.objects.all():
         print(f'{p}, {p.states}')
     for p in PATTERNS:
-        add_pattern(p['name'], p['state'],p['col_count'])   
+        add_pattern(p['name'], p['state'])   
 
 
     
@@ -97,7 +83,7 @@ def add_user(userInput, states, settings=None): # TODO (5 min of bodge attempt, 
     
     state_list = []
     for state in states:
-        state_list.append(add_state(p.user, state["name"], state["state"], state["col_count"]))
+        state_list.append(add_state(p.user, state["name"], state["state"]))
 
     #print(state_list)
     # p.states = json.dumps(state_list)   ????somehelp here
