@@ -54,16 +54,16 @@
     {% if user.is_authenticated %}
         <p>
             If you found the game interesting, then follow the 
-            <a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' % }">Create an initial state</a> 
+            <a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' user.username %}">Create an initial state</a> 
                 link to try the game out for yourself.
-         </p>
+        </p>
 
     {% else %} 
         <p>
             If you found the game interesting, please log in on the <a id="login" href="{% url 'game_of_life:login' %}">Login</a> page,
             then follow the Create an Initial state link to try the game out for yourself.
         </p>
-        {% endif %}
+    {% endif %}
     
     <script>document.getElementById("game_logic").className = "active";</script>
     </div>
