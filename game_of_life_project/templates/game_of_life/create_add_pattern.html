@@ -27,7 +27,7 @@
     </div>
 
     <canvas id="state"></canvas><br />
-    <label>State name:</label><input type="text", id="name">   
+    <!-- <label>State name:</label><input type="text", id="name">    -->
     <div class="direction_buttons">
         <input type="button" value="↑" id="shift_up" class="button_up" class="button">
         <input type="button" value="←" id="shift_left" class="button_left" class="button">
@@ -35,7 +35,22 @@
         <input type="button" value="↓" id="shift_down" class="button_down" class="button">
     </div>
  
-    <input type="button" value="Save state" id="submit" class="button_save"> <!-- add backend -->
+    <!-- <input type="button" value="Save state" id="submit" class="button_save"> -->
+
+    <div>
+        <form id="pattern_form" method="post" action="/game_of_life/create_add_pattern/">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" name="submit" value="Create Pattern" />
+        </form>
+    </div>
 
     <script src="{% static 'js/create_interesting_pattern.js' %}"></script>
     <script>document.getElementById("create_add_pattern").className = "active";</script>

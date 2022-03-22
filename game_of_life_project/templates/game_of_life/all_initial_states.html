@@ -25,7 +25,7 @@
                 Likes: {{state.likes}}, <br />
                 Date created: {{state.date_created}},
             </a>
-            <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
+            <script>state_list.push(JSON.parse('{{state.state}}'))</script>
         </div>
             {% endfor %}
     {% else %}

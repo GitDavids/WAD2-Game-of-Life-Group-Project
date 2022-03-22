@@ -53,7 +53,6 @@ document.getElementById("cut").addEventListener("click", function (e) {
     width_height();
     render();
 });
-
 // Shifting event listeners
 document.getElementById("shift_right").addEventListener("click", function () { 
     for (let row = 0; row < row_count; row++) {
@@ -79,7 +78,6 @@ document.getElementById("shift_up").addEventListener("click", function () {
     current_state.push(Array(col_count).fill(0))
     render();
 });
-
 // Misc event listeners
 document.getElementById("fps").addEventListener("click", function () {
     fps=(document.getElementById("fps").value);
@@ -106,7 +104,6 @@ document.getElementById("invert").onclick = function () {
     }
     render();
 };
-
 // Window resize event listener
 window.addEventListener('resize', 
     function () {
@@ -114,7 +111,6 @@ window.addEventListener('resize',
         render();
     }
 );
-
 // Click event listeners
 canvas.addEventListener('click', 
     function (event) {
@@ -171,8 +167,6 @@ window.addEventListener('keyup', function (event) {
         render();
     }
 });
-
-
 // Playback resize listeners
 document.getElementById("playback").onclick = function () { 
     paused = paused ? false : true;
@@ -180,19 +174,18 @@ document.getElementById("playback").onclick = function () {
     current_state = next_generation(current_state);
     requestAnimationFrame(animate);
 };
-
 // Submit
 document.getElementById("submit").onclick = function () { 
     console.log(document.getElementById("name").value,col_count,current_state)
 };
+
 
 // Functions
 function width_height() {
     canvas.width = 0.8 * window.innerWidth;
     canvas.height = canvas.width / 2;
     grid_spacing = canvas.width / col_count;
-}
-
+};
 function animate() {
     if(paused){return;}
 
@@ -202,7 +195,7 @@ function animate() {
 
     // request another animation loop
     setTimeout(function () {requestAnimationFrame(animate);}, 1000 / fps)
-}
+};
 function render() {
     // ctx.restore()
     for (let row = 0; row < row_count; row++) {
@@ -212,8 +205,7 @@ function render() {
             ctx.fillRect(col * grid_spacing,row * grid_spacing, grid_spacing, grid_spacing);
         }
     }
-}
-
+};
 function next_generation(grid) {
     const next_gen = grid.map(arr => [...arr]);
 
@@ -244,5 +236,5 @@ function next_generation(grid) {
         }
     }
     return next_gen;        
-}
+};
 

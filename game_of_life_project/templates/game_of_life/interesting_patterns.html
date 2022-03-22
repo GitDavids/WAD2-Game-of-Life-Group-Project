@@ -19,7 +19,7 @@
         {% for pattern in patterns %}
         <div>
             <a id="{{pattern.name}}" href="{% url 'game_of_life:pattern' pattern.slug %}"><canvas class="state"></canvas></a>
-            <script>state_list.push([JSON.parse('{{pattern.col_count}}'),JSON.parse('{{pattern.state}}')])</script>
+            <script>state_list.push(JSON.parse('{{pattern.state}}'))</script>
         </div>
             {% endfor %}
     {% else %}

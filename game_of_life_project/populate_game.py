@@ -27,31 +27,31 @@ PATTERNS = data["patterns"]
 # ]
 
 STATES = [
-    {"name":"state1","col_count":100,
+    {"name":"state1",
     "state":[[0 for _ in range(100)]for _ in range(50)]},
-    {"name":"state2","col_count":50,
+    {"name":"state2",
     "state":[[random.randint(0,1) for _ in range(50)]for _ in range(25)]},
-    {"name":"state3","col_count":200,
+    {"name":"state3",
     "state":[[random.randint(0,1) for _ in range(200)]for _ in range(100)]},
-    {"name":"state4","col_count":300,
+    {"name":"state4",
     "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
-    {"name":"state5","col_count":300,
+    {"name":"state5",
     "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
-    {"name":"state6","col_count":300,
+    {"name":"state6",
     "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
-    {"name":"state7","col_count":300,
+    {"name":"state7",
     "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
-    {"name":"state8","col_count":300,
+    {"name":"state8",
     "state":[[random.randint(0,1) for _ in range(300)]for _ in range(150)]},
-    {"name":"state9","col_count":300,
+    {"name":"state9",
     "state":[[(i+j)%2 for i in range(300)]for j in range(150)]},
-    {"name":"state10","col_count":300,
+    {"name":"state10",
     "state":[[j % 2 for _ in range(300)]for j in range(150)]},
-    {"name":"state11","col_count":300,
+    {"name":"state11",
     "state":[[i % 2 for i in range(300)] for _ in range(150)]},
-    {"name":"state12","col_count":300,
+    {"name":"state12",
     "state":[[(i*j)%2 for i in range(300)] for j in range(150)]},
-    {"name":"state13","col_count":300,
+    {"name":"state13",
     "state":[[((i*j)%2+i)%2 for i in range(300)] for j in range(150)]},
 ]
 SETTINGS = [
@@ -106,19 +106,17 @@ def add_user(userInput, states, settings=None): # TODO (5 min of bodge attempt, 
     p.save()
     return p
 
-def add_state(user, title, state, col_count = 100, views=0, likes=0):# TODO (5 min of bodge attempt, hoped it would work :()
+def add_state(user, title, state, views=0, likes=0):# TODO (5 min of bodge attempt, hoped it would work :()
     s = InitialState.objects.get_or_create(author=user, name=title)[0]
     s.state = json.dumps(state)
-    s.col_count = col_count
     s.views=views
     s.likes=likes
     s.save()
     return s
 
-def add_pattern(title, state, col_count=10):
+def add_pattern(title, state):
     p=InterestingPatten.objects.get_or_create(name=title )[0]
     p.state = json.dumps(state)
-    p.col_count = col_count
     p.save()
     return p
 

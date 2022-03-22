@@ -20,9 +20,7 @@
     <canvas id="state"></canvas><br />
 
     <script type="text/javascript">
-        initial_state = JSON.parse('{{pattern.state}}');
-        col_count = JSON.parse('{{pattern.col_count}}');
-        row_count = col_count / 2;    
+        initial_state = JSON.parse('{{pattern.state}}'); 
     </script>
     <script src="{% static 'js/view_initial_state.js' %}"></script><br />
     <script>document.getElementById("profile").className = "active";</script>

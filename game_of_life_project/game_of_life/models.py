@@ -15,16 +15,6 @@ class InitialState(models.Model):
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
 
-    SMALL, MEDIUM, LARGE, EXTRA  = 50, 100, 200, 300
-    COL_COUNT_CHOICES = [
-        (SMALL, "Small"),(MEDIUM, "Medium"),
-        (LARGE, "Large"), (EXTRA, "Extra large")
-        ]
-
-    col_count = models.IntegerField(
-        choices=COL_COUNT_CHOICES,
-        default=MEDIUM,
-    )
     state = models.TextField() # 2d array -> string (JSON)
 
     date_created = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -40,8 +30,7 @@ class InitialState(models.Model):
         return self.name
 
 class InterestingPatten(models.Model):
-    state = models.TextField() # 2d array -> string (JSON)
-    col_count = models.IntegerField(default=50)
+    state = models.TextField()
 
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     slug = models.SlugField(unique=True)
@@ -60,7 +49,7 @@ class UserProfile(models.Model):
 
     # # The additional attributes we wish to include.
     website = models.URLField(blank=True)
-    picture = models.ImageField(default='default.jpg', upload_to='profile_images')
+    picture = models.ImageField(blank=True, upload_to='profile_images')
 
     states = models.TextField(blank=True) # We need a way to store a bunck of states, use json
 
