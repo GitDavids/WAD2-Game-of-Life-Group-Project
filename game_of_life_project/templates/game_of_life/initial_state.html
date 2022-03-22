@@ -19,9 +19,8 @@
 
     <h1>{{state.name}} by <a href="{% url 'game_of_life:profile' state.author.username %}">{{state.author.username}}</a></h1>
     <canvas id="state">state.state</canvas><br />
-    <input type="button" value="Like" id="like" class="button"> <!-- add backend -->
-
-    State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}, Likes: {{state.likes}}, Views: {{state.views}}<br />
+    <input type="button" value="Like" id="like" class="button"> 
+        State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}, Likes: {{state.likes}}, Views: {{state.views}}<br />
 
     <script type="text/javascript">
         initial_state = JSON.parse('{{state.state}}');
