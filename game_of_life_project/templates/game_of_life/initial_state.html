@@ -22,8 +22,6 @@
     <input type="button" value="Save" id="save" class="button">
     State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}, Likes: {{state.likes}}, Views: {{state.views}}<br />
     <canvas id="state">state.state</canvas><br />
-    <input type="button" value="Like" id="like" class="button"> 
-        State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}, Likes: {{state.likes}}, Views: {{state.views}}<br />
 
     <script type="text/javascript">
         initial_state = JSON.parse('{{state.state}}');
