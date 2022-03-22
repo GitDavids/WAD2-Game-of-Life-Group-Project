@@ -57,7 +57,7 @@ USERS = [
     {"username":"LiliOak","states":STATES[4:5],"setings":SETTINGS[3]},
     {"username":"GoldenZs3","states":STATES[5:6],"setings":SETTINGS[4]},
     {"username":"amorri40","states":STATES[6:7],"setings":SETTINGS[5]},
-    {"username":"Marta","states":STATES[6:],"setings":SETTINGS[6]},
+    {"username":"Marta","states":STATES[7:],"setings":SETTINGS[6]},
 ]
 
 def populate():
