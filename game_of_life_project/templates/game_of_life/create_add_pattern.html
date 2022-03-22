@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 {% block head_block %}
-    <link rel="shortcut icon" href="#"> <!-- Bodge relating to error: 404 favicon.ico not found-->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/create_initial_state.css' %}">
     <link rel="stylesheet" href="{% static 'css/button.css' %}">
@@ -34,11 +33,12 @@
         <input type="button" value="→" id="shift_right" class="button_right" class="button">
         <input type="button" value="↓" id="shift_down" class="button_down" class="button">
     </div>
- 
-    <!-- <input type="button" value="Save state" id="submit" class="button_save"> -->
+
 
     <div>
+        
         <form id="pattern_form" method="post" action="/game_of_life/create_add_pattern/">
+            <input type="button" value="Fill in form with initial state" id="fill" class="button">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}
@@ -46,7 +46,7 @@
             {% for field in form.visible_fields %}
                 {{ field.errors }}
                 {{ field.help_text }}
-                {{ field }}
+                {{ field }} </br>
             {% endfor %}
             <input type="submit" name="submit" value="Create Pattern" />
         </form>

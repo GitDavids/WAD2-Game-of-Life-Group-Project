@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 # from game_of_life.models import Category, Page
 from game_of_life.models import InitialState, UserProfile, InterestingPatten
-from game_of_life.forms import UserForm, UserProfileForm, InterestingPatternForm
+from game_of_life.forms import UserForm, UserProfileForm, InitialStateForm, InterestingPatternForm
 
 from datetime import datetime
 
@@ -16,7 +16,7 @@ from datetime import datetime
 def index(request):
     context_dict = {}
     context_dict["most_liked_states"] = InitialState.objects.order_by('-likes')[:6]
-    context_dict["most_recent_states"] = InitialState.objects.order_by('-views')[:6]
+    context_dict["most_recent_states"] = InitialState.objects.order_by('-date_created')[:6]
     
     return render(request, 'game_of_life/index.html', context=context_dict) # TODO
 
@@ -132,6 +132,19 @@ def profile(request, username):
 def create_initial_state(request,username):
     context_dict = {}
 
+    form = InitialStateForm()
+    if request.method == 'POST':
+        form = InitialStateForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.author = request.user
+            instance.save()
+            return redirect(reverse('game_of_life:index'))
+        else:
+            print(form.errors)
+
+    context_dict['form'] = form
+
     user = request.user
     context_dict['user'] = user
     return render(request, 'game_of_life/create_initial_state.html', context=context_dict) # TODO
@@ -142,7 +155,6 @@ def initial_state(request, username, state_name_slug):
     context_dict = {}
     state = InitialState.objects.get(slug=state_name_slug)
     context_dict["state"] = state
-    context_dict["col_count"] = state.col_count
     context_dict["name"] = state.name
     context_dict["author"] = state.author
     context_dict["username"] = username
@@ -154,7 +166,7 @@ def initial_state(request, username, state_name_slug):
 @login_required
 def create_add_pattern(request):
     context_dict = {}
-    
+
     form = InterestingPatternForm()
 
     if request.method == 'POST':
@@ -163,8 +175,6 @@ def create_add_pattern(request):
             form.save(commit=True)
             return redirect(reverse('game_of_life:index'))
         else:
-            # The supplied form contained errors -
-            # just print them to the terminal.
             print(form.errors)
 
     context_dict['form'] = form

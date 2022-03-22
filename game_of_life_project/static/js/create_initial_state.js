@@ -48,7 +48,6 @@ document.getElementById("grid_size").addEventListener("change", function () {
     current_state = JSON.parse(JSON.stringify(initial_state));
     render(current_state, grid_spacing);
 });
-
 // Shifting event listeners
 document.getElementById("shift_right").addEventListener("click", function () { 
     for (let row = 0; row < row_count; row++) {
@@ -74,7 +73,6 @@ document.getElementById("shift_up").addEventListener("click", function () {
     current_state.push(Array(col_count).fill(0))
     render(current_state, grid_spacing);
 });
-
 // Misc event listeners
 document.getElementById("fps").addEventListener("click", function () {
     fps=(document.getElementById("fps").value);
@@ -101,7 +99,6 @@ document.getElementById("invert").onclick = function () {
     }
     render(current_state, grid_spacing);
 };
-
 // Window resize event listener
 window.addEventListener('resize', 
     function () {
@@ -109,7 +106,6 @@ window.addEventListener('resize',
         render(current_state, grid_spacing);
     }
 );
-
 // Click event listeners
 canvas.addEventListener('click', 
     function (event) {
@@ -126,14 +122,12 @@ canvas.addEventListener('click',
 );
 // Key event listeners
 window.addEventListener('keydown', function (e) {
-    if (e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '39' || e.keyCode == '40' || e.keyCode == '32') {
+    if (e.keyCode == '38' || e.keyCode == '40') {
         e.preventDefault();
-    } else {
-        console.log(e.keyCode)
     }
 });
 window.addEventListener('keyup', function (event) {
-    if (event.code === 'Space') {
+    if (event.keyCode == '80') {
         paused = paused ? false : true;
         document.getElementById("playback").value = paused ? "Play" : "Pause";
         current_state = next_generation(current_state);
@@ -168,14 +162,16 @@ window.addEventListener('keyup', function (event) {
         render(current_state, grid_spacing);
     }
 });
-
-
 // Playback resize listeners
 document.getElementById("playback").onclick = function () { 
     paused = paused ? false : true;
     document.getElementById("playback").value = paused ? "Play" : "Pause";
     current_state = next_generation(current_state);
     requestAnimationFrame(animate);
+};
+// Fill in form
+document.getElementById("fill").onclick = function () { 
+    document.getElementById("id_state").value = JSON.stringify(initial_state)
 };
 
 // Functions

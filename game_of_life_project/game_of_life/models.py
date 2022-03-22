@@ -4,10 +4,6 @@ from django.template.defaultfilters import slugify
 
 import json
 
-NAME_MAX_LENGTH = 128
-X_NODES = 100
-Y_NODES = 100
-
 class InitialState(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     NAME_MAX_LENGTH = 128
@@ -31,6 +27,7 @@ class InitialState(models.Model):
 
 class InterestingPatten(models.Model):
     state = models.TextField()
+    NAME_MAX_LENGTH = 128
 
     name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     slug = models.SlugField(unique=True)

@@ -174,9 +174,9 @@ document.getElementById("playback").onclick = function () {
     current_state = next_generation(current_state);
     requestAnimationFrame(animate);
 };
-// Submit
-document.getElementById("submit").onclick = function () { 
-    console.log(document.getElementById("name").value,col_count,current_state)
+// Fill in form
+document.getElementById("fill").onclick = function () { 
+    document.getElementById("id_state").value = JSON.stringify(initial_state)
 };
 
 

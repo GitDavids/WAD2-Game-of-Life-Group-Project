@@ -22,7 +22,6 @@
         <option value="x">Extra large (300x150)</option>
     </select>
     <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
-    <label>State name:</label><input type="text", id="name"><br/> <!-- add backend -->
     <input type="button" value="Set as initial state" id="set" class="button">
     <input type="button" value="Return to initial state" id="return" class="button">
     <input type="button" value="Play" id="playback" class="button">
@@ -36,7 +35,22 @@
         <input type="button" value="→" id="shift_right" class="button_right" class="button">
         <input type="button" value="↓" id="shift_down" class="button_down" class="button">
     </div>   
-    <input type="button" value="Save state" id="save" class="button_save"> <!-- add backend -->
+
+    <div>
+        <form id="pattern_form" method="post" action="{% url 'game_of_life:create_initial_state' request.user.username %}">
+            <input type="button" value="Fill in form with initial state" id="fill" class="button">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }} </br>
+            {% endfor %}
+            <input type="submit" name="submit" value="Create initial state" />
+        </form>
+    </div>
 
     <script src="{% static 'js/create_initial_state.js' %}"></script>
     <script>document.getElementById("create_initial_state").className = "active";</script>
