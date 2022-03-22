@@ -14,6 +14,7 @@
     <div class="all_initial_states">
     <H1>All initial states</H1>
     {% if all_states %}
+    <div class="state_grid">
         <script>state_list = []</script>
         {% for state in all_states %}
         <div class="state_wrap">
@@ -30,7 +31,8 @@
             {% endfor %}
     {% else %}
         There is no specified list of states.
-    {% endif %}
+    </div>
+        {% endif %}
     
     <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("all_initial_states").className = "active";</script>

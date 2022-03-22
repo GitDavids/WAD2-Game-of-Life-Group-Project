@@ -14,6 +14,7 @@
 <div class="all_initial_states">
     <H1>Interesting patterns</H1>
     {% if patterns %}
+    <div class="state_grid">
         <!-- state_list is a set varibale needed for thumbnail script -->
         <script>state_list = []</script> 
         {% for pattern in patterns %}
@@ -27,4 +28,5 @@
     {% endif %}
     <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("interesting_patterns").className = "active";</script>
+    </div>
     {% endblock %}
