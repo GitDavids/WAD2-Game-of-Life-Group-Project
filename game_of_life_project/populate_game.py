@@ -1,6 +1,5 @@
-from lib2to3.pygram import pattern_symbols
 import os, json, random
-from unicodedata import name
+from game_of_life_project.settings import STATIC_URL, BASE_DIR
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'game_of_life_project.settings')
@@ -9,20 +8,23 @@ import django
 django.setup()
 from game_of_life.models import *
 
-PATTERNS=[
-    {"name":"pattern1","col_count":10,
-    "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
-    {"name":"pattern2","col_count":10,
-    "state":[[(j%2) for _ in range(30)]for j in range(15)]},
-     {"name":"pattern3","col_count":10,
-    "state":[[i%2 for i in range(20)]for _ in range(10)]},
-    {"name":"pattern4","col_count":10,
-    "state":[[random.randint(0,1) for _ in range(18)]for _ in range(9)]},
-    {"name":"pattern5","col_count":10,
-    "state":[[1 for _ in range(20)]for _ in range(10)]},
-    {"name":"pattern3","col_count":10,
-    "state":[[0 for _ in range(20)]for _ in range(10)]},
-]
+with open(f"{BASE_DIR}{STATIC_URL}population_script_states.json", "r") as json_file:
+    data = json.load(json_file)
+PATTERNS = data["patterns"]
+# PATTERNS=[
+#     {"name":"pattern1","col_count":10,
+#     "state":[[(i+j)%2 for i in range(20)]for j in range(5)]},
+#     {"name":"pattern2","col_count":10,
+#     "state":[[(j%2) for _ in range(30)]for j in range(15)]},
+#      {"name":"pattern3","col_count":10,
+#     "state":[[i%2 for i in range(20)]for _ in range(10)]},
+#     {"name":"pattern4","col_count":10,
+#     "state":[[random.randint(0,1) for _ in range(18)]for _ in range(9)]},
+#     {"name":"pattern5","col_count":10,
+#     "state":[[1 for _ in range(20)]for _ in range(10)]},
+#     {"name":"pattern3","col_count":10,
+#     "state":[[0 for _ in range(20)]for _ in range(10)]},
+# ]
 
 STATES = [
     {"name":"state1","col_count":100,

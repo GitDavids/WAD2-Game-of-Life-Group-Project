@@ -18,26 +18,26 @@ var initial_state = Array(row_count).fill(null)
         
 width_height();
 current_state = JSON.parse(JSON.stringify(initial_state));
-render(current_state, grid_spacing);
+render();
 
 
 // Event listeners
 document.getElementById("expand").addEventListener("click", function (e) {
-    for (let row = 0; row < row_count; row++) {
-        initial_state[row].push(0);
-        initial_state[row].push(0);
-        current_state[row].push(0);
-        current_state[row].push(0);
-    }
+    current_state.push(Array(col_count).fill(0))
+    initial_state.push(Array(col_count).fill(0))
+
     col_count += 2;
     row_count += 1;
 
-    var new_row = Array(col_count).fill(0)
-    initial_state.push(new_row);
-    current_state.push(new_row);
+    for (let row = 0; row < row_count; row++) {
+        current_state[row].push(0);
+        current_state[row].push(0);
+        initial_state[row].push(0);
+        initial_state[row].push(0);
+    }
 
     width_height();
-    render(current_state, grid_spacing);
+    render();
 });
 document.getElementById("cut").addEventListener("click", function (e) {
     col_count -= 2;
@@ -51,7 +51,7 @@ document.getElementById("cut").addEventListener("click", function (e) {
         current_state[row].pop();
     }
     width_height();
-    render(current_state, grid_spacing);
+    render();
 });
 
 // Shifting event listeners
@@ -60,24 +60,24 @@ document.getElementById("shift_right").addEventListener("click", function () {
         current_state[row].pop();
         current_state[row].unshift(0);
     }
-    render(current_state, grid_spacing);
+    render();
 });
 document.getElementById("shift_left").addEventListener("click", function () { 
     for (let row = 0; row < row_count; row++) {
         current_state[row].shift();
         current_state[row].push(0);
     }
-    render(current_state, grid_spacing);
+    render();
 });
 document.getElementById("shift_down").addEventListener("click", function () { 
     current_state.pop()
     current_state.unshift(Array(col_count).fill(0))
-    render(current_state, grid_spacing);
+    render();
 });
 document.getElementById("shift_up").addEventListener("click", function () { 
     current_state.shift()
     current_state.push(Array(col_count).fill(0))
-    render(current_state, grid_spacing);
+    render();
 });
 
 // Misc event listeners
@@ -86,17 +86,17 @@ document.getElementById("fps").addEventListener("click", function () {
 });
 document.getElementById("set").addEventListener("click", function () { 
     initial_state = JSON.parse(JSON.stringify(current_state));
-    render(current_state, grid_spacing);
+    render();
 });
 document.getElementById("return").onclick = function () { 
     current_state = JSON.parse(JSON.stringify(initial_state));
-    render(current_state, grid_spacing);
+    render();
 };
 document.getElementById("clear").onclick = function () { 
     current_state = Array(row_count).fill(null)
     .map(() => new Array(col_count).fill(null)
         .map(() => 0));
-        render(current_state, grid_spacing);
+        render();
 };
 document.getElementById("invert").onclick = function () { 
     for (let row = 0; row < row_count; row++) {
@@ -104,14 +104,14 @@ document.getElementById("invert").onclick = function () {
             current_state[row][col] = current_state[row][col] ? 0 : 1;
         }
     }
-    render(current_state, grid_spacing);
+    render();
 };
 
 // Window resize event listener
 window.addEventListener('resize', 
     function () {
         width_height();
-        render(current_state, grid_spacing);
+        render();
     }
 );
 
@@ -126,17 +126,17 @@ canvas.addEventListener('click',
         var row = Math.floor(y / grid_spacing);
 
         current_state[row][col] = current_state[row][col] ? 0 : 1;
-        render(current_state, grid_spacing);
+        render();
     }
 );
 // Key event listeners
 window.addEventListener('keydown', function (e) {
-    if (e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '39' || e.keyCode == '40' || e.keyCode == '32') {
+    if (e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '39' || e.keyCode == '40') {
         e.preventDefault();
     }
 });
 window.addEventListener('keyup', function (event) {
-    if (event.code === 'Space') {
+    if (event.keyCode == '80') {
         paused = paused ? false : true;
         document.getElementById("playback").value = paused ? "Play" : "Pause";
         current_state = next_generation(current_state);
@@ -146,13 +146,13 @@ window.addEventListener('keyup', function (event) {
         // up arrow
         current_state.shift()
         current_state.push(Array(col_count).fill(0))
-        render(current_state, grid_spacing);
+        render();
     }
     else if (event.keyCode == '40') {
         // down arrow
         current_state.pop()
         current_state.unshift(Array(col_count).fill(0)) 
-        render(current_state, grid_spacing);
+        render();
     }
     else if (event.keyCode == '37') {
        // left arrow
@@ -160,7 +160,7 @@ window.addEventListener('keyup', function (event) {
             current_state[row].shift();
             current_state[row].push(0);
         }
-        render(current_state, grid_spacing);
+        render();
     }
     else if (event.keyCode == '39') {
        // right arrow
@@ -168,7 +168,7 @@ window.addEventListener('keyup', function (event) {
             current_state[row].pop();
             current_state[row].unshift(0);
         }
-        render(current_state, grid_spacing);
+        render();
     }
 });
 
@@ -179,6 +179,11 @@ document.getElementById("playback").onclick = function () {
     document.getElementById("playback").value = paused ? "Play" : "Pause";
     current_state = next_generation(current_state);
     requestAnimationFrame(animate);
+};
+
+// Submit
+document.getElementById("submit").onclick = function () { 
+    console.log(document.getElementById("name").value,col_count,current_state)
 };
 
 // Functions
@@ -198,12 +203,11 @@ function animate() {
     // request another animation loop
     setTimeout(function () {requestAnimationFrame(animate);}, 1000 / fps)
 }
-function render(grid) {
+function render() {
     // ctx.restore()
     for (let row = 0; row < row_count; row++) {
         for (let col = 0; col < col_count; col++){
-            let cell = grid[row][col]
-            ctx.fillStyle = cell ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
+            ctx.fillStyle = current_state[row][col] ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
             // ctx.fillStyle = cell ? 'rgb(200, 200, 200)' : 'rgb(225, 250, 245)';
             ctx.fillRect(col * grid_spacing,row * grid_spacing, grid_spacing, grid_spacing);
         }

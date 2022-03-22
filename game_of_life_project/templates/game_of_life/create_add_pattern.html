@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block head_block %}
+    <link rel="shortcut icon" href="#"> <!-- Bodge relating to error: 404 favicon.ico not found-->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/create_initial_state.css' %}">
     <link rel="stylesheet" href="{% static 'css/button.css' %}">
@@ -12,24 +13,29 @@
 {% endblock %}
 
 {% block body_block %}
+<h1></h1>
 <div class="create_interesting pattern">
-    <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
-    <input type="button" value="Set as initial state" id="set" class="button">
-    <input type="button" value="Return to initial state" id="return" class="button">
-    <input type="button" value="Play" id="playback" class="button">
-    <input type="button" value="Clear" id="clear" class="button">
-    <input type="button" value="Invert" id="invert" class="button">
-    <input type="button" value="Cut grid" id="cut" class="button">
-    <input type="button" value="Expand grid" id="expand" class="button">
+    </div>
+        <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
+        <input type="button" value="Set as initial state" id="set" class="button">
+        <input type="button" value="Return to initial state" id="return" class="button">
+        <input type="button" value="Play" id="playback" class="button">
+        <input type="button" value="Clear" id="clear" class="button">
+        <input type="button" value="Invert" id="invert" class="button">
+        <input type="button" value="Cut grid" id="cut" class="button">
+        <input type="button" value="Expand grid" id="expand" class="button">
+    </div>
 
     <canvas id="state"></canvas><br />
+    <label>State name:</label><input type="text", id="name">   
     <div class="direction_buttons">
         <input type="button" value="↑" id="shift_up" class="button_up" class="button">
         <input type="button" value="←" id="shift_left" class="button_left" class="button">
         <input type="button" value="→" id="shift_right" class="button_right" class="button">
         <input type="button" value="↓" id="shift_down" class="button_down" class="button">
-    </div>   
-    <input type="button" value="Save state" id="save" class="button_save"> <!-- add backend -->
+    </div>
+ 
+    <input type="button" value="Save state" id="submit" class="button_save"> <!-- add backend -->
 
     <script src="{% static 'js/create_interesting_pattern.js' %}"></script>
     <script>document.getElementById("create_add_pattern").className = "active";</script>
