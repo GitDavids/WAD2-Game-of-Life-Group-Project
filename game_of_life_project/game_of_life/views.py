@@ -122,6 +122,7 @@ def profile(request, username):
         states = InitialState.objects.filter(author=user)
         context_dict['user'] = user
         context_dict['username'] = user.username
+
         context_dict['states'] = states
     except User.DoesNotExist:
         context_dict['user'] = None

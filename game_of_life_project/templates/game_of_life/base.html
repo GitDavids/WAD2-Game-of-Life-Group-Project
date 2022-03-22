@@ -21,7 +21,7 @@
             <a id="about" href="{% url 'game_of_life:about' %}">About</a>
             <a id="all_initial_states" href="{% url 'game_of_life:all_initial_states' %}">All initial states</a>
 
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
               <li style="float:right"><a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a></li>
               <li style="float:right"><a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' user.username %}">Create an initial state</a></li>
               <li style="float:right"><a id="profile" href="{% url 'game_of_life:profile' user.username %}">Profile</a></li>
@@ -29,7 +29,7 @@
               <li style="float:right"><a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a></li>
               <li style="float:right"><a id="login" href="{% url 'game_of_life:login' %}">Login</a></li>
             {% endif %}
-            {% if user.is_superuser %}
+            {% if request.user.is_superuser %}
               <li style="float:right"><a id="create_add_pattern" href="{% url 'game_of_life:create_add_pattern' %}">Create interesting pattern</a></li>
             {% endif %}
             

@@ -3,6 +3,8 @@
 
 {% block head_block %}
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
 {% endblock %}
 
 {% block title_block %}
@@ -10,19 +12,63 @@
 {% endblock %}
 
 {% block body_block %}
-    <div>
+
+    <div class="profile">
         <div>
+            <h2>Profile Page</h2>
 
-        <h2 class="profile_heading">Author: {{user.username}}</h2>
-        <h2 class="profile_heading">Viewer: {{request.user.username}}</h2>
-        {% if user.profile_picture %}
-            <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}"> 
-        {% else %}
-            <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
-        {% endif %}
-        <p class="profile_email">{{user.email}}</p> 
-    </div>
+            <!-- PROFILE PIC -->
+            <p style="float: left;">
+                {% if user.profile_picture %}
+                    <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
+                {% else %}
+                    <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
+                {% endif %}
+            </p>
 
+            <!-- FRIENDS -->
+            <p>
+                {% if user.username == request.user.username %}
+                    <h3 class="profile_heading">My Profile Page</h3>
+                    <h4> My friends:</h4>
+                {% else %}
+                    <h3 class="profile_heading">{{user.username}}'s Profile Page</h3>
+                    <h4> Their friends:</h4>
+                    {% if request.user.is_authenticated %}
+                        <input id="friend" type="button" value="Let's be Friends!" onclick="addFriend();" />
+                    {% endif %}
+                {% endif %}
+                <p>
+                {% for friend in user.friends %}
+                    friend
+                {% endfor %}
+                </p>
+            </p>
+        </div>
+
+        <div id="states" style="clear: both;">
+            <H1>User states</H1>
+            {% if states %}
+                <script>state_list = []</script>
+                <div class="state_grid">
+                    {% for state in states %}
+                    <div class="state_wrap">
+                        <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
+                        <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
+                            State name: {{state.name}},<br/>
+                            Author:  {{state.author.username}},<br />
+                            Views: {{state.views}},
+                            Likes: {{state.likes}}, <br />
+                            Date created: {{state.date_created}},
+                        </a>
+                        <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                User has not made any states
+            {% endif %}
+        </div>
     <div id="states">
         <H1>User states</H1>
         {% if states %}
@@ -48,5 +94,14 @@
     </div>
 
     <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
-    <script>document.getElementById("profile").className = "active";</script>
+    <script>document.getElementById("profile").className = "active";
+
+            var btn = document.getElementById("friend");
+            friend.onclick = function friend(){
+                request.user.friends = request.user.friends + " / " + user.username ;
+                btn.value="We Are Friends Now";}
+    </script>
+
+    </div>
+
 {% endblock %}
