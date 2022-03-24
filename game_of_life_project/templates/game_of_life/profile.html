@@ -15,8 +15,11 @@
 
     <div class="profile">
         <div>
-            <h2>Profile Page</h2>
-
+            {% if user.username == request.user.username %}
+                <h3 class="profile_heading">My Profile</h3>
+            {% else %}
+                <h3 class="profile_heading">{{user.username}}'s Profile</h3>
+            {% endif %}
             <!-- PROFILE PIC -->
             <p style="float: left;">
                 {% if user.profile_picture %}
@@ -28,48 +31,19 @@
 
             <!-- FRIENDS -->
             <p>
-                {% if user.username == request.user.username %}
-                    <h3 class="profile_heading">My Profile Page</h3>
-                    <h4> My friends:</h4>
-                {% else %}
-                    <h3 class="profile_heading">{{user.username}}'s Profile Page</h3>
-                    <h4> Their friends:</h4>
-                    {% if request.user.is_authenticated %}
-                        <input id="friend" type="button" value="Let's be Friends!" onclick="addFriend();" />
-                    {% endif %}
+                <h4> Their friends:</h4>
+                {% if request.user.is_authenticated %}
+                    <input id="friend" type="button" value="Fallow" />
                 {% endif %}
                 <p>
-                {% for friend in user.friends %}
-                    friend
-                {% endfor %}
+                    {% for friend in user.friends %}
+                        friend
+                    {% endfor %}
                 </p>
             </p>
         </div>
 
-        <div id="states" style="clear: both;">
-            <H1>User states</H1>
-            {% if states %}
-                <script>state_list = []</script>
-                <div class="state_grid">
-                    {% for state in states %}
-                    <div class="state_wrap">
-                        <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
-                        <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
-                            State name: {{state.name}},<br/>
-                            Author:  {{state.author.username}},<br />
-                            Views: {{state.views}},
-                            Likes: {{state.likes}}, <br />
-                            Date created: {{state.date_created}},
-                        </a>
-                        <script>state_list.push([JSON.parse('{{state.col_count}}'),JSON.parse('{{state.state}}')])</script>
-                    </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                User has not made any states
-            {% endif %}
-        </div>
-    <div id="states">
+    <div id="states" style="clear: both;">
         <H1>User states</H1>
         {% if states %}
             <script>state_list = []</script>
