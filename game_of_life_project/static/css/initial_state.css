@@ -2,6 +2,7 @@
 .initial_state{
     margin: auto;
     padding: 5%;
+    padding-top:0;
   }
   .state {
       display: inline-block;
