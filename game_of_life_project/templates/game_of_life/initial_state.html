@@ -12,16 +12,19 @@
 
 {% block body_block %}
 <div class="initial_state">
+    <h1>{{state.name}} by <a href="{% url 'game_of_life:profile' state.author.username %}">{{state.author.username}}</a></h1>
+    
+    
     <input type="button" value="Return to initial state" id="return" class="button">
     <input type="button" value="Play" id="playback" class="button">
     <label>FPS:</label><input type="range" min="1" max="50" value="20" class="slider" id="fps">
-    
 
-    <h1>{{state.name}} by <a href="{% url 'game_of_life:profile' state.author.username %}">{{state.author.username}}</a></h1>
+    <canvas id="state">state.state</canvas><br />
+    
     <input type="button" value="Like" id="like" class="button" onclick="">
     <input type="button" value="Save" id="save" class="button">
     State name: {{state.name}}, Author:  {{state.author.username}}, Date created: {{state.date_created}}, Likes: {{state.likes}}, Views: {{state.views}}<br />
-    <canvas id="state">state.state</canvas><br />
+    
 
     <script type="text/javascript">
         initial_state = JSON.parse('{{state.state}}');
