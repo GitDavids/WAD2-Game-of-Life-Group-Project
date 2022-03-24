@@ -20,9 +20,9 @@
             <!-- PROFILE PIC -->
             <p style="float: left;">
                 {% if user.profile_picture %}
-                    <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
+                    <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
                 {% else %}
-                    <img width=20% class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
+                    <img class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
                 {% endif %}
             </p>
 
