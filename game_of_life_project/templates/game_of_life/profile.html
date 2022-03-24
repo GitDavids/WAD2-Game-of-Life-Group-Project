@@ -20,8 +20,10 @@
             {% else %}
                 <h3 class="profile_heading">{{user.username}}'s Profile</h3>
             {% endif %}
+
             <!-- PROFILE PIC -->
             <p style="float: left;">
+                <script>console.log("{{user.profile_picture}}")</script>
                 {% if user.profile_picture %}
                     <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
                 {% else %}
