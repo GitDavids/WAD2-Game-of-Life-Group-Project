@@ -104,6 +104,29 @@ class IndexTests(TestCase):
         self.assertTrue(index_mapping_exists, f"{FAILURE_HEADER}The index URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
         self.assertEquals(reverse('game_of_life:index'), '/game_of_life/', f"{FAILURE_HEADER}The index URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
 
+    def test_for_most_liked_and_recent_states_displaying(self):
+
+        response = self.client.get(reverse('rango:index'))
+
+        title = '<h1>Most liked states</h1>' in response.content.decode()
+        title2 = '<h1>Most recent states</h1>' in response.content.decode()
+        grid = '<div class="state_grid">' in response.content.decode() and '<div class="state_wrap">' in response.content.decode()
+        statebox = '<a id="state1" href="http://127.0.0.1:8000/game_of_life/profile/Ashraf/initial_state/state1"><canvas class="state" width="400" height="200"></canvas></a>' in response.content.decode()
+        statedescription = '<a class="state_description"' in response.content.decode()
+        statejavascript = '<script>state_list.push(JSON.parse(' in response.content.decode()
+
+        self.assertTrue(title, f"{FAILURE_HEADER}We couldn't find the Most Liked title in your index (home) page.{FAILURE_FOOTER}")
+        self.assertTrue(title, f"{FAILURE_HEADER}We couldn't find the Most Liked title in your index (home) page.{FAILURE_FOOTER}")
+        self.assertTrue(grid, f"{FAILURE_HEADER}We couldn't find the state display grid in your index (home) page.{FAILURE_FOOTER}")
+        self.assertTrue(statebox, f"{FAILURE_HEADER}We couldn't find state1 in your index (home) page.{FAILURE_FOOTER}")
+        self.assertTrue(statedescription, f"{FAILURE_HEADER}We couldn't find a state description in your index (home) page.{FAILURE_FOOTER}")
+        self.assertTrue(statejavascript, f"{FAILURE_HEADER}We couldn't find state javascript in your index (home) page.{FAILURE_FOOTER}")
+
+    def test_for_most_liked_and_recent_states_displaying_correctly_in_order(self):
+
+        """im thinking create a state first to test the recent state"""
+        """like a state to test the liked states"""
+
 
 """
 View: user_login
@@ -140,7 +163,7 @@ class LoginTests(TestCase):
         self.assertEquals(reverse('game_of_life:login'), '/game_of_life/login/', f"{FAILURE_HEADER}The user_login URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
 
 """
-View: user_login_error
+View: user_login_error 
 """
 
 """
