@@ -116,7 +116,6 @@ canvas.addEventListener('click',
 
         var col = Math.floor(x / grid_spacing);
         var row = Math.floor(y / grid_spacing);
-        console.log(x, y,grid_spacing)
         current_state[row][col] = current_state[row][col] ? 0 : 1;
         render(current_state, grid_spacing);
     }

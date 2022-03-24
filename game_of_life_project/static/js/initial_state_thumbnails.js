@@ -12,7 +12,6 @@ for (let i = 0;i < canvases.length; i++) {
     canvas.height = 200;
 
     var grid_spacing = canvas.width / col_count
-    console.log(state)
     render(state, grid_spacing)
 
 }
