@@ -37,7 +37,7 @@
                     <h3 class="profile_heading">My Profile Page</h3>
                     <h4> My friends:</h4>
                     {% for friend in friends %}
-                        / <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
+                        <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
                     {% endfor %}
 
                 {% else %}
