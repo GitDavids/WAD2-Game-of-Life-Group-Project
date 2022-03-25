@@ -15,6 +15,7 @@
 
     <div class="profile">
         <div>
+
             {% if user.username == request.user.username %}
                 <h3 class="profile_heading">My Profile</h3>
             {% else %}
@@ -36,32 +37,36 @@
                 {% if user.username == request.user.username %}
                     <h3 class="profile_heading">My Profile Page</h3>
                     <h4> My friends:</h4>
-                    {% for friend in friends %}
-                        <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
-                    {% endfor %}
-
+                    {% if friends %}
+                        {% for friend in friends %}
+                            / <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
+                        {% endfor %}
+                    {% endif %}
                 {% else %}
                     <h3 class="profile_heading">{{user.username}}'s Profile Page</h3>
                     <h4> Their friends:</h4>
-                    {% for friend in friends %}
-                    {{friend}}
-                    {% endfor %}
-                    <p>
-                    {% if request.user.is_authenticated and user.username not in requester_friends%}
-                        <form action="{% url 'game_of_life:add_friend' user.username %}">
-                            <input type="submit" value="Let's be friends!"/>
-                        </form>
-                    {% elif request.user.is_authenticated %}
-                            <input type="submit" value="Already your friend" />
+                    {% if friends %}
+                        {% for friend in friends %}
+                        {{friend}}
+                        {% endfor %}
                     {% endif %}
+                    <p>
+                    {% if request.user.is_authenticated %}
+                        {% if not requester_friends %}
+                            <form action="{% url 'game_of_life:add_friend' user.username %}">
+                                <input type="submit" value="Let's be friends!"/>
+                            </form>
+                        {% elif user not in requester_friends %}
+                            <form action="{% url 'game_of_life:add_friend' user.username %}">
+                                <input type="submit" value="Let's be friends!"/>
+                            </form>
+                        {% else %}
+                            <input type="submit" value="Already your friend" />
+                        {% endif %}
+                    {% endif %}
+
                     </p>
                 {% endif %}
-                <p>
-
-                    {% for friend in user.friends %}
-                        friend
-                    {% endfor %}
-                </p>
             </p>
         </div>
 

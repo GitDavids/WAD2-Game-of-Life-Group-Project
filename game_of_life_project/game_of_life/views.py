@@ -124,37 +124,41 @@ def profile(request, username):
         context_dict['username'] = user.username
         context_dict['states'] = states
 
+        try:
+            friends = FriendsList.objects.get(user=user)
+            context_dict['friends'] = friends.friends.all()
+        except FriendsList.DoesNotExist:
+            context_dict['friends'] = ""
+
+        if request.user.is_authenticated:
+            try:
+                requester_friends = FriendsList.objects.get(user=request.user)
+                context_dict['requester_friends'] = requester_friends.friends.all()
+            except FriendsList.DoesNotExist:
+                context_dict['requester_friends'] = ""
+
     except User.DoesNotExist:
         context_dict['user'] = None
         context_dict['states'] = None
 
-    try:
-        friends = FriendsList.objects.get(user=user)
-        context_dict['friends'] = friends.friends.all()
-    except FriendsList.DoesNotExist:
-        context_dict['friends'] = "N/A"
-
-    try:
-        requester_friends = FriendsList.objects.get(user=request.user)
-        context_dict['requester_friends'] = requester_friends
-    except FriendsList.DoesNotExist:
-        context_dict['requester_friends'] = ""
 
     return render(request, 'game_of_life/profile.html', context=context_dict)
 
 def add_friend(request, username):
-    friend = User.objects.get(username=username)
-    me = User.objects.get(username=request.user)
-
     try:
-        my_friends = FriendsList.objects.get(user=me)
-        my_friends.friends.add(friend)
-    except:
-        my_friends = FriendsList(user=me)
-        my_friends.friends.add(friend)
-        my_friends.save()
+        friend = User.objects.get(username=username)
+        me = User.objects.get(username=request.user)
 
-    return profile(request,username)
+        try:
+            my_friends = FriendsList.objects.get(user=me)
+            my_friends.friends.add(friend)
+        except:
+            my_friends = FriendsList(user=me)
+            my_friends.friends.add(friend)
+            my_friends.save()
+
+        return profile(request,username)
+    except: pass
 
 
 @login_required
