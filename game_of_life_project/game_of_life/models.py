@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 
 import json
 
+
 class InitialState(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     NAME_MAX_LENGTH = 128
@@ -11,7 +12,7 @@ class InitialState(models.Model):
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
 
-    state = models.TextField() # 2d array -> string (JSON)
+    state = models.TextField()  # 2d array -> string (JSON)
 
     date_created = models.DateTimeField(auto_now=False, auto_now_add=True)
 
@@ -24,6 +25,7 @@ class InitialState(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class InterestingPatten(models.Model):
     state = models.TextField()
@@ -39,6 +41,7 @@ class InterestingPatten(models.Model):
     def __str__(self):
         return self.name
 
+
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -48,8 +51,13 @@ class UserProfile(models.Model):
     website = models.URLField(blank=True)
     picture = models.ImageField(blank=True, upload_to='profile_images')
 
-    states = models.TextField(blank=True) # We need a way to store a bunck of states, use json
+    states = models.TextField(blank=True)  # We need a way to store a bunck of states, use json
 
     def __str__(self):
         return f'{self.user.username} Profile'
-    
+
+
+class FriendsList(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    friends = models.ManyToManyField(User, related_name="+")

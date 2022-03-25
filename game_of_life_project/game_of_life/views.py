@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # from game_of_life.models import Category, Page
-from game_of_life.models import InitialState, UserProfile, InterestingPatten
+from game_of_life.models import InitialState, UserProfile, InterestingPatten, FriendsList
 from game_of_life.forms import UserForm, UserProfileForm, InitialStateForm, InterestingPatternForm
 
 from datetime import datetime
@@ -122,12 +122,40 @@ def profile(request, username):
         states = InitialState.objects.filter(author=user)
         context_dict['user'] = user
         context_dict['username'] = user.username
-
         context_dict['states'] = states
+
     except User.DoesNotExist:
         context_dict['user'] = None
         context_dict['states'] = None
+
+    try:
+        friends = FriendsList.objects.get(user=user)
+        context_dict['friends'] = friends.friends.all()
+    except FriendsList.DoesNotExist:
+        context_dict['friends'] = "N/A"
+
+    try:
+        requester_friends = FriendsList.objects.get(user=request.user)
+        context_dict['requester_friends'] = requester_friends
+    except FriendsList.DoesNotExist:
+        context_dict['requester_friends'] = ""
+
     return render(request, 'game_of_life/profile.html', context=context_dict)
+
+def add_friend(request, username):
+    friend = User.objects.get(username=username)
+    me = User.objects.get(username=request.user)
+
+    try:
+        my_friends = FriendsList.objects.get(user=me)
+        my_friends.friends.add(friend)
+    except:
+        my_friends = FriendsList(user=me)
+        my_friends.friends.add(friend)
+        my_friends.save()
+
+    return profile(request,username)
+
 
 @login_required
 def create_initial_state(request,username):

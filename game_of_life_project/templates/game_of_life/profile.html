@@ -33,11 +33,31 @@
 
             <!-- FRIENDS -->
             <p>
-                <h4> Their friends:</h4>
-                {% if request.user.is_authenticated %}
-                    <input id="friend" type="button" value="Fallow" />
+                {% if user.username == request.user.username %}
+                    <h3 class="profile_heading">My Profile Page</h3>
+                    <h4> My friends:</h4>
+                    {% for friend in friends %}
+                        / <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
+                    {% endfor %}
+
+                {% else %}
+                    <h3 class="profile_heading">{{user.username}}'s Profile Page</h3>
+                    <h4> Their friends:</h4>
+                    {% for friend in friends %}
+                    {{friend}}
+                    {% endfor %}
+                    <p>
+                    {% if request.user.is_authenticated and user.username not in requester_friends%}
+                        <form action="{% url 'game_of_life:add_friend' user.username %}">
+                            <input type="submit" value="Let's be friends!"/>
+                        </form>
+                    {% elif request.user.is_authenticated %}
+                            <input type="submit" value="Already your friend" />
+                    {% endif %}
+                    </p>
                 {% endif %}
                 <p>
+
                     {% for friend in user.friends %}
                         friend
                     {% endfor %}
@@ -45,7 +65,9 @@
             </p>
         </div>
 
-    <div id="states" style="clear: both;">
+
+        <div id="states" style="clear: both;">
+
         <H1>User states</H1>
         {% if states %}
             <script>state_list = []</script>
@@ -71,11 +93,6 @@
 
     <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
     <script>document.getElementById("profile").className = "active";
-
-            var btn = document.getElementById("friend");
-            friend.onclick = function friend(){
-                request.user.friends = request.user.friends + " / " + user.username ;
-                btn.value="We Are Friends Now";}
     </script>
 
     </div>

@@ -11,10 +11,11 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password',)
 
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('website', 'picture',)
+        fields = ('website', 'picture')
 
 
 class InitialStateForm(forms.ModelForm):
@@ -42,4 +43,8 @@ class InterestingPatternForm(forms.ModelForm):
     class Meta:
         model = InterestingPatten
         fields = ('state','name',)
+
+
+
+
 
