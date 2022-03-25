@@ -145,20 +145,16 @@ def profile(request, username):
     return render(request, 'game_of_life/profile.html', context=context_dict)
 
 def add_friend(request, username):
-    try:
-        friend = User.objects.get(username=username)
-        me = User.objects.get(username=request.user)
+    friend = User.objects.get(username=username)
+    me = User.objects.get(username=request.user)
 
-        try:
-            my_friends = FriendsList.objects.get(user=me)
-            my_friends.friends.add(friend)
-        except:
-            my_friends = FriendsList(user=me)
-            my_friends.friends.add(friend)
-            my_friends.save()
 
-        return profile(request,username)
-    except: pass
+    my_friends = FriendsList.objects.get_or_create(user=me)[0]
+    my_friends.save()
+    my_friends.friends.add(friend)
+
+
+    return profile(request, username)
 
 
 @login_required
