@@ -94,7 +94,10 @@ def add_user(userInput, states, settings=None): # TODO (5 min of bodge attempt, 
     return p
 
 def add_state(user, title, state, views=0, likes=0):# TODO (5 min of bodge attempt, hoped it would work :()
-    s = InitialState.objects.get_or_create(author=user, name=title)[0]
+    try:
+        s = InitialState.objects.get_or_create(author=user, name=title)[0]
+    except:
+        return
     s.state = json.dumps(state)
     s.views=views
     s.likes=likes
