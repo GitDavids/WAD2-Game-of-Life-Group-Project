@@ -166,8 +166,26 @@ def add_friend(request, username):
     my_friends.save()
     my_friends.friends.add(friend)
 
+    friend_friends = FriendsList.objects.get_or_create(user=friend)[0]
+    friend_friends.save()
+    friend_friends.friends.add(me)
 
-    return profile(request, username)
+    return redirect('game_of_life:profile', username=username)
+
+def remove_friend(request, username):
+    friend = User.objects.get(username=username)
+    me = User.objects.get(username=request.user)
+
+
+    my_friends = FriendsList.objects.get_or_create(user=me)[0]
+    my_friends.save()
+    my_friends.friends.remove(friend)
+
+    friend_friends = FriendsList.objects.get_or_create(user=friend)[0]
+    friend_friends.save()
+    friend_friends.friends.remove(me)
+
+    return redirect('game_of_life:profile', username=username)
 
 
 @login_required
@@ -232,7 +250,19 @@ def like_state(request, username, state_name_slug):
     state.likes += 1
     state.save()
 
-    return initial_state(request, username, state_name_slug)
+    return redirect('game_of_life:initial_state', username=username, state_name_slug=state_name_slug)
+
+def unlike_state(request, username, state_name_slug):
+    state = InitialState.objects.get(slug=state_name_slug)
+
+    my_liked = LikedAndSaved.objects.get_or_create(user=request.user)[0]
+    my_liked.save()
+    my_liked.liked.remove(state)
+
+    state.likes -= 1
+    state.save()
+
+    return redirect('game_of_life:initial_state', username=username, state_name_slug=state_name_slug)
 
 def save_state(request, username, state_name_slug):
     state = InitialState.objects.get(slug=state_name_slug)
@@ -242,6 +272,16 @@ def save_state(request, username, state_name_slug):
     my_saved.saved.add(state)
 
     return initial_state(request, username, state_name_slug)
+
+def unsave_state(request, username, state_name_slug):
+    state = InitialState.objects.get(slug=state_name_slug)
+
+    my_saved = LikedAndSaved.objects.get_or_create(user=request.user)[0]
+    my_saved.save()
+    my_saved.saved.remove(state)
+
+    return initial_state(request, username, state_name_slug)
+
 
 # Moderator page
 @login_required
