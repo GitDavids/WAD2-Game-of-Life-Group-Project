@@ -53,15 +53,15 @@
                 <p>
                 {% if request.user.is_authenticated %}
                     {% if not requester_friends %}
-                        <form action="{% url 'game_of_life:add_friend' user.username %}">
+                        <form action="{% url 'game_of_life:add_friend' user.username %}" onclick="this.disabled=true">
                             <input type="submit" value="Let's be friends!"/>
                         </form>
                     {% elif user not in requester_friends %}
-                        <form action="{% url 'game_of_life:add_friend' user.username %}">
+                        <form action="{% url 'game_of_life:add_friend' user.username %}" onclick="this.disabled=true">
                             <input type="submit" value="Let's be friends!"/>
                         </form>
                     {% else %}
-                        <input type="submit" value="Already your friend" />
+                        <input type="button" value="Already your friend" />
                     {% endif %}
                 {% endif %}
 

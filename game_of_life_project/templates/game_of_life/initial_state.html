@@ -27,19 +27,19 @@
     {% if user %}
         {%  if user.username != state.author.username %}
             {% if not user_already_liked %}
-                <form action="{% url 'game_of_life:like_state' user.username state_name_slug %}">
+                <form action="{% url 'game_of_life:like_state' user.username state_name_slug %}" onclick="this.disabled=true">
                     <input type="submit" value="Like" class="button" />
                 </form>
             {% else %}
-                <input type="submit" value="Liked" class="button" />
+                <input type="button" value="Liked" class="button" />
             {% endif %}
 
             {% if not user_already_saved %}
-                <form action="{% url 'game_of_life:save_state' user.username state_name_slug %}">
+                <form action="{% url 'game_of_life:save_state' user.username state_name_slug %}" onclick="this.disabled=true">
                     <input type="submit" value="Save" class="button" />
                 </form>
             {% else %}
-                <input type="submit" value="Saved" class="button" />
+                <input type="button" value="Saved" class="button" />
             {% endif %}
 
         {% endif %}
