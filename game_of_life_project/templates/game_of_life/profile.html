@@ -14,91 +14,159 @@
 {% block body_block %}
 
     <div class="profile">
+
+        <!-- TITLE -->
         <div>
+        {% if thisMyPage %}
+            <h1 class="profile_heading">My Profile</h1>
+        {% else %}
+            <h1 class="profile_heading">{{user.username}}'s Profile</h1>
+        {% endif %}
+        </div>
 
-            {% if user.username == request.user.username %}
-                <h3 class="profile_heading">My Profile</h3>
+        <!-- PROFILE PIC -->
+        <div style="float: left;">
+            <script>console.log("{{user.profile_picture}}")</script>
+            {% if user.profile_picture %}
+                <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
             {% else %}
-                <h3 class="profile_heading">{{user.username}}'s Profile</h3>
+                <img class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
             {% endif %}
+        </div>
 
-            <!-- PROFILE PIC -->
-            <p style="float: left;">
-                <script>console.log("{{user.profile_picture}}")</script>
-                {% if user.profile_picture %}
-                    <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
-                {% else %}
-                    <img class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
+        <!-- FRIENDS -->
+        <div style="padding-left: 2%; display: inline-block;">
+            {% if thisMyPage %}
+                <h4> My friends:</h4>
+                {% if friends %}
+                    {% for friend in friends %}
+                        <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
+                    {% endfor %}
                 {% endif %}
-            </p>
-
-            <!-- FRIENDS -->
-            <p>
-                {% if user.username == request.user.username %}
-                    <h3 class="profile_heading">My Profile Page</h3>
-                    <h4> My friends:</h4>
-                    {% if friends %}
-                        {% for friend in friends %}
-                            / <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
-                        {% endfor %}
-                    {% endif %}
-                {% else %}
-                    <h3 class="profile_heading">{{user.username}}'s Profile Page</h3>
-                    <h4> Their friends:</h4>
-                    {% if friends %}
-                        {% for friend in friends %}
-                        {{friend}}
-                        {% endfor %}
-                    {% endif %}
-                    <p>
-                    {% if request.user.is_authenticated %}
-                        {% if not requester_friends %}
-                            <form action="{% url 'game_of_life:add_friend' user.username %}">
-                                <input type="submit" value="Let's be friends!"/>
-                            </form>
-                        {% elif user not in requester_friends %}
-                            <form action="{% url 'game_of_life:add_friend' user.username %}">
-                                <input type="submit" value="Let's be friends!"/>
-                            </form>
-                        {% else %}
-                            <input type="submit" value="Already your friend" />
-                        {% endif %}
-                    {% endif %}
-
-                    </p>
+            {% else %}
+                <h4> Their friends:</h4>
+                {% if friends %}
+                    {% for friend in friends %}
+                        <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
+                    {% endfor %}
                 {% endif %}
+                <p>
+                {% if request.user.is_authenticated %}
+                    {% if not requester_friends %}
+                        <form action="{% url 'game_of_life:add_friend' user.username %}">
+                            <input type="submit" value="Let's be friends!"/>
+                        </form>
+                    {% elif user not in requester_friends %}
+                        <form action="{% url 'game_of_life:add_friend' user.username %}">
+                            <input type="submit" value="Let's be friends!"/>
+                        </form>
+                    {% else %}
+                        <input type="submit" value="Already your friend" />
+                    {% endif %}
+                {% endif %}
+
+                </p>
+            {% endif %}
             </p>
         </div>
 
+        <div style="clear:both;"></div>
 
-        <div id="states" style="clear: both;">
+        <script>state_list = []</script>
 
-        <H1>User states</H1>
-        {% if states %}
-            <script>state_list = []</script>
-            <div class="state_grid">
-            {% for state in states %}
-            <div class="state_wrap">
-                <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
-                <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
-                    State name: {{state.name}},<br/>
-                    Author:  {{state.author.username}},<br />
-                    Views: {{state.views}},
-                    Likes: {{state.likes}}, <br />
-                    Date created: {{state.date_created}},
-                </a>
-                <script>state_list.push(JSON.parse('{{state.state}}'))</script>
-            </div>
+        <!-- USER CREATED STATES -->
+        <div>
+            {% if thisMyPage %}
+                <h2>My states</h2>
+            {% else %}
+                <h2>Their states</h2>
+            {% endif %}
+
+            {% if states %}
+                <div class="state_grid">
+                {% for state in states %}
+                    <div class="state_wrap">
+                        <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' user.username state.slug %}"><canvas class="state"></canvas></a>
+                        <a class="state_description" href="{% url 'game_of_life:initial_state' user.username state.slug %}">
+                            State name: {{state.name}},<br/>
+                            Author:  {{state.author.username}},<br />
+                            Views: {{state.views}},
+                            Likes: {{state.likes}}, <br />
+                            Date created: {{state.date_created}},
+                        </a>
+                        <script>state_list.push(JSON.parse('{{state.state}}'))</script>
+                    </div>
                 {% endfor %}
                 </div>
-        {% else %}
-            User has not made any states
-        {% endif %}
-    </div>
+            {% else %}
+                User has not made any states
+            {% endif %}
+        </div>
 
-    <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
-    <script>document.getElementById("profile").className = "active";
-    </script>
+        <!-- USER LIKED STATES -->
+        <div>
+            {% if thisMyPage %}
+            <h2>My liked states</h2>
+            {% else %}
+            <h2>Their liked states</h2>
+            {% endif %}
+
+            {% if liked_states %}
+                <div class="state_grid">
+                    {% for state in liked_states %}
+                    <div class="state_wrap">
+                        <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+                        <a class="state_description" href="{% url 'game_of_life:initial_state' state.author state.slug %}">
+                            State name: {{state.name}},<br/>
+                            Author:  {{state.author.username}},<br />
+                            Views: {{state.views}},
+                            Likes: {{state.likes}}, <br />
+                            Date created: {{state.date_created}},
+                        </a>
+                        <script>state_list.push(JSON.parse('{{state.state}}'))</script>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+            User has not liked any states
+            {% endif %}
+
+        </div>
+
+        <!-- USER SAVED STATES -->
+        <div>
+            {% if thisMyPage %}
+            <h2>My saved states</h2>
+            {% else %}
+            <h2>Their saved states</h2>
+            {% endif %}
+
+
+            {% if saved_states %}
+                <div class="state_grid">
+                    {% for state in saved_states %}
+                    <div class="state_wrap">
+                        <a id="{{state.name}}" href="{% url 'game_of_life:initial_state' state.author state.slug %}"><canvas class="state"></canvas></a>
+                        <a class="state_description" href="{% url 'game_of_life:initial_state' state.author state.slug %}">
+                            State name: {{state.name}},<br/>
+                            Author:  {{state.author.username}},<br />
+                            Views: {{state.views}},
+                            Likes: {{state.likes}}, <br />
+                            Date created: {{state.date_created}},
+                        </a>
+                        <script>state_list.push(JSON.parse('{{state.state}}'))</script>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+            User has not saved any states
+            {% endif %}
+
+        </div>
+
+
+        <script src="{% static 'js/initial_state_thumbnails.js' %}"></script>
+        <script>document.getElementById("profile").className = "active";</script>
 
     </div>
 

@@ -18,5 +18,7 @@ urlpatterns = [
      path('profile/<username>/add_friend', views.add_friend, name='add_friend'),
      path('profile/<username>/create_initial_state/', views.create_initial_state, name='create_initial_state'),
      path('profile/<username>/initial_state/<slug:state_name_slug>', views.initial_state, name='initial_state'),
+     path('profile/<username>/initial_state/<slug:state_name_slug>/saved', views.save_state, name='save_state'),
+     path('profile/<username>/initial_state/<slug:state_name_slug>/liked', views.like_state, name='like_state'),
      path('create_add_pattern/', views.create_add_pattern, name='create_add_pattern'),
     ]

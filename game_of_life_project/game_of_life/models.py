@@ -58,6 +58,11 @@ class UserProfile(models.Model):
 
 
 class FriendsList(models.Model):
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     friends = models.ManyToManyField(User, related_name="+")
+
+
+class LikedAndSaved(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    liked = models.ManyToManyField(InitialState, related_name="+")
+    saved = models.ManyToManyField(InitialState, related_name="+")

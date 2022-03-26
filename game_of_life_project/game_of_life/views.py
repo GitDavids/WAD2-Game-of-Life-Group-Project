@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # from game_of_life.models import Category, Page
-from game_of_life.models import InitialState, UserProfile, InterestingPatten, FriendsList
+from game_of_life.models import InitialState, UserProfile, InterestingPatten, FriendsList, LikedAndSaved
 from game_of_life.forms import UserForm, UserProfileForm, InitialStateForm, InterestingPatternForm
 
 from datetime import datetime
@@ -117,11 +117,14 @@ def all_initial_states(request):
 # User specific pages
 def profile(request, username):
     context_dict = {}
+
     try:
+        if username == request.user.username:
+            context_dict['thisMyPage'] = "true"
+
         user = User.objects.get(username=username)
         states = InitialState.objects.filter(author=user)
         context_dict['user'] = user
-        context_dict['username'] = user.username
         context_dict['states'] = states
 
         try:
@@ -130,12 +133,21 @@ def profile(request, username):
         except FriendsList.DoesNotExist:
             context_dict['friends'] = ""
 
+
         if request.user.is_authenticated:
             try:
                 requester_friends = FriendsList.objects.get(user=request.user)
                 context_dict['requester_friends'] = requester_friends.friends.all()
             except FriendsList.DoesNotExist:
                 context_dict['requester_friends'] = ""
+
+            try:
+                saved_and_liked_states = LikedAndSaved.objects.get(user=request.user)
+                context_dict['liked_states'] = saved_and_liked_states.liked.all()
+                context_dict['saved_states'] = saved_and_liked_states.saved.all()
+            except LikedAndSaved.DoesNotExist:
+                context_dict['liked_states'] = ""
+                context_dict['saved_states'] = ""
 
     except User.DoesNotExist:
         context_dict['user'] = None
@@ -179,7 +191,7 @@ def create_initial_state(request,username):
     return render(request, 'game_of_life/create_initial_state.html', context=context_dict) # TODO
 
 
-# Specific state
+# Specific state pages
 def initial_state(request, username, state_name_slug):
     context_dict = {}
     state = InitialState.objects.get(slug=state_name_slug)
@@ -189,7 +201,46 @@ def initial_state(request, username, state_name_slug):
     context_dict["username"] = username
     context_dict["state_name_slug"] = state_name_slug
 
+    try:
+        user = User.objects.get(username=request.user)
+        context_dict['user'] = user
+        user_liked_and_saved_states = LikedAndSaved.objects.get_or_create(user=user)[0]
+
+        if state in user_liked_and_saved_states.liked.all():
+            context_dict["user_already_liked"] = "true"
+        else:
+            context_dict["user_already_liked"] = None
+
+        if state in user_liked_and_saved_states.saved.all():
+            context_dict["user_already_saved"] = "true"
+        else:
+            context_dict["user_already_saved"] = None
+
+    except User.DoesNotExist:
+        context_dict['user'] = None
+
     return render(request, 'game_of_life/initial_state.html', context=context_dict) # TODO
+
+def like_state(request, username, state_name_slug):
+    state = InitialState.objects.get(slug=state_name_slug)
+
+    my_liked = LikedAndSaved.objects.get_or_create(user=request.user)[0]
+    my_liked.save()
+    my_liked.liked.add(state)
+
+    state.likes += 1
+    state.save()
+
+    return initial_state(request, username, state_name_slug)
+
+def save_state(request, username, state_name_slug):
+    state = InitialState.objects.get(slug=state_name_slug)
+
+    my_saved = LikedAndSaved.objects.get_or_create(user=request.user)[0]
+    my_saved.save()
+    my_saved.saved.add(state)
+
+    return initial_state(request, username, state_name_slug)
 
 # Moderator page
 @login_required
