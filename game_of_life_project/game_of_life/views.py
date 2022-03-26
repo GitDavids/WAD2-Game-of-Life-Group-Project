@@ -246,7 +246,7 @@ class Profile(View):
         my_saved.saved.add(state)
 
 
-        return initial_state( username=username, state_name_slug=state_name_slug)
+        return redirect('game_of_life:initial_state', username=username, state_name_slug=state_name_slug)
 
 
 
