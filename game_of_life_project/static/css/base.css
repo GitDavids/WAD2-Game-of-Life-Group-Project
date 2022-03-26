@@ -48,13 +48,16 @@ a:link, a:visited, a:active, a:hover {
 
 @media only screen and (max-width: 981px) {
   .state_grid {
-    grid-template-columns: auto}
+    grid-template-columns: auto;
+    margin:10px;
+  }
 }
 
 .state_wrap{
   position: relative;
   width: 400px;
-  border: 5px;
+  height: 200px;
+  margin: 10px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
