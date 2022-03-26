@@ -187,6 +187,7 @@ class Profile(View):
         context_dict = {}
         state = InitialState.objects.get(slug=state_name_slug)
         state.views +=1
+        state.save()
         context_dict["state"] = state
         context_dict["name"] = state.name
         context_dict["author"] = state.author
@@ -244,7 +245,7 @@ class Profile(View):
         my_saved.save()
         my_saved.saved.add(state)
 
-        return initial_state(request, username, state_name_slug)
+        return InitialState(request, username, state_name_slug)
 
     def unsave_state(request, username, state_name_slug):
         state = InitialState.objects.get(slug=state_name_slug)
@@ -253,7 +254,7 @@ class Profile(View):
         my_saved.save()
         my_saved.saved.remove(state)
 
-        return initial_state(request, username, state_name_slug)
+        return InitialState(request, username, state_name_slug)
 
 
 # Moderator page
