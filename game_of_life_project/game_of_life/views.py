@@ -133,6 +133,14 @@ def profile(request, username):
         except FriendsList.DoesNotExist:
             context_dict['friends'] = ""
 
+        try:
+            saved_and_liked_states = LikedAndSaved.objects.get(user=user)
+            context_dict['liked_states'] = saved_and_liked_states.liked.all()
+            context_dict['saved_states'] = saved_and_liked_states.saved.all()
+        except LikedAndSaved.DoesNotExist:
+            context_dict['liked_states'] = ""
+            context_dict['saved_states'] = ""
+
 
         if request.user.is_authenticated:
             try:
@@ -141,13 +149,6 @@ def profile(request, username):
             except FriendsList.DoesNotExist:
                 context_dict['requester_friends'] = ""
 
-            try:
-                saved_and_liked_states = LikedAndSaved.objects.get(user=request.user)
-                context_dict['liked_states'] = saved_and_liked_states.liked.all()
-                context_dict['saved_states'] = saved_and_liked_states.saved.all()
-            except LikedAndSaved.DoesNotExist:
-                context_dict['liked_states'] = ""
-                context_dict['saved_states'] = ""
 
     except User.DoesNotExist:
         context_dict['user'] = None
