@@ -245,7 +245,7 @@ class Profile(View):
         my_saved.save()
         my_saved.saved.add(state)
 
-        return InitialState(request, username, state_name_slug)
+        return initial_state(request, username, state_name_slug)
 
     def unsave_state(request, username, state_name_slug):
         state = InitialState.objects.get(slug=state_name_slug)
@@ -254,7 +254,7 @@ class Profile(View):
         my_saved.save()
         my_saved.saved.remove(state)
 
-        return InitialState(request, username, state_name_slug)
+        return initial_state(request, username, state_name_slug)
 
 
 # Moderator page
