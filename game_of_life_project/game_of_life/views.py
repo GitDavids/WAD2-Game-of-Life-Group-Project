@@ -245,11 +245,7 @@ class Profile(View):
         my_saved.save()
         my_saved.saved.add(state)
 
-<<<<<<< HEAD
-        return initial_state(request, username, state_name_slug)
-=======
         return redirect('game_of_life:initial_state', username=username, state_name_slug=state_name_slug)
->>>>>>> 791d445895caab49269ab5128e6f3a194230dda7
 
     def unsave_state(request, username, state_name_slug):
         state = InitialState.objects.get(slug=state_name_slug)
@@ -258,11 +254,9 @@ class Profile(View):
         my_saved.save()
         my_saved.saved.remove(state)
 
-<<<<<<< HEAD
-        return initial_state(request, username, state_name_slug)
-=======
+
         return redirect('game_of_life:initial_state', username=username, state_name_slug=state_name_slug)
->>>>>>> 791d445895caab49269ab5128e6f3a194230dda7
+
 
 
 # Moderator page
