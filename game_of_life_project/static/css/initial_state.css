@@ -4,14 +4,8 @@
     padding: 5%;
     padding-top:0;
   }
-  .state {
-      display: inline-block;
-      border: 0px solid rgb(0, 0, 255);
-      padding: 1rem 1rem;
-      vertical-align: middle;
-    }
-  canvas:hover {
-      background-color: rgb(153, 153, 153);
-      color: black;
-  }
+  .initial_state a:link { color: #70DB93; }
+  .initial_state a:visited { color: #32e4e4; }
+  .initial_state a:hover { color: #ee2805; }
+  .initial_state a:active { color: #9070db; }
   
