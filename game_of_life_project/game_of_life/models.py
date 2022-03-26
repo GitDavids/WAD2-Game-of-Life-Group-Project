@@ -49,9 +49,7 @@ class UserProfile(models.Model):
     moderator = models.BooleanField(default=False)
 
     # # The additional attributes we wish to include.
-    website = models.URLField(blank=True)
     picture = models.ImageField(blank=True, upload_to='profile_images')
-    email=models.TextField(default=0)
     states = models.TextField(blank=True)  # We need a way to store a bunck of states, use json
 
     likes=models.IntegerField(default=0)
