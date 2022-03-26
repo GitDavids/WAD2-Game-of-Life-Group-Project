@@ -1,3 +1,4 @@
+import email
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -50,7 +51,8 @@ class UserProfile(models.Model):
     # # The additional attributes we wish to include.
     website = models.URLField(blank=True)
     picture = models.ImageField(blank=True, upload_to='profile_images')
-
+    likes= models.IntegerField(default=0)
+    email=models.TextField(default=0)
     states = models.TextField(blank=True)  # We need a way to store a bunck of states, use json
 
     def __str__(self):
