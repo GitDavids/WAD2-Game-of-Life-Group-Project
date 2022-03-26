@@ -259,7 +259,7 @@ def unlike_state(request, username, state_name_slug):
     my_liked.save()
     my_liked.liked.remove(state)
 
-    state.likes -= 1
+    state.likes-=1
     state.save()
 
     return redirect('game_of_life:initial_state', username=username, state_name_slug=state_name_slug)
