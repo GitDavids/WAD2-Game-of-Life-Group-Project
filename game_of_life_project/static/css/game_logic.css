@@ -5,6 +5,15 @@
     padding-top: 0;
     
   }
+  .picture_div{
+    float: left;
+    width: 400px;
+    margin: 5px;
+    margin-right: 25px;
+  }
+  .picture{
+    width: 400px;
+  }
   .game_logic a:link { color: #70DB93; }
   .game_logic a:visited { color: #32e4e4; }
   .game_logic a:hover { color: #ee2805; }
