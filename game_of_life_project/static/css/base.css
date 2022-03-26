@@ -5,6 +5,9 @@ body {
   color: white;
   padding-top:3%;
 }
+
+a {color: white;}
+
 .topnav {
   overflow: hidden;
   background-color: #333;
