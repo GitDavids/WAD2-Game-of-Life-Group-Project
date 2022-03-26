@@ -4,6 +4,7 @@
 {% block head_block %}
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/button.css' %}">
 
 {% endblock %}
 
@@ -50,18 +51,19 @@
                         <a href="{% url 'game_of_life:profile' friend %}">{{friend}}</a>
                     {% endfor %}
                 {% endif %}
+                <!-- Add friend !-->
                 <p>
                 {% if request.user.is_authenticated %}
                     {% if not requester_friends %}
                         <form action="{% url 'game_of_life:add_friend' user.username %}" onclick="this.disabled=true">
-                            <input type="submit" value="Let's be friends!"/>
+                            <input type="submit" value="Let's be friends!" class="button"/>
                         </form>
                     {% elif user not in requester_friends %}
                         <form action="{% url 'game_of_life:add_friend' user.username %}" onclick="this.disabled=true">
-                            <input type="submit" value="Let's be friends!"/>
+                            <input type="submit" value="Let's be friends!" class="button"/>
                         </form>
                     {% else %}
-                        <input type="button" value="Already your friend" />
+                        <input type="button" value="Already your friend" class="button" />
                     {% endif %}
                 {% endif %}
 
