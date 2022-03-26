@@ -2,8 +2,11 @@ import email
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from uuid import uuid4
+
 
 import json
+import os
 
 
 class InitialState(models.Model):
@@ -43,21 +46,38 @@ class InterestingPatten(models.Model):
         return self.name
 
 
+
+
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     moderator = models.BooleanField(default=False)
 
-    # # The additional attributes we wish to include.
-    picture = models.ImageField(blank=True, upload_to='profile_images')
+    # Images renaming
+    def path_and_rename(instance, filename):
+        upload_to = 'profile_images'
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(instance.pk, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(upload_to, filename)
+
+    picture = models.ImageField(blank=True, upload_to=path_and_rename)
+
     states = models.TextField(blank=True)  # We need a way to store a bunck of states, use json
 
     likes=models.IntegerField(default=0)
-    # #count the total number of likes
-    # def totallikes(self):
-    #     self.likes=self.likes.count()
+
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user} Profile'
+
+
+
+
 
 
 class FriendsList(models.Model):
