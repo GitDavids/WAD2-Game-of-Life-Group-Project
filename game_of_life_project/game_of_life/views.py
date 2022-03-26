@@ -214,6 +214,9 @@ def create_initial_state(request,username):
 def initial_state(request, username, state_name_slug):
     context_dict = {}
     state = InitialState.objects.get(slug=state_name_slug)
+    #increament views
+    state.views +=1
+    state.save()
     context_dict["state"] = state
     context_dict["name"] = state.name
     context_dict["author"] = state.author
@@ -263,6 +266,7 @@ def unlike_state(request, username, state_name_slug):
     state.save()
 
     return redirect('game_of_life:initial_state', username=username, state_name_slug=state_name_slug)
+    
 
 def save_state(request, username, state_name_slug):
     state = InitialState.objects.get(slug=state_name_slug)
