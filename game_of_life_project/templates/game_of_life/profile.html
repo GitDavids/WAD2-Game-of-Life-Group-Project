@@ -26,14 +26,7 @@
         </div>
 
         <!-- PROFILE PIC -->
-        <div style="float: left;">
-            <script>console.log("{{user.profile_picture}}")</script>
-            {% if user.profile_picture %}
-                <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
-            {% else %}
-                <img class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
-            {% endif %}
-        </div>
+        <img class="profile_picture" src="{{ userpic.url }}">
 
         <!-- FRIENDS -->
         <div style="padding-left: 2%; display: inline-block;">
@@ -72,10 +65,22 @@
                 </p>
             {% endif %}
             </p>
+
+
+        <!-- CHANGE PFP -->
+            {% if thisMyPage %}
+            <h4> Change Profile Picture:</h4>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'game_of_life:change_pfp' username=request.user.username %}">
+                {% csrf_token %}
+                {{ profile_form.picture }} <br/>
+                <input type="submit" >
+            </form>
+            {% endif %}
         </div>
 
         <div style="clear:both;"></div>
 
+        <!-- JS FOR STATES -->
         <script>state_list = []</script>
 
         <!-- USER CREATED STATES -->

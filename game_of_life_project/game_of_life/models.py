@@ -67,7 +67,7 @@ class UserProfile(models.Model):
         # return the whole path to the file
         return os.path.join(upload_to, filename)
 
-    picture = models.ImageField(blank=True, upload_to=path_and_rename)
+    picture = models.ImageField(blank=True, upload_to=path_and_rename, default='profile_images/default.jpg')
     likes= models.IntegerField(default=0)
     
     states = models.TextField(blank=True)  # We need a way to store a bunck of states, use json

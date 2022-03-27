@@ -5,11 +5,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
+from django.conf import settings
 
 from game_of_life.models import InitialState, UserProfile, InterestingPatten, FriendsList, LikedAndSaved
 from game_of_life.forms import UserForm, UserProfileForm, InitialStateForm, InterestingPatternForm
 
 from datetime import datetime
+import os
+
 
 
 # Home page
@@ -95,10 +98,15 @@ class Profile(View):
             if username == request.user.username:
                 context_dict['thisMyPage'] = "true"
 
+            profile_form = UserProfileForm(request.POST)
+            context_dict['profile_form'] = profile_form
+
             user = User.objects.get(username=username)
             states = InitialState.objects.filter(author=user)
+            userpic = UserProfile.objects.get(user=user).picture
             context_dict['user'] = user
             context_dict['states'] = states
+            context_dict['userpic'] = userpic
 
             try:
                 friends = FriendsList.objects.get(user=user)
@@ -129,6 +137,21 @@ class Profile(View):
 
 
         return render(request, 'game_of_life/profile.html', context=context_dict)
+
+    def change_pfp(request, username):
+
+        user = User.objects.get(username=username)
+        old_image_path = UserProfile.objects.get(user=user).picture.path
+        instance = UserProfile.objects.get(user=user)
+        form = UserProfileForm(request.POST, request.FILES, instance=instance)
+
+        if form.is_valid():
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+
+            form.save()
+        return redirect('game_of_life:profile', username=username)
+
 
     def add_friend(request, username):
         friend = User.objects.get(username=username)

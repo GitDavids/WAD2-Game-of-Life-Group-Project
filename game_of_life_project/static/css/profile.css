@@ -3,8 +3,11 @@
     padding: 5%;
     padding-top: 0;
   }
+
 .profile_picture{
     width: 150px;
+    height: 150px;
+    float: left;
 }
 
 h4{
