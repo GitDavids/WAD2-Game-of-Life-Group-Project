@@ -25,7 +25,14 @@
         </div>
 
         <!-- PROFILE PIC -->
-        <img class="profile_picture" src="{{ userpic.url }}">
+        <div style="float: left;">
+            <script>console.log("{{user.profile_picture}}")</script>
+            {% if user.profile_picture %}
+                <img class="profile_picture" src="{{MEDIA_URL}}profile_images/{{user.profile_picture}}">
+            {% else %}
+                <img class="profile_picture" src="{{MEDIA_URL}}profile_images/default.jpg">
+            {% endif %}
+        </div>
 
         <!-- FRIENDS -->
         <div id="friends">
