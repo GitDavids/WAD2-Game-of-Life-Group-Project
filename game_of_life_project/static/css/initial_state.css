@@ -4,8 +4,6 @@
     padding: 5%;
     padding-top:0;
   }
-  .initial_state a:link { color: #70DB93; }
-  .initial_state a:visited { color: #32e4e4; }
-  .initial_state a:hover { color: #ee2805; }
-  .initial_state a:active { color: #9070db; }
+
+.like{float: left; padding-right: 0.5%}
   
