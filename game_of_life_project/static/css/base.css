@@ -64,6 +64,9 @@ a {color: white;}
   color: white;
 }
 
+.topnav_right{
+  float:right;
+}
 @media screen and (max-width: 995px) {
   .topnav a:not(:first-child) {
     display: none;
