@@ -22,10 +22,10 @@
             <a id="all_initial_states" href="{% url 'game_of_life:all_initial_states' %}">All initial states</a>
             <div class="topnav_right">
             {% if request.user.is_authenticated %}
-              <a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a>
+            <a id="profile" href="{% url 'game_of_life:profile' request.user.username %}">My profile</a>
               <a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' request.user.username %}">Create an initial state</a>
-              <a id="profile" href="{% url 'game_of_life:profile' request.user.username %}">My profile</a>
-            {% else %} 
+              <a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a>
+              {% else %} 
               <a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a>
               <a id="login" href="{% url 'game_of_life:login' %}">Login</a>
             {% endif %}
