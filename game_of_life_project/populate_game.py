@@ -1,10 +1,12 @@
 import os, json, random
 from game_of_life_project.settings import STATIC_URL, BASE_DIR
+from django.core.files.images import ImageFile
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'game_of_life_project.settings')
 
 import django
+import random
 django.setup()
 from game_of_life.models import *
 
@@ -54,46 +56,59 @@ USERS = [
     {"username":"Ashraf","states":STATES[:2],"setings":SETTINGS[0]},
     {"username":"GitDavids","states":data["states_by_David"],"setings":SETTINGS[1]},
     {"username":"geontog","states":STATES[2:4],"setings":SETTINGS[2]},
-    {"username":"LiliOak","states":STATES[4:5],"setings":SETTINGS[3]},
-    {"username":"GoldenZs3","states":STATES[5:6],"setings":SETTINGS[4]},
-    {"username":"amorri40","states":STATES[6:7],"setings":SETTINGS[5]},
-    {"username":"Marta","states":STATES[7:],"setings":SETTINGS[6]},
+    {"username":"LiliOak","states":STATES[4:5], "setings":SETTINGS[3]},
+    {"username":"GoldenZs3","states":STATES[5:6], "setings":SETTINGS[4]},
+    {"username":"amorri40","states":STATES[6:7], "setings":SETTINGS[5]},
+    {"username":"Marta","states":STATES[7:], "setings":SETTINGS[6]},
 ]
 
+pictures = ["cat.jpg", "catgif.gif", "mhagif.gif", "parker.jpg", "prof.jpg", None, "cat.jpg"]
+
 def populate():
+    counter=0;
     for user in USERS:
-        add_user(user['username'], user['states'])
+        add_user(user['username'], user['states'], pictures[counter])
+        counter += 1
     
     # Print out the categories we have added.
     for p in UserProfile.objects.all():
-        print(f'{p}')
+        print(f'{p}, {p.states}')
+
     for p in PATTERNS:
         add_pattern(p['name'], p['state'])   
 
 
     
-def add_user(userInput, states, settings=None): # TODO (5 min of bodge attempt, hoped it would work :( )
+def add_user(userInput, states, picturename, settings=None): # TODO (5 min of bodge attempt, hoped it would work :( )
+
+
     u = User.objects.get_or_create(username = userInput)[0]
     u.save()
 
     p = UserProfile.objects.get_or_create(user = u)[0]
-    
+
 
     if settings:
         pass # TODO
-    
-    state_list = []
+
+
     for state in states:
-        state_list.append(add_state(p.user, state["name"], state["state"]))
+        views=random.randint(10, 30)
+        likes=random.randint(1, 10)
+        add_state(p.user, state["name"], state["state"], views, likes)
 
-    #print(state_list)
-    # p.states = json.dumps(state_list)   ????somehelp here
+    if picturename is not None:
+        path = os.getcwd()
+        path = os.path.join(path, "media")
+        path = os.path.join(path, "test_profile_images")
+        fullpath = os.path.join(path, picturename)
 
+        p.picture = ImageFile(open(fullpath, "rb"))
 
     p.save()
     return p
 
-def add_state(user, title, state, views=0, likes=0):# TODO (5 min of bodge attempt, hoped it would work :()
+def add_state(user, title, state, views, likes):# TODO (5 min of bodge attempt, hoped it would work :()
     try:
         s = InitialState.objects.get_or_create(author=user, name=title)[0]
     except:
@@ -109,6 +124,8 @@ def add_pattern(title, state):
     p.state = json.dumps(state)
     p.save()
     return p
+
+
 
 # Start execution here!
 if __name__ == '__main__':
