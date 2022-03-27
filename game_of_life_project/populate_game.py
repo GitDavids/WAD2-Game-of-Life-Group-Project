@@ -66,7 +66,7 @@ def populate():
     
     # Print out the categories we have added.
     for p in UserProfile.objects.all():
-        print(f'{p}, {p.states}')
+        print(f'{p}')
     for p in PATTERNS:
         add_pattern(p['name'], p['state'])   
 
