@@ -14,6 +14,10 @@
   .picture{
     width: 400px;
   }
+  .video{
+    width:560px;
+    height:315px;
+  }
   .game_logic a:link { color: #70DB93; }
   .game_logic a:visited { color: #32e4e4; }
   .game_logic a:hover { color: #ee2805; }

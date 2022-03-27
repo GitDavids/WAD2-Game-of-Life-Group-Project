@@ -4,6 +4,11 @@
     padding: 5%;
     padding-top: 0;
   }
+  .about .signiture{
+    float: right;
+    margin-left: auto;
+    margin-right:0;
+  }
   .about a:link { color: #70DB93; }
   .about a:visited { color: #32e4e4; }
   .about a:hover { color: #ee2805; }
