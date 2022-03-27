@@ -79,7 +79,7 @@
             <form method="POST" enctype="multipart/form-data" action="{% url 'game_of_life:change_pfp' username=request.user.username %}">
                 {% csrf_token %}
                 {{ profile_form.picture }} <br/>
-                <input type="submit" >
+                <input type="submit" class="button">
             </form>
             {% endif %}
         </div>
