@@ -65,7 +65,7 @@ USERS = [
 pictures = ["cat.jpg", "catgif.gif", "mhagif.gif", "parker.jpg", "prof.jpg", None, "cat.jpg"]
 
 def populate():
-    counter=0;
+    counter=0
     for user in USERS:
         add_user(user['username'], user['states'], pictures[counter])
         counter += 1
