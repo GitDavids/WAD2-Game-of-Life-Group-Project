@@ -111,14 +111,21 @@ a {color: white;}
   display: grid;
   grid-template-columns: auto auto auto;
 }
-
+@media only screen and (max-width: 1350px){
+  .state_grid{
+    grid-template-columns: auto auto;
+    margin:10px;
+  }
+}
 @media only screen and (max-width: 981px) {
   .state_grid {
     grid-template-columns: auto;
     margin:10px;
   }
 }
-
+.state{
+  width: 100%;
+}
 .state_wrap{
   position: relative;
   width: 400px;
