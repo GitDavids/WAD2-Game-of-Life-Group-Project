@@ -4,7 +4,6 @@
 {% block head_block %}
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-<link rel="stylesheet" href="{% static 'css/button.css' %}">
 
 {% endblock %}
 
@@ -36,7 +35,7 @@
         </div>
 
         <!-- FRIENDS -->
-        <div style="padding-left: 2%; display: inline-block;">
+        <div id="friends">
             {% if thisMyPage %}
                 <h4> My friends:</h4>
                 {% if friends %}
@@ -72,10 +71,22 @@
                 </p>
             {% endif %}
             </p>
+
+
+        <!-- CHANGE PFP -->
+            {% if thisMyPage %}
+            <h4> Change Profile Picture:</h4>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'game_of_life:change_pfp' username=request.user.username %}">
+                {% csrf_token %}
+                {{ profile_form.picture }} <br/>
+                <input type="submit" class="button">
+            </form>
+            {% endif %}
         </div>
 
         <div style="clear:both;"></div>
 
+        <!-- JS FOR STATES -->
         <script>state_list = []</script>
 
         <!-- USER CREATED STATES -->

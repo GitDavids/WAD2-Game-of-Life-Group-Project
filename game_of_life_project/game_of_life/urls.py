@@ -18,6 +18,7 @@ urlpatterns = [
      path('all_initial_states/', views.all_initial_states, name='all_initial_states'),
 
      path('profile/<username>/', views.Profile.profile, name='profile'),
+     path('profile/<username>/change_pfp', views.Profile.change_pfp, name='change_pfp'),
      path('profile/<username>/add_friend', views.Profile.add_friend, name='add_friend'),
      path('profile/<username>/remove_friend', views.Profile.remove_friend, name='remove_friend'),
      path('profile/<username>/create_initial_state/', views.Profile.create_initial_state, name='create_initial_state'),

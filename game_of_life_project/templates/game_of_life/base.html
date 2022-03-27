@@ -20,20 +20,22 @@
             <a id="interesting_patterns" href="{% url 'game_of_life:interesting_patterns' %}">Interesting patterns</a>
             <a id="about" href="{% url 'game_of_life:about' %}">About</a>
             <a id="all_initial_states" href="{% url 'game_of_life:all_initial_states' %}">All initial states</a>
-
             {% if request.user.is_authenticated %}
-              <li style="float:right"><a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a></li>
-              <li style="float:right"><a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' request.user.username %}">Create an initial state</a></li>
-              <li style="float:right"><a id="profile" href="{% url 'game_of_life:profile' request.user.username %}">Profile</a></li>
+            <div class="topnav_right">
+              <a id="logout" href="{% url 'game_of_life:logout' %}">Logout</a>
+              <a id="create_initial_state" href="{% url 'game_of_life:create_initial_state' request.user.username %}">Create an initial state</a>
+              <a id="profile" href="{% url 'game_of_life:profile' request.user.username %}">My profile</a>
             {% else %} 
-              <li style="float:right"><a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a></li>
-              <li style="float:right"><a id="login" href="{% url 'game_of_life:login' %}">Login</a></li>
+              <a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a>
+              <a id="login" href="{% url 'game_of_life:login' %}">Login</a>
             {% endif %}
             {% if request.user.is_superuser %}
-              <li style="float:right"><a id="create_add_pattern" href="{% url 'game_of_life:create_add_pattern' %}">Create interesting pattern</a></li>
+              <a id="create_add_pattern" href="{% url 'game_of_life:create_add_pattern' %}">Create interesting pattern</a>
             {% endif %}
-            
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
+        <script src="{% static 'js/topnav.js' %}"></script><br />
         <div>
             {% block body_block %}
             {% endblock %}

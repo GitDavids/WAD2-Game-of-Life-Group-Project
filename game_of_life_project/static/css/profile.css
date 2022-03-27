@@ -3,8 +3,16 @@
     padding: 5%;
     padding-top: 0;
   }
+
 .profile_picture{
     width: 150px;
+    height: 150px;
+    float: left;
+}
+
+#friends{
+    padding-left: 2%;
+    display: inline-block;
 }
 
 h4{
@@ -15,9 +23,4 @@ h4{
 h2{
     margin-top: 2%;
     margin-bottom: 1%;
-}
-
-#states{
-
-
 }
