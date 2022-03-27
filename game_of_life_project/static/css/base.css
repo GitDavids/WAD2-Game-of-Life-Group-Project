@@ -36,10 +36,9 @@ a {color: white;}
 .topnav {
   overflow: hidden;
   background-color: #333;
-  position: fixed;
   top:0;
-  width: 100%;
-  z-index: 1;
+  position: fixed;
+  width:100%;
 }
 .topnav a {
   float: left;
@@ -64,24 +63,22 @@ a {color: white;}
   background-color: #555;
   color: white;
 }
-.topnav_right{
-  float: right;
-}
 
 @media screen and (max-width: 995px) {
-  .topnav a{
+  .topnav a:not(:first-child) {
     display: none;
   }
   .topnav a.icon {
     float: right;
     display: block;
+    top:0;
   }
 }
 
 @media screen and (max-width: 995px) {
   .topnav.responsive {position: relative;}
-  .topnav.responsive a.icon {
-    position: absolute;
+  .topnav.responsive .icon {
+    position: fixed;
     right: 0;
     top: 0;
   }
@@ -89,13 +86,7 @@ a {color: white;}
     float: none;
     display: block;
     text-align: left;
-  }
-  .topnav.responsive .dropdown {float: none;}
-  .topnav.responsive .dropdown-content {position: relative;}
-  .topnav.responsive .dropdown .dropbtn {
-    display: block;
-    width: 100%;
-    text-align: left;
+    top:0;
   }
 }
 /* states */
