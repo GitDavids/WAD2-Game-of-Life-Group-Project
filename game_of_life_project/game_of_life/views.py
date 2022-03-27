@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
-from django.conf import settings
+
 
 from game_of_life.models import InitialState, UserProfile, InterestingPatten, FriendsList, LikedAndSaved
 from game_of_life.forms import UserForm, UserProfileForm, InitialStateForm, InterestingPatternForm
@@ -141,13 +141,17 @@ class Profile(View):
     def change_pfp(request, username):
 
         user = User.objects.get(username=username)
-        old_image_path = UserProfile.objects.get(user=user).picture.path
+        try:
+            old_image_path = UserProfile.objects.get(user=user).picture.path
+        except: pass #no pic uploaded
         instance = UserProfile.objects.get(user=user)
         form = UserProfileForm(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
-            if os.path.exists(old_image_path):
-                os.remove(old_image_path)
+            try:
+                if old_image_path.path.exists(old_image_path):
+                    os.remove(old_image_path)
+            except: pass
 
             form.save()
         return redirect('game_of_life:profile', username=username)
