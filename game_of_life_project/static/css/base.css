@@ -90,15 +90,15 @@ a {color: white;}
     position:fixed;
   }
   .topnav.responsive a {
-    float: none;
+    clear:both;
     display: block;
     text-align: left;
     top:0;
     border-top:0;
     width: 100%;
   }
-  .topnav_right.responsive{
-    float: none;
+  .topnav.responsive div{
+    clear:both;
     display: block;
     text-align: left;
     top:0;
