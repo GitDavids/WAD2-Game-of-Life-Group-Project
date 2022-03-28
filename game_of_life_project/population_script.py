@@ -83,7 +83,7 @@ def populate():
 
 
     
-def add_user(userInput, states, picturename, settings=None): # TODO (5 min of bodge attempt, hoped it would work :( )
+def add_user(userInput, states, picturename, settings=None):
 
 
     u = User.objects.get_or_create(username = userInput)[0]
@@ -91,9 +91,6 @@ def add_user(userInput, states, picturename, settings=None): # TODO (5 min of bo
 
     p = UserProfile.objects.get_or_create(user = u)[0]
 
-
-    if settings:
-        pass # TODO
 
 
     for state in states:
@@ -112,7 +109,7 @@ def add_user(userInput, states, picturename, settings=None): # TODO (5 min of bo
     p.save()
     return p
 
-def add_state(user, title, state, views, likes):# TODO (5 min of bodge attempt, hoped it would work :()
+def add_state(user, title, state, views, likes):
     try:
         s = InitialState.objects.get_or_create(author=user, name=title)[0]
     except:

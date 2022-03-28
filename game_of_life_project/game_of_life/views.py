@@ -21,7 +21,7 @@ def index(request):
     context_dict["most_liked_states"] = InitialState.objects.order_by('-likes')[:6]
     context_dict["most_recent_states"] = InitialState.objects.order_by('-date_created')[:6]
     
-    return render(request, 'game_of_life/index.html', context=context_dict) # TODO
+    return render(request, 'game_of_life/index.html', context=context_dict)
 
 
 # Account views
@@ -49,7 +49,7 @@ class Account(View):
     def user_login_error(request):
         context_dict = {}
 
-        return render(request, 'game_of_life/login_error.html', context=context_dict) # TODO
+        return render(request, 'game_of_life/login_error.html', context=context_dict)
 
     @login_required
     def user_logout(request):
@@ -207,7 +207,7 @@ class Profile(View):
 
         user = request.user
         context_dict['user'] = user
-        return render(request, 'game_of_life/create_initial_state.html', context=context_dict) # TODO
+        return render(request, 'game_of_life/create_initial_state.html', context=context_dict)
 
     #completed state page:
     def initial_state(request, username, state_name_slug):
@@ -239,7 +239,7 @@ class Profile(View):
         except User.DoesNotExist:
             context_dict['user'] = None
 
-        return render(request, 'game_of_life/initial_state.html', context=context_dict) # TODO
+        return render(request, 'game_of_life/initial_state.html', context=context_dict)
 
     def like_state(request, username, state_name_slug):
         state = InitialState.objects.get(slug=state_name_slug)
@@ -309,33 +309,33 @@ def create_add_pattern(request):
 
     context_dict['form'] = form
 
-    return render(request, 'game_of_life/create_add_pattern.html', context=context_dict)# TODO
+    return render(request, 'game_of_life/create_add_pattern.html', context=context_dict)
 
 # Miscellaneous page views
 def game_logic(request):
     context_dict = {}
 
-    return render(request, 'game_of_life/game_logic.html', context=context_dict) # TODO
+    return render(request, 'game_of_life/game_logic.html', context=context_dict)
 
 def interesting_patterns(request):
     context_dict = {}
     context_dict["patterns"] = InterestingPatten.objects.all()
-    return render(request, 'game_of_life/interesting_patterns.html', context=context_dict) # TODO
+    return render(request, 'game_of_life/interesting_patterns.html', context=context_dict)
 
 def pattern(request, pattern_name_slug):
     context_dict = {}
     context_dict["pattern"] = InterestingPatten.objects.get(slug=pattern_name_slug)
-    return render(request, 'game_of_life/pattern.html', context=context_dict) # TODO
+    return render(request, 'game_of_life/pattern.html', context=context_dict)
 
 def about(request):
     context_dict = {}
 
-    return render(request, 'game_of_life/about.html', context=context_dict) # TODO
+    return render(request, 'game_of_life/about.html', context=context_dict)
 
 def all_initial_states(request):
     context_dict = {}
     context_dict["all_states"] = InitialState.objects.all()
-    return render(request, 'game_of_life/all_initial_states.html', context=context_dict) # TODO
+    return render(request, 'game_of_life/all_initial_states.html', context=context_dict)
 
 
 
