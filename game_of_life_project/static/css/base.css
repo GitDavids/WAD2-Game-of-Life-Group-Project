@@ -83,12 +83,15 @@ a {color: white;}
 }
 
 @media screen and (max-width: 995px) {
-  .topnav.responsive {position: fixed; margin-top:15px;}
+  .topnav.responsive {position: fixed; margin-top:8%;}
   .topnav.responsive .icon {
-    float: left;
+    right:0;
     top:0;
     position:fixed;
+    width:100%;
+    text-align: right;
   }
+
   .topnav.responsive a {
     clear:both;
     display: block;
