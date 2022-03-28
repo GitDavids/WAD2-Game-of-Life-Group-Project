@@ -118,6 +118,7 @@ a {color: white;}
   }
 }
 @media only screen and (max-width: 981px) {
+  h1 { padding-top:5%}
   .state_grid {
     grid-template-columns: auto;
     margin:10px;

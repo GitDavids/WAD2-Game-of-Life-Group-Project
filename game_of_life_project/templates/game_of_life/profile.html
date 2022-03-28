@@ -16,13 +16,11 @@
     <div class="profile">
 
         <!-- TITLE -->
-        <div>
         {% if thisMyPage %}
             <h1 class="profile_heading">My Profile</h1>
         {% else %}
             <h1 class="profile_heading">{{user.username}}'s Profile</h1>
         {% endif %}
-        </div>
 
         <!-- PROFILE PIC -->
         {% if userpic %}
