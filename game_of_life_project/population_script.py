@@ -130,7 +130,8 @@ def add_friends(user):
     userObjects = list(User.objects.all())
 
     f = FriendsList.objects.get_or_create(user=user)[0]
-    for n in range(len(userObjects)):
+    n = random.randint(0, len(userObjects))
+    for n in range(n):
        f.friends.add(userObjects[n])
     f.save()
 
