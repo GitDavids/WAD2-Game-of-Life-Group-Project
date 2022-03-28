@@ -1,11 +1,8 @@
-import email
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from uuid import uuid4
 
-
-import json
 import os
 
 
@@ -30,7 +27,6 @@ class InitialState(models.Model):
     def __str__(self):
         return self.name
 
-
 class InterestingPatten(models.Model):
     state = models.TextField()
     NAME_MAX_LENGTH = 128
@@ -44,9 +40,6 @@ class InterestingPatten(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
 
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
@@ -80,7 +73,6 @@ class UserProfile(models.Model):
 class FriendsList(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     friends = models.ManyToManyField(User, related_name="+")
-
 
 class LikedAndSaved(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -10,7 +10,6 @@ from django.views import View
 from game_of_life.models import InitialState, UserProfile, InterestingPatten, FriendsList, LikedAndSaved
 from game_of_life.forms import UserForm, UserProfileForm, InitialStateForm, InterestingPatternForm
 
-from datetime import datetime
 import os
 
 
