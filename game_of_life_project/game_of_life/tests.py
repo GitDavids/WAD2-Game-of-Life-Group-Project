@@ -1,14 +1,13 @@
 import os
-import importlib
-from django.urls import reverse
 from django.test import TestCase
 from django.conf import settings
-#
-# Last updated: March 14th, 2022
-#
-# In order to run these tests, this module should be in your game_of_life_project/game_of_life/ directory
-# To run $ python manage.py test game_of_life.tests
-#
+from game_of_life.models import UserProfile, InitialState, InterestingPatten, FriendsList, LikedAndSaved
+from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+from django.core.files.images import ImageFile
+
+# To run: $ python manage.py test game_of_life.tests
+
 """
 •Tests should be arranged so they are kept manageable.
 There should be:
@@ -20,9 +19,8 @@ There should be:
 FAILURE_HEADER = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}GoL TEST FAILURE =({os.linesep}================{os.linesep}"
 FAILURE_FOOTER = f"{os.linesep}"
 
-"""
-All: structural tests
-"""
+# Check everything set up okay - good just in case.
+
 class ProjectStructureTests(TestCase):
     """
     Checks the file structure of the project and if game_of_life is in list of INSTALLED_APPS.
@@ -55,10 +53,10 @@ class ProjectStructureTests(TestCase):
 
     def test_game_of_life_has_urls_module(self):
         """
-        Checks the separate urls.py module for game_of_life
+        Checks for models.py
         """
-        module_exists = os.path.isfile(os.path.join(self.game_of_life_app_dir, 'urls.py'))
-        self.assertTrue(module_exists, f"{FAILURE_HEADER}The game_of_life app's urls.py module is missing. Read over the instructions carefully, and try again. You need TWO urls.py modules.{FAILURE_FOOTER}")
+        module_exists = os.path.isfile(os.path.join(self.game_of_life_app_dir, 'models.py'))
+        self.assertTrue(module_exists, f"{FAILURE_HEADER}The game_of_life app's models.py module is missing.{FAILURE_FOOTER}")
 
     def test_is_game_of_life_app_configured(self):
         """
@@ -67,387 +65,281 @@ class ProjectStructureTests(TestCase):
         is_app_configured = 'game_of_life' in settings.INSTALLED_APPS
 
         self.assertTrue(is_app_configured, f"{FAILURE_HEADER}The game_of_life app is missing from your setting's INSTALLED_APPS list.{FAILURE_FOOTER}")
+        
 
-
-"""
-View: index
-"""
-class IndexTests(TestCase):
-
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'index' in self.views_module_listing
-        is_callable = callable(self.views_module.index)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The index() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the index() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'index' view named twice -- it should resolve to '/rango/'.
-        """
-        index_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'index':
-                    index_mapping_exists = True
-
-        self.assertTrue(index_mapping_exists, f"{FAILURE_HEADER}The index URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:index'), '/game_of_life/', f"{FAILURE_HEADER}The index URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-    def test_for_most_liked_and_recent_states_displaying(self):
-
-        response = self.client.get(reverse('game_of_life:index'))
-        """
-        title = 'Most liked states' in response.content.decode()
-        title2 = 'Most recent states' in response.content.decode()
-        #grid = 'state_grid' in response.content.decode()
-        statebox = '<canvas class="state" width="400" height="200"></canvas>' in response.content.decode()
-        statedescription = 'class="state_description' in response.content.decode()
-        statejavascript = '<script>state_list.push(JSON.parse(' in response.content.decode()
-
-        self.assertTrue(title, f"{FAILURE_HEADER}We couldn't find the Most Liked title in your index (home) page.{FAILURE_FOOTER}")
-        self.assertTrue(title2, f"{FAILURE_HEADER}We couldn't find the Most Recent title in your index (home) page.{FAILURE_FOOTER}")
-        #self.assertTrue(grid, f"{FAILURE_HEADER}We couldn't find the state display grid in your index (home) page.{FAILURE_FOOTER}")
-        self.assertTrue(statebox, f"{FAILURE_HEADER}We couldn't find a state in your index (home) page.{FAILURE_FOOTER}")
-        self.assertTrue(statedescription, f"{FAILURE_HEADER}We couldn't find a state description in your index (home) page.{FAILURE_FOOTER}")
-        self.assertTrue(statejavascript, f"{FAILURE_HEADER}We couldn't find state javascript in your index (home) page.{FAILURE_FOOTER}")
-        """
-    def test_for_most_liked_and_recent_states_displaying_correctly_in_order(self):
-
-        """im thinking create a state first to test the recent state"""
-        """like a state to test the liked states"""
-
-
-"""
-View: user_login
-"""
-class LoginTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'Account' in self.views_module_listing
-        is_callable = callable(self.views_module.Account.user_login)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The user_login() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the user_login() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'user_login' view named twice -- it should resolve to '/rango/'.
-        """
-        user_login_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'login':
-                    user_login_mapping_exists = True
-
-        self.assertTrue(user_login_mapping_exists, f"{FAILURE_HEADER}The login URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:login'), '/game_of_life/login/', f"{FAILURE_HEADER}The user_login URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-"""
-View: user_login_error 
-"""
-
-"""
-View: user_logout (login required)
-"""
-
-"""
-View: register
-"""
-class RegisterTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'Account' in self.views_module_listing
-        is_callable = callable(self.views_module.Account.register)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}{self.views_module_listing}The register() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the register() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'register' view named twice -- it should resolve to '/rango/'.
-        """
-        register_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'register':
-                    register_mapping_exists = True
-
-        self.assertTrue(register_mapping_exists, f"{FAILURE_HEADER}The register URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:register'), '/game_of_life/register/', f"{FAILURE_HEADER}The register URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-
-"""
-View: game_logic
-"""
-class GameLogicTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'game_logic' in self.views_module_listing
-        is_callable = callable(self.views_module.game_logic)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The game_logic() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the game_logic() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'game_logic' view named twice -- it should resolve to '/rango/'.
-        """
-        game_logic_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'game_logic':
-                    game_logic_mapping_exists = True
-
-        self.assertTrue(game_logic_mapping_exists, f"{FAILURE_HEADER}The game_logic URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:game_logic'), '/game_of_life/game_logic/', f"{FAILURE_HEADER}The game_logic URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-
-"""
-View: interesting_patterns
-"""
-class InterestingPatternsTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'interesting_patterns' in self.views_module_listing
-        is_callable = callable(self.views_module.interesting_patterns)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The interesting_patterns() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the interesting_patterns() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'interesting_patterns' view named twice -- it should resolve to '/rango/'.
-        """
-        interesting_patterns_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'interesting_patterns':
-                    interesting_patterns_mapping_exists = True
-
-        self.assertTrue(interesting_patterns_mapping_exists, f"{FAILURE_HEADER}The interesting_patterns URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:interesting_patterns'), '/game_of_life/interesting_patterns/', f"{FAILURE_HEADER}The interesting_patterns URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-"""
-View: patterns DOES NOT HAVE ANY PATTERNS SINCE THIS IS MODERATOR ADDED PATTERNS ONLY
-"""
-"""
-class PatternsTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-        populate()
-        self.response = self.client.get(reverse('rango:patterns', kwargs={'category_name_slug': 'other-frameworks'}))
-
-    def test_view_exists(self):
-        name_exists = 'pattern' in self.views_module_listing
-        is_callable = callable(self.views_module.pattern)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The pattern() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the pattern() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-    
-        patterns_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'pattern':
-                    patterns_mapping_exists = True
-
-        self.assertTrue(patterns_mapping_exists, f"{FAILURE_HEADER}The pattern URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('rango:patterns', kwargs={'category_name_slug': 'other-frameworks'}), 'interesting_patterns/<slug:pattern_name_slug>', f"{FAILURE_HEADER}The patterns URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-"""
-
-"""
-View: about
-"""
-class AboutTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'about' in self.views_module_listing
-        is_callable = callable(self.views_module.about)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The about() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the about() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'about' view named twice -- it should resolve to '/rango/'.
-        """
-        about_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'about':
-                    about_mapping_exists = True
-
-        self.assertTrue(about_mapping_exists, f"{FAILURE_HEADER}The about URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:about'), '/game_of_life/about/', f"{FAILURE_HEADER}The about URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-
-"""
-View: all_initial_states
-"""
-class AllInitialTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'all_initial_states' in self.views_module_listing
-        is_callable = callable(self.views_module.all_initial_states)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The all_initial_states() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the all_initial_states() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'all_initial_states' view named twice -- it should resolve to '/rango/'.
-        """
-        all_initial_states_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'all_initial_states':
-                    all_initial_states_mapping_exists = True
-
-        self.assertTrue(all_initial_states_mapping_exists, f"{FAILURE_HEADER}The all_initial_states URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:all_initial_states'), '/game_of_life/all_initial_states/', f"{FAILURE_HEADER}The all_initial_states URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-
-"""
-View: profile (three ways: logged out, logged in and unfriended, friended)
-"""
-
-"""
-View: create_initial_states (login required)
-"""
-
-"""
-View: initial_states
-"""
 class InitialStateTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
 
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'Profile' in self.views_module_listing
-        is_callable = callable(self.views_module.Profile.initial_state)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The initial_state() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the initial_state() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
-        initial_state_mapping_exists = False
-
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'initial_state':
-                    initial_state_mapping_exists = True
-
-        self.assertTrue(initial_state_mapping_exists, f"{FAILURE_HEADER}The initial_state URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:initial_state', kwargs={'username': 'Ashraf', 'state_name_slug': 'state2'}), '/game_of_life/profile/Ashraf/initial_state/state2', f"{FAILURE_HEADER}The initial_state URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
-
-
-
-"""
-View: create_add_pattern
-"""
-class CreateAddPatternsTests(TestCase):
-    def setUp(self):
-        self.views_module = importlib.import_module('game_of_life.views')
-        self.views_module_listing = dir(self.views_module)
-
-        self.project_urls_module = importlib.import_module('game_of_life.urls')
-
-    def test_view_exists(self):
-        name_exists = 'create_add_pattern' in self.views_module_listing
-        is_callable = callable(self.views_module.create_add_pattern)
-
-        self.assertTrue(name_exists, f"{FAILURE_HEADER}The create_add_pattern() view for rango does not exist.{FAILURE_FOOTER}")
-        self.assertTrue(is_callable, f"{FAILURE_HEADER}Check that you have created the create_add_pattern() view correctly. It doesn't seem to be a function!{FAILURE_FOOTER}")
-
-    def test_mappings_exists(self):
+    def test_default_state_creation(self):
         """
-        Are the two required URL mappings present and correct?
-        One should be in the project's urls.py, the second in Rango's urls.py.
-        We have the 'create_add_pattern' view named twice -- it should resolve to '/rango/'.
+                Create a new state
         """
-        create_add_pattern_mapping_exists = False
+        u = User.objects.get_or_create(username = "TestName")[0]
 
-        # This is overridden. We need to manually check it exists.
-        for mapping in self.project_urls_module.urlpatterns:
-            if hasattr(mapping, 'name'):
-                if mapping.name == 'create_add_pattern':
-                    create_add_pattern_mapping_exists = True
+        s = InitialState.objects.get_or_create(author = u)[0]
+        s.name = 'TestState'
+        s.state = [[0 for _ in range(100)]for _ in range(50)]
+        s.save()
 
-        self.assertTrue(create_add_pattern_mapping_exists, f"{FAILURE_HEADER}The create_add_pattern URL mapping could not be found. Check your PROJECT'S urls.py module.{FAILURE_FOOTER}")
-        self.assertEquals(reverse('game_of_life:create_add_pattern'), '/game_of_life/create_add_pattern/', f"{FAILURE_HEADER}The create_add_pattern URL lookup failed. Check Rango's urls.py module. You're missing something in there.{FAILURE_FOOTER}")
+        self.assertEqual((s.author == u), True)
+        self.assertEqual((s.name == 'TestState'), True)
+        self.assertEqual((s.state == [[0 for _ in range(100)]for _ in range(50)]), True)
+        self.assertEqual((s.views == 0), True)
+        self.assertEqual((s.likes == 0), True)
+
+    def like_increase(self):
+        """
+                Liking a state
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        s = InitialState.objects.get_or_create(author = u)[0]
+
+        s.likes += 1
+        s.save()
+
+        self.assertEqual((s.likes == 0), True)
+
+    def slug_check(self):
+        """
+                Check a state slug
+        """
+        u = User.objects.get_or_create(username = "Test Name")[0]
+        s = InitialState.objects.get_or_create(author = u)[0]
+
+
+
+        self.assertEqual((s.slug == slugify(self.name)), True)
+
+    def no_name_duplicates(self):
+        """
+                No duplicate slug names allowed
+        """
+
+        u = User.objects.get_or_create(username = "TestName")[0]
+        s = InitialState.objects.get_or_create(author = u)[0]
+
+        d = InitialState.objects.get_or_create(author = u)[0]
+
+        self.assertEqual(d, False)
+
+
+class InterestingPattenTests(TestCase):
+
+    def test_default_state_creation(self):
+        """
+                Create a new interesting pattern
+        """
+
+        s = InterestingPatten.objects.get_or_create(name = 'TestPattern')[0]
+        s.state = [[0 for _ in range(100)]for _ in range(50)]
+        s.save()
+
+        self.assertEqual((s.name == 'TestPattern'), True)
+        self.assertEqual((s.state == [[0 for _ in range(100)]for _ in range(50)]), True)
+
+    def slug_check(self):
+        """
+                Check a state slug
+        """
+        s = InterestingPatten.objects.get_or_create(name = 'Test Pattern')[0]
+
+        self.assertEqual((s.slug == slugify(self.name)), True)
+
+
+class UserProfileTests(TestCase):
+
+    def test_default_profile_creation(self):
+        """
+                Create a new profile
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+
+        p = UserProfile.objects.get_or_create(user = u)[0]
+        p.save()
+
+        self.assertEqual((p.user.username == 'TestName'), True)
+        self.assertEqual((p.likes == 0), True)
+
+    def test_adding_a_picture(self):
+        """
+                Adding a new profile pic
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        p = UserProfile.objects.get_or_create(user = u)[0]
+
+        path = os.getcwd()
+        path = os.path.join(path, "media")
+        path = os.path.join(path, "test_profile_images")
+        fullpath = os.path.join(path, "cat.jpg")
+
+        p.picture = ImageFile(open(fullpath, "rb"))
+
+        self.assertEqual((p.picture is not None), True)
+
+    def test_picture_unique(self):
+        """
+                Adding a profile pic with the same name
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        p = UserProfile.objects.get_or_create(user = u)[0]
+
+        u2 = User.objects.get_or_create(username = "TestName2")[0]
+        p2 = UserProfile.objects.get_or_create(user = u2)[0]
+
+        path = os.getcwd()
+        path = os.path.join(path, "media")
+        path = os.path.join(path, "test_profile_images")
+        fullpath = os.path.join(path, "cat.jpg")
+
+        p2.picture = ImageFile(open(fullpath, "rb"))
+
+        self.assertEqual((p.picture != p2.picture), True)
+
+    def test_increasing_likes(self):
+        """
+                Increasing likes
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        p = UserProfile.objects.get_or_create(user = u)[0]
+
+        p.likes +=1
+
+        self.assertEqual((p.likes == 1), True)
+
+    def test_adding_a_state(self):
+        """
+                Adding a state
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        p = UserProfile.objects.get_or_create(user = u)[0]
+        s = InitialState.objects.get_or_create(author = u)[0]
+
+        p.states += (s.state)
+
+        self.assertEqual(s.state in p.states, True)
+
+
+class FriendsListTests(TestCase):
+
+    def test_regular_friends_list_creation(self):
+        """
+                Create a new FriendsList object
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        u.save()
+
+        u_fl = FriendsList.objects.get_or_create(user=u)[0]
+        u_fl.save()
+
+        self.assertEqual(u_fl.user.username == "TestName", True)
+
+    def adding_friend(self):
+        """
+               Adding a friend
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        f = User.objects.get_or_create(username = "TestName2")[0]
+
+        u_fl = FriendsList.objects.get_or_create(user=u)[0]
+        u_fl.friends.add(f)
+        u_fl.save()
+
+        self.assertEqual((f in u_fl.friends.all()), False)
+
+    def removing_friend(self):
+        """
+               Removing a friend
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        f = User.objects.get_or_create(username = "TestName2")[0]
+
+        u_fl = FriendsList.objects.get_or_create(user=u)[0]
+        u_fl.friends.remove(f)
+        u_fl.save()
+
+        self.assertEqual((f in u_fl.friends.all()), False)
+
+
+class LikedAndSavedTests(TestCase):
+
+    def test_liked_and_saved_creation(self):
+        """
+                Create a new LikedAndSaved object
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        u.save()
+
+        u_ls = LikedAndSaved.objects.get_or_create(user=u)[0]
+        u_ls.save()
+
+        self.assertEqual((u_ls.user.username == "TestName"), True)
+
+    def test_like(self):
+
+        """
+                User like state
+        """
+        f = User.objects.get_or_create(username = "TestName2")[0]
+        f.save()
+
+        s = InitialState.objects.get_or_create(author = f)[0]
+        s.name = 'TestState'
+        s.state = [[0 for _ in range(100)]for _ in range(50)]
+        s.save()
+
+        u = User.objects.get_or_create(username = "TestName")[0]
+        f = User.objects.get_or_create(username = "TestName2")[0]
+
+        s = InitialState.objects.get_or_create(author = f)[0]
+
+        u_ls = LikedAndSaved.objects.get_or_create(user=u)[0]
+        u_ls.liked.add(s)
+        u_ls.save()
+
+        self.assertEqual((s in u_ls.liked.all()), True)
+
+    def test_save(self):
+
+        """
+                User save state
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        f = User.objects.get_or_create(username = "TestName2")[0]
+
+        s = InitialState.objects.get_or_create(author = f)[0]
+
+        u_ls = LikedAndSaved.objects.get_or_create(user=u)[0]
+        u_ls.saved.add(s)
+        u_ls.save()
+
+        self.assertEqual((s in u_ls.saved.all()), True)
+
+    def test_unlike(self):
+
+        """
+                User unlike state
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        f = User.objects.get_or_create(username = "TestName2")[0]
+
+        s = InitialState.objects.get_or_create(author = f)[0]
+
+        u_ls = LikedAndSaved.objects.get_or_create(user=u)[0]
+        u_ls.liked.remove(s)
+        u_ls.save()
+
+        self.assertEqual((s in u_ls.liked.all()), False)
+
+    def test_unsave(self):
+        """
+                User unsave state
+        """
+        u = User.objects.get_or_create(username = "TestName")[0]
+        f = User.objects.get_or_create(username = "TestName2")[0]
+
+        s = InitialState.objects.get_or_create(author = f)[0]
+
+        u_ls = LikedAndSaved.objects.get_or_create(user=u)[0]
+        u_ls.saved.remove(s)
+        u_ls.save()
+
+        self.assertEqual((s in u_ls.saved.all()), False)
