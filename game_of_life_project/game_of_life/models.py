@@ -60,8 +60,7 @@ class UserProfile(models.Model):
         return os.path.join(upload_to, filename)
 
     picture = models.ImageField(blank=True, upload_to=path_and_rename)
-    likes= models.IntegerField(default=0)
-    
+
     states = models.TextField(blank=True)  # We need a way to store a bunck of states, use json
 
     def __str__(self):

@@ -84,7 +84,6 @@ class InitialStateTests(TestCase):
         self.assertEqual((s.name == 'TestState'), True)
         self.assertEqual((s.state == [[0 for _ in range(100)]for _ in range(50)]), True)
         self.assertEqual((s.views == 0), True)
-        self.assertEqual((s.likes == 0), True)
 
     def like_increase(self):
         """
@@ -157,7 +156,6 @@ class UserProfileTests(TestCase):
         p.save()
 
         self.assertEqual((p.user.username == 'TestName'), True)
-        self.assertEqual((p.likes == 0), True)
 
     def test_adding_a_picture(self):
         """
@@ -194,16 +192,7 @@ class UserProfileTests(TestCase):
 
         self.assertEqual((p.picture != p2.picture), True)
 
-    def test_increasing_likes(self):
-        """
-                Increasing likes
-        """
-        u = User.objects.get_or_create(username = "TestName")[0]
-        p = UserProfile.objects.get_or_create(user = u)[0]
 
-        p.likes +=1
-
-        self.assertEqual((p.likes == 1), True)
 
     def test_adding_a_state(self):
         """
