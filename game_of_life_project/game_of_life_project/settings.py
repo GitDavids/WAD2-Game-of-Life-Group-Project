@@ -27,7 +27,7 @@ SECRET_KEY = 'l8g6qk0v#j3()^0#)0c-n!mpr+^ndg%vz81#=tq!c2$us^-inn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = 'game_of_life:login'
 
@@ -130,3 +130,4 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [STATIC_DIR, ]
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
