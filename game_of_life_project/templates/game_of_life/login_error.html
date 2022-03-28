@@ -11,8 +11,8 @@
 {% endblock %}
 
 {% block body_block %}
+    <div class="login">
     <h1>Login error has occured</h1>
-    <div class="login_error">
     <p>
         Please make sure that you have already registered on the <a id="register" href="{% url 'game_of_life:register' %}">Sign Up</a> 
         page, and you entered the correct username and passcode, then try <a id="login" href="{% url 'game_of_life:login' %}">Logging in</a>
