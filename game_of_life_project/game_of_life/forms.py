@@ -1,5 +1,3 @@
-from email.policy import default
-import json
 from django import forms
 from game_of_life.models import UserProfile, InitialState, InterestingPatten
 from django.contrib.auth.models import User
