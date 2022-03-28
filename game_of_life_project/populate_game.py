@@ -69,6 +69,10 @@ def populate():
     for user in USERS:
         add_user(user['username'], user['states'], pictures[counter])
         counter += 1
+
+    for p in User.objects.all():
+        add_friends(p)
+        like_and_or_neither_save_state(p)
     
     # Print out the categories we have added.
     for p in UserProfile.objects.all():
@@ -124,6 +128,27 @@ def add_pattern(title, state):
     p.state = json.dumps(state)
     p.save()
     return p
+
+def add_friends(user):
+    userObjects = list(User.objects.all())
+
+    f = FriendsList.objects.get_or_create(user=user)[0]
+    for n in range(len(userObjects)):
+       f.friends.add(userObjects[n])
+    f.save()
+
+def like_and_or_neither_save_state(user):
+    stateObjects = list(InitialState.objects.all())
+
+    ls = LikedAndSaved.objects.get_or_create(user=user)[0]
+
+    for n in range(len(stateObjects)):
+        if random.randint(0, 1) == 1:
+            ls.liked.add(stateObjects[n])
+
+    for n in range(len(stateObjects)):
+        if random.randint(0, 1) == 1:
+            ls.saved.add(stateObjects[n])
 
 
 
