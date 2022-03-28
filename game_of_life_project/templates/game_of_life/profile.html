@@ -26,7 +26,7 @@
         {% if userpic %}
             <img class="profile_picture" src="{{ userpic.url }}">
         {% else %}
-            <img class="profile_picture" src="{{ MEDIA_URL }}/profile_images/default.jpg">
+            <img class="profile_picture" src="{% static '/images/default.jpg' %}">
         {% endif %}
 
         <!-- FRIENDS -->
@@ -79,7 +79,7 @@
             {% endif %}
         </div>
 
-        <div class = "break"></div>
+        <div id="break"></div>
 
         <!-- JS FOR STATES -->
         <script>state_list = []</script>

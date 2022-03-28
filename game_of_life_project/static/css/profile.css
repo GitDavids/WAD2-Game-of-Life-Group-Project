@@ -10,6 +10,8 @@
     float: left;
 }
 
+#break {clear:both;}
+
 #friends{
     padding-left: 2%;
     display: inline-block;
