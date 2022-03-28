@@ -94,9 +94,8 @@ def add_user(userInput, states, picturename, settings=None):
 
 
     for state in states:
-        views=random.randint(10, 30)
         likes=random.randint(1, 10)
-        add_state(p.user, state["name"], state["state"], views, likes)
+        add_state(p.user, state["name"], state["state"], likes)
 
     if picturename is not None:
         path = os.getcwd()
@@ -109,13 +108,12 @@ def add_user(userInput, states, picturename, settings=None):
     p.save()
     return p
 
-def add_state(user, title, state, views, likes):
+def add_state(user, title, state, likes):
     try:
         s = InitialState.objects.get_or_create(author=user, name=title)[0]
     except:
         return
     s.state = json.dumps(state)
-    s.views=views
     s.likes=likes
     s.save()
     return s

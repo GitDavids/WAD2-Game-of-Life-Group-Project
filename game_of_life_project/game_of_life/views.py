@@ -212,7 +212,6 @@ class Profile(View):
     def initial_state(request, username, state_name_slug):
         context_dict = {}
         state = InitialState.objects.get(slug=state_name_slug)
-        state.views +=1
         state.save()
         context_dict["state"] = state
         context_dict["name"] = state.name

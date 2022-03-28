@@ -10,7 +10,6 @@ class InitialState(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     NAME_MAX_LENGTH = 128
 
-    views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
 
     state = models.TextField()  # 2d array -> string (JSON)
