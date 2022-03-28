@@ -87,7 +87,7 @@ a {color: white;}
 }
 
 @media screen and (max-width: 995px) {
-  .topnav.responsive {position: fixed; margin-top:8%;}
+  .topnav.responsive {position: fixed; margin-top:6%;}
   .topnav.responsive .icon {
     right:0;
     top:0;
